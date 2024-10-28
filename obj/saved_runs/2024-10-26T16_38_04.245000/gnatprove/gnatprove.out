@@ -1,0 +1,36 @@
+Summary of SPARK analysis
+=========================
+
+---------------------------------------------------------------------------------------------
+SPARK Analysis results        Total      Flow   CodePeer      Provers   Justified    Unproved
+---------------------------------------------------------------------------------------------
+Data Dependencies                 .         .          .            .           .           .
+Flow Dependencies                 .         .          .            .           .           .
+Initialization                    6         4          .            .           .           2
+Non-Aliasing                      .         .          .            .           .           .
+Run-time Checks                  39         .          .    32 (CVC4)           .           7
+Assertions                        .         .          .            .           .           .
+Functional Contracts              6         .          .     5 (CVC4)           .           1
+LSP Verification                  .         .          .            .           .           .
+Termination                       .         .          .            .           .           .
+Concurrency                       .         .          .            .           .           .
+---------------------------------------------------------------------------------------------
+Total                            51    4 (8%)          .     37 (73%)           .    10 (20%)
+
+
+max steps used for successful proof: 1
+
+Analyzed 2 units
+in unit drvr, 6 subprograms and packages out of 6 analyzed
+  Drvr at drvr.adb:84 flow analyzed (0 errors, 1 checks and 5 warnings) and not proved, 19 checks out of 20 proved
+  Drvr.Fetch_Safe_Input at drvr.adb:99 flow analyzed (0 errors, 1 checks and 0 warnings) and not proved, 10 checks out of 13 proved
+  Drvr.Fetch_Safe_Input.Is_Digit_String at drvr.adb:105 flow analyzed (0 errors, 0 checks and 0 warnings) and not proved, 0 checks out of 1 proved
+  Drvr.Fetch_Safe_Input.String_To_Integer at drvr.adb:116 flow analyzed (0 errors, 0 checks and 0 warnings) and proved (0 checks)
+  Drvr.fetch_array at drvr.adb:148 flow analyzed (0 errors, 0 checks and 0 warnings) and proved (0 checks)
+  Drvr.validator at drvr.adb:94 flow analyzed (0 errors, 0 checks and 1 warnings) and proved (0 checks)
+in unit sorter, 5 subprograms and packages out of 5 analyzed
+  Sorter at sorter.ads:5 flow analyzed (0 errors, 0 checks and 0 warnings) and proved (0 checks)
+  Sorter.sort at sorter.ads:18 flow analyzed (0 errors, 0 checks and 0 warnings) and proved (0 checks)
+  Sorter.sort_1 at sorter.ads:25 flow analyzed (0 errors, 0 checks and 0 warnings) and not proved, 8 checks out of 11 proved
+  Sorter.sort_2 at sorter.ads:26 flow analyzed (0 errors, 0 checks and 3 warnings) and proved (0 checks)
+  Sorter.sort_3 at sorter.ads:27 flow analyzed (0 errors, 0 checks and 3 warnings) and proved (0 checks)

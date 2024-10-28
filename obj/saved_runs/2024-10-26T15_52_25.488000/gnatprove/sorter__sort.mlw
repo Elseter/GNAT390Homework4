@@ -1,0 +1,607 @@
+module Standard__integer
+  use _gnatprove_standard.Main
+  use int.Int
+  use int.Int
+  
+  type integer = <range -2147483648 2147483647>
+  
+  val function first : int
+    ensures { result = ((- 2147483648) : int) }
+  
+  val function last : int
+    ensures { result = (2147483647 : int) }
+  
+  predicate in_range (x: int) = ((first <= x) /\ (x <= last))
+  
+  val in_range (x: int) : bool
+    ensures { result <-> (in_range (x : int)) }
+  
+  clone export ada__model.Static_Discrete with
+    axiom .,
+    type t = integer,
+    function first = first,
+    function last = last,
+    predicate in_range = in_range
+  
+  type integer__ref = { mutable integer__content : integer }
+  
+  function integer__ref_integer__content__projection (a: integer__ref) : integer =
+    a.integer__content
+  
+  meta "model_projection" function integer__ref_integer__content__projection
+  
+  meta "inline:no" function integer__ref_integer__content__projection
+  
+  val integer__havoc (x: integer__ref) : unit
+    writes { x }
+end
+
+module Standard__integer___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+  use int.Int
+  use Standard__integer as Standard__integer
+  
+  predicate dynamic_invariant (temp___expr_18: int) (temp___is_init_14: bool) (temp___skip_constant_15: bool) (temp___do_toplevel_16: bool) (temp___do_typ_inv_17: bool) =
+    if ((temp___is_init_14 = True) \/
+          (Standard__integer.first <= Standard__integer.last)) then
+      (((Standard__integer.dynamic_property Standard__integer.first)
+          Standard__integer.last)
+         temp___expr_18)
+    else true
+  
+  val dynamic_invariant (temp___expr_18: int) (temp___is_init_14: bool) (temp___skip_constant_15: bool) (temp___do_toplevel_16: bool) (temp___do_typ_inv_17: bool) : 
+    bool
+    ensures { result
+                <->
+                (((((dynamic_invariant (temp___expr_18 : int))
+                      (temp___is_init_14 : bool))
+                     (temp___skip_constant_15 : bool))
+                    (temp___do_toplevel_16 : bool))
+                   (temp___do_typ_inv_17 : bool)) }
+  
+  predicate default_initial_assumption (temp___expr_19: int) (temp___skip_top_level_20: bool) =
+    true
+  
+  val default_initial_assumption (temp___expr_19: int) (temp___skip_top_level_20: bool) : 
+    bool
+    ensures { result
+                <->
+                ((default_initial_assumption (temp___expr_19 : int))
+                   (temp___skip_top_level_20 : bool)) }
+end
+
+module Standard__integer__rep
+  use Standard__integer as Standard__integer
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  function to_rep (x: Standard__integer.integer) : int =
+    Standard__integer.integer'int x
+  
+  clone export ada__model.Rep_Proj_Int with
+    axiom .,
+    type t = Standard__integer.integer,
+    predicate in_range = Standard__integer.in_range,
+    function to_rep = to_rep
+  
+  meta "model_projection" function to_rep
+  
+  meta "inline:no" function to_rep
+end
+
+module Array__Int__Standard__integer
+  use _gnatprove_standard.Main
+  use int.Int
+  use int.Int
+  use Standard__integer as Standard__integer
+  use Standard__integer__rep as Standard__integer__rep
+  
+  function index_I1_one : int = 1 : int
+  
+  type component_type = Standard__integer.integer
+  
+  clone export _gnatprove_standard.Array__1 with
+    axiom .,
+    type I1.t = int,
+    predicate I1.le = Int.( <= ),
+    predicate I1.lt = Int.( < ),
+    predicate I1.gt = Int.( > ),
+    function I1.add = Int.( + ),
+    function I1.sub = Int.( - ),
+    function I1.one = index_I1_one,
+    type component_type = component_type
+  
+  function bool_eq (a: map) (a__first: int) (a__last: int) (b: map) (b__first: int) (b__last: int) : bool =
+    ((if (a__first <= a__last) then
+        ((b__first <= b__last) /\
+           ((a__last - a__first) = (b__last - b__first)))
+      else (b__first > b__last)) /\
+       (forall temp___idx_161 : int.
+          if ((a__first <= temp___idx_161) /\ (temp___idx_161 <= a__last)) then
+            ((Standard__integer__rep.to_rep ((get a) temp___idx_161))
+               = (Standard__integer__rep.to_rep
+                    ((get b) ((b__first - a__first) + temp___idx_161))))
+          else true))
+  
+  val bool_eq (a: map) (a__first: int) (a__last: int) (b: map) (b__first: int) (b__last: int) : 
+    bool
+    ensures { result
+      =
+      ((((((bool_eq (a : map)) (a__first : int)) (a__last : int)) (b : map))
+          (b__first : int))
+         (b__last : int)) }
+  
+  axiom bool_eq_rev:
+    forall a : map, b : map.
+      forall a__first : int, a__last : int, b__first : int, b__last : int.
+        ((((((((bool_eq b) b__first) b__last) a) a__first) a__last) = True) ->
+           ((if (a__first <= a__last) then
+               ((b__first <= b__last) /\
+                  ((a__last - a__first) = (b__last - b__first)))
+             else (b__first > b__last)) /\
+              (forall temp___idx_161 : int.
+                 if ((a__first <= temp___idx_161) /\
+                       (temp___idx_161 <= a__last)) then
+                   ((Standard__integer__rep.to_rep ((get a) temp___idx_161))
+                      = (Standard__integer__rep.to_rep
+                           ((get b) ((b__first - a__first) + temp___idx_161))))
+                 else true)))
+end
+
+module Sorter__sort__a
+  use _gnatprove_standard.Main
+  use int.Int
+  use Standard__integer as Standard__integer
+  use Array__Int__Standard__integer as Array__Int__Standard__integer
+  
+  val a : Array__Int__Standard__integer.map__ref
+  
+  val function a__first : Standard__integer.integer
+  
+  val function a__last : Standard__integer.integer
+end
+
+module Sorter__sort__count
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  val function count : int
+end
+
+module Sorter__array_type
+  use _gnatprove_standard.Main
+  use int.Int
+  use int.Int
+  use Standard__integer as Standard__integer
+  use Standard__integer as Standard__integer
+  use Standard__integer__rep as Standard__integer__rep
+  use Array__Int__Standard__integer as Array__Int__Standard__integer
+  
+  type component_type = Standard__integer.integer
+  
+  function index_1_id (x: int) : int = x
+  
+  clone export ada__model.Unconstr_Array with
+    axiom .,
+    type map = Array__Int__Standard__integer.map,
+    function array_bool_eq = Array__Int__Standard__integer.bool_eq,
+    type index_base_type = Standard__integer.integer,
+    type index_rep_type = int,
+    function to_rep = Standard__integer__rep.to_rep,
+    function rep_to_int = index_1_id,
+    predicate in_range_base = Standard__integer.in_range,
+    predicate index_dynamic_property = Standard__integer.dynamic_property,
+    predicate index_rep_le = Int.( <= )
+  
+  type array_type = __t
+  
+  meta "model_projection" function to_array
+  
+  meta "inline:no" function to_array
+  
+  meta "model_projection" function first
+  
+  meta "inline:no" function first
+  
+  meta "model_projection" function last
+  
+  meta "inline:no" function last
+  
+  type array_type__ref = { mutable array_type__content : array_type }
+  
+  function array_type__ref_array_type__content__projection (a: array_type__ref) : array_type =
+    a.array_type__content
+  
+  meta "model_projection" function array_type__ref_array_type__content__projection
+  
+  meta "inline:no" function array_type__ref_array_type__content__projection
+  
+  val array_type__havoc (x: array_type__ref) : unit
+    writes { x }
+end
+
+module Sorter__array_type___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+  use Standard__integer as Standard__integer
+  use Sorter__array_type as Sorter__array_type
+  
+  predicate dynamic_invariant (temp___expr_166: Sorter__array_type.array_type) (temp___is_init_162: bool) (temp___skip_constant_163: bool) (temp___do_toplevel_164: bool) (temp___do_typ_inv_165: bool) =
+    if temp___skip_constant_163 then true
+    else
+      ((((Sorter__array_type.dynamic_property Standard__integer.first)
+           Standard__integer.last)
+          (Sorter__array_type.first temp___expr_166))
+         (Sorter__array_type.last temp___expr_166))
+  
+  val dynamic_invariant (temp___expr_166: Sorter__array_type.array_type) (temp___is_init_162: bool) (temp___skip_constant_163: bool) (temp___do_toplevel_164: bool) (temp___do_typ_inv_165: bool) : 
+    bool
+    ensures { result
+                <->
+                (((((dynamic_invariant
+                       (temp___expr_166 : Sorter__array_type.array_type))
+                      (temp___is_init_162 : bool))
+                     (temp___skip_constant_163 : bool))
+                    (temp___do_toplevel_164 : bool))
+                   (temp___do_typ_inv_165 : bool)) }
+end
+
+module Sorter__sort_1___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+  use Standard__integer as Standard__integer
+  use Standard__integer__rep as Standard__integer__rep
+  use Sorter__array_type as Sorter__array_type
+  use Sorter__array_type___axiom as Sorter__array_type___axiom
+  use Array__Int__Standard__integer as Array__Int__Standard__integer
+  
+  val sort_1 (a: Array__Int__Standard__integer.map__ref) (a__first: Standard__integer.integer) (a__last: 
+    Standard__integer.integer) (count: int) : unit
+    requires { true }
+    writes { a }
+    ensures { ((((Sorter__array_type___axiom.dynamic_invariant
+                    (((Sorter__array_type.of_array
+                         (a.Array__Int__Standard__integer.map__content))
+                        (Standard__integer__rep.to_rep a__first))
+                       (Standard__integer__rep.to_rep a__last)))
+                   True)
+                  True)
+                 True)
+                True }
+end
+
+module Sorter__sort_2___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+  use Standard__integer as Standard__integer
+  use Standard__integer__rep as Standard__integer__rep
+  use Sorter__array_type as Sorter__array_type
+  use Sorter__array_type___axiom as Sorter__array_type___axiom
+  use Array__Int__Standard__integer as Array__Int__Standard__integer
+  
+  val sort_2 (a: Array__Int__Standard__integer.map__ref) (a__first: Standard__integer.integer) (a__last: 
+    Standard__integer.integer) (count: int) : unit
+    requires { true }
+    writes { a }
+    ensures { ((((Sorter__array_type___axiom.dynamic_invariant
+                    (((Sorter__array_type.of_array
+                         (a.Array__Int__Standard__integer.map__content))
+                        (Standard__integer__rep.to_rep a__first))
+                       (Standard__integer__rep.to_rep a__last)))
+                   True)
+                  True)
+                 True)
+                True }
+end
+
+module Sorter__sort_3___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+  use Standard__integer as Standard__integer
+  use Standard__integer__rep as Standard__integer__rep
+  use Sorter__array_type as Sorter__array_type
+  use Sorter__array_type___axiom as Sorter__array_type___axiom
+  use Array__Int__Standard__integer as Array__Int__Standard__integer
+  
+  val sort_3 (a: Array__Int__Standard__integer.map__ref) (a__first: Standard__integer.integer) (a__last: 
+    Standard__integer.integer) (count: int) : unit
+    requires { true }
+    writes { a }
+    ensures { ((((Sorter__array_type___axiom.dynamic_invariant
+                    (((Sorter__array_type.of_array
+                         (a.Array__Int__Standard__integer.map__content))
+                        (Standard__integer__rep.to_rep a__first))
+                       (Standard__integer__rep.to_rep a__last)))
+                   True)
+                  True)
+                 True)
+                True }
+end
+
+module Sorter__sort__S4b
+  use export Sorter__array_type
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  type s4b = array_type
+  
+  type s4b__ref = { mutable s4b__content : s4b }
+  
+  function s4b__ref_s4b__content__projection (a: s4b__ref) : s4b =
+    a.s4b__content
+  
+  meta "model_projection" function s4b__ref_s4b__content__projection
+  
+  meta "inline:no" function s4b__ref_s4b__content__projection
+  
+  val s4b__havoc (x: s4b__ref) : unit
+    writes { x }
+end
+
+module Sorter__sort__a___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+end
+
+module Sorter__sort__count___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+end
+
+module Sorter__sort__S4b___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+  use Standard__integer__rep as Standard__integer__rep
+  use Sorter__sort__a as Sorter__sort__a
+  use Sorter__sort__S4b as Sorter__sort__S4b
+  
+  predicate dynamic_invariant (temp___expr_204: Sorter__sort__S4b.s4b) (temp___is_init_200: bool) (temp___skip_constant_201: bool) (temp___do_toplevel_202: bool) (temp___do_typ_inv_203: bool) =
+    if temp___skip_constant_201 then true
+    else
+      ((((((Sorter__sort__S4b.dynamic_property
+              (Standard__integer__rep.to_rep Sorter__sort__a.a__first))
+             (Standard__integer__rep.to_rep Sorter__sort__a.a__last))
+            (Sorter__sort__S4b.first temp___expr_204))
+           (Sorter__sort__S4b.last temp___expr_204)) /\
+          ((Sorter__sort__S4b.first temp___expr_204)
+             = (Standard__integer__rep.to_rep Sorter__sort__a.a__first))) /\
+         ((Sorter__sort__S4b.last temp___expr_204)
+            = (Standard__integer__rep.to_rep Sorter__sort__a.a__last)))
+  
+  val dynamic_invariant (temp___expr_204: Sorter__sort__S4b.s4b) (temp___is_init_200: bool) (temp___skip_constant_201: bool) (temp___do_toplevel_202: bool) (temp___do_typ_inv_203: bool) : 
+    bool
+    ensures { result
+                <->
+                (((((dynamic_invariant
+                       (temp___expr_204 : Sorter__sort__S4b.s4b))
+                      (temp___is_init_200 : bool))
+                     (temp___skip_constant_201 : bool))
+                    (temp___do_toplevel_202 : bool))
+                   (temp___do_typ_inv_203 : bool)) }
+  
+  predicate default_initial_assumption (temp___expr_206: Sorter__sort__S4b.s4b) (temp___skip_top_level_207: bool) =
+    ((true /\
+        ((Sorter__sort__S4b.first temp___expr_206)
+           = (Standard__integer__rep.to_rep Sorter__sort__a.a__first))) /\
+       ((Sorter__sort__S4b.last temp___expr_206)
+          = (Standard__integer__rep.to_rep Sorter__sort__a.a__last)))
+  
+  val default_initial_assumption (temp___expr_206: Sorter__sort__S4b.s4b) (temp___skip_top_level_207: bool) : 
+    bool
+    ensures { result
+                <->
+                ((default_initial_assumption
+                    (temp___expr_206 : Sorter__sort__S4b.s4b))
+                   (temp___skip_top_level_207 : bool)) }
+end
+
+module Sorter__sort__subprogram_def
+  use _gnatprove_standard.Main
+  use int.Int
+  use int.Int
+  use _gnatprove_standard.Main as Main
+  use _gnatprove_standard.Integer as Integer
+  use Standard__integer as Standard__integer
+  use Standard__integer as Standard__integer
+  use Standard__integer___axiom as Standard__integer___axiom
+  use Standard__integer__rep as Standard__integer__rep
+  use Array__Int__Standard__integer as Array__Int__Standard__integer
+  use Sorter__sort__a as Sorter__sort__a
+  use Sorter__sort__count as Sorter__sort__count
+  use Sorter__sort_1___axiom as Sorter__sort_1___axiom
+  use Sorter__sort_2___axiom as Sorter__sort_2___axiom
+  use Sorter__sort_3___axiom as Sorter__sort_3___axiom
+  use Sorter__array_type as Sorter__array_type
+  use Sorter__sort__S4b as Sorter__sort__S4b
+  use Array__Int__Standard__integer as Array__Int__Standard__integer
+  use Array__Int__Standard__integer as Array__Int__Standard__integer
+  use Array__Int__Standard__integer as Array__Int__Standard__integer
+  use Array__Int__Standard__integer as Array__Int__Standard__integer
+  use Array__Int__Standard__integer as Array__Int__Standard__integer
+  use Array__Int__Standard__integer as Array__Int__Standard__integer
+  use Standard__integer___axiom as Standard__integer___axiom
+  use Standard__integer___axiom as Standard__integer___axiom
+  use Sorter__array_type___axiom as Sorter__array_type___axiom
+  use Sorter__sort__a___axiom as Sorter__sort__a___axiom
+  use Sorter__sort__count___axiom as Sorter__sort__count___axiom
+  use Sorter__sort_1___axiom as Sorter__sort_1___axiom
+  use Sorter__sort_2___axiom as Sorter__sort_2___axiom
+  use Sorter__sort_3___axiom as Sorter__sort_3___axiom
+  use Sorter__sort__S4b___axiom as Sorter__sort__S4b___axiom
+  
+  let def (__void_param : unit)
+    requires { [#"sorter.ads" 18 0 0] true }
+  = [@vc:divergent]
+    (([@GNAT-comment:Assume dynamic invariants of inputs of the subprogram sorter.ads:18]
+      ());
+     ([#"sorter.ads" 18 0 0]
+      assume {
+        [#"sorter.ads" 18 0 0]
+        (if False then true
+         else
+           ((((Sorter__array_type.dynamic_property Standard__integer.first)
+                Standard__integer.last)
+               (Sorter__sort__S4b.first
+                  (((Sorter__sort__S4b.of_array
+                       (Sorter__sort__a.a.Array__Int__Standard__integer.map__content))
+                      (Standard__integer__rep.to_rep Sorter__sort__a.a__first))
+                     (Standard__integer__rep.to_rep Sorter__sort__a.a__last))))
+              (Sorter__sort__S4b.last
+                 (((Sorter__sort__S4b.of_array
+                      (Sorter__sort__a.a.Array__Int__Standard__integer.map__content))
+                     (Standard__integer__rep.to_rep Sorter__sort__a.a__first))
+                    (Standard__integer__rep.to_rep Sorter__sort__a.a__last))))) });
+     ([#"sorter.ads" 18 0 0]
+      assume {
+        [#"sorter.ads" 18 0 0]
+        (((((Standard__integer___axiom.dynamic_invariant
+               Sorter__sort__count.count)
+              True)
+             False)
+            True)
+           True) });
+     ([@GNAT-comment:Assume moved pointers in outputs of the subprogram sorter.ads:18]
+      ());
+     ([@GNAT-comment:Check for RTE in the Pre of the subprogram sorter.ads:18]
+      ());
+     ([#"sorter.ads" 18 0 0] ());
+     ([@GNAT-comment:Assume Pre of the subprogram sorter.ads:18] ());
+     ([#"sorter.ads" 18 0 0]
+      (try
+         ([#"sorter.adb" 29 0 0] ());
+         ([@GP_Sloc:sorter.adb:31:7]
+          [#"sorter.adb" 31 0 0]
+          (if (([#"sorter.adb" 31 0 0]
+                [#"sorter.adb" 31 0 0]
+                (([@branch_id=872] Main.spark__branch).bool__content <-
+                   (([#"sorter.adb" 31 0 0]
+                     [@GP_Sloc:sorter.adb:31:11]
+                     [@comment:      if A'length <= small then           ^ sorter.adb:31:11:VC_RANGE_CHECK]
+                     [@vc:annotation]
+                     [@GP_Reason:VC_RANGE_CHECK]
+                     [@GP_Shape:if__cmp__typeconv__length_ref]
+                     [@GP_Id:1]
+                     (Standard__integer.range_check_
+                        (([#"sorter.adb" 31 0 0]
+                          (begin
+                             ensures { true }
+                             let _ =
+                               let _ =
+                                 ((Sorter__sort__S4b.of_array
+                                     (Sorter__sort__a.a.Array__Int__Standard__integer.map__content))
+                                    (Standard__integer__rep.to_rep
+                                       Sorter__sort__a.a__first))
+                                   (Standard__integer__rep.to_rep
+                                      Sorter__sort__a.a__last) in
+                               () in
+                             ()
+                           end));
+                         ((Integer.length
+                             (Standard__integer__rep.to_rep
+                                Sorter__sort__a.a__first))
+                            (Standard__integer__rep.to_rep
+                               Sorter__sort__a.a__last)))))
+                      <= (5 : int))));
+               (([@branch_id=872] Main.spark__branch).bool__content)) then
+             (([@GP_Sloc:sorter.adb:32:10] [#"sorter.adb" 32 0 0] ());
+              ([@GP_Sloc:sorter.adb:32:10]
+               [#"sorter.adb" 32 0 0]
+               (let temp___compl_212 =
+                  let temp___210 =
+                    ((Sorter__sort__S4b.of_array
+                        (Sorter__sort__a.a.Array__Int__Standard__integer.map__content))
+                       (Standard__integer__rep.to_rep
+                          Sorter__sort__a.a__first))
+                      (Standard__integer__rep.to_rep Sorter__sort__a.a__last) in
+                  let temp___211 = Sorter__sort__S4b.to_array temp___210 in
+                  ((Sorter__array_type.of_array temp___211)
+                     (Sorter__sort__S4b.first temp___210))
+                    (Sorter__sort__S4b.last temp___210) in
+                ([#"sorter.adb" 32 0 0] (val _f : unit in
+                                         _f));
+                ((((Sorter__sort_1___axiom.sort_1 Sorter__sort__a.a)
+                     Sorter__sort__a.a__first)
+                    Sorter__sort__a.a__last)
+                   Sorter__sort__count.count))))
+           else
+             ([@GP_Sloc:sorter.adb:33:7]
+              (if (([#"sorter.adb" 33 0 0]
+                    [#"sorter.adb" 33 0 0]
+                    (([@branch_id=884] Main.spark__branch).bool__content <-
+                       (([#"sorter.adb" 33 0 0]
+                         [@comment:      elsif A'length <= medium then              ^ sorter.adb:33:14:VC_RANGE_CHECK]
+                         [@vc:annotation]
+                         [@GP_Reason:VC_RANGE_CHECK]
+                         [@GP_Shape:if__cmp__typeconv__length_ref]
+                         [@GP_Sloc:sorter.adb:33:14]
+                         [@GP_Id:0]
+                         (Standard__integer.range_check_
+                            (([#"sorter.adb" 33 0 0]
+                              (begin
+                                 ensures { true }
+                                 let _ =
+                                   let _ =
+                                     ((Sorter__sort__S4b.of_array
+                                         (Sorter__sort__a.a.Array__Int__Standard__integer.map__content))
+                                        (Standard__integer__rep.to_rep
+                                           Sorter__sort__a.a__first))
+                                       (Standard__integer__rep.to_rep
+                                          Sorter__sort__a.a__last) in
+                                   () in
+                                 ()
+                               end));
+                             ((Integer.length
+                                 (Standard__integer__rep.to_rep
+                                    Sorter__sort__a.a__first))
+                                (Standard__integer__rep.to_rep
+                                   Sorter__sort__a.a__last)))))
+                          <= (10 : int))));
+                   (([@branch_id=884] Main.spark__branch).bool__content)) then
+                 (([@GP_Sloc:sorter.adb:34:10] [#"sorter.adb" 34 0 0] ());
+                  ([@GP_Sloc:sorter.adb:34:10]
+                   [#"sorter.adb" 34 0 0]
+                   (let temp___compl_218 =
+                      let temp___216 =
+                        ((Sorter__sort__S4b.of_array
+                            (Sorter__sort__a.a.Array__Int__Standard__integer.map__content))
+                           (Standard__integer__rep.to_rep
+                              Sorter__sort__a.a__first))
+                          (Standard__integer__rep.to_rep
+                             Sorter__sort__a.a__last) in
+                      let temp___217 = Sorter__sort__S4b.to_array temp___216 in
+                      ((Sorter__array_type.of_array temp___217)
+                         (Sorter__sort__S4b.first temp___216))
+                        (Sorter__sort__S4b.last temp___216) in
+                    ([#"sorter.adb" 34 0 0] (val _f : unit in
+                                             _f));
+                    ((((Sorter__sort_2___axiom.sort_2 Sorter__sort__a.a)
+                         Sorter__sort__a.a__first)
+                        Sorter__sort__a.a__last)
+                       Sorter__sort__count.count))))
+               else
+                 (([@GP_Sloc:sorter.adb:35:12] [#"sorter.adb" 35 0 0] ());
+                  ([@GP_Sloc:sorter.adb:35:12]
+                   [#"sorter.adb" 35 0 0]
+                   (let temp___compl_215 =
+                      let temp___213 =
+                        ((Sorter__sort__S4b.of_array
+                            (Sorter__sort__a.a.Array__Int__Standard__integer.map__content))
+                           (Standard__integer__rep.to_rep
+                              Sorter__sort__a.a__first))
+                          (Standard__integer__rep.to_rep
+                             Sorter__sort__a.a__last) in
+                      let temp___214 = Sorter__sort__S4b.to_array temp___213 in
+                      ((Sorter__array_type.of_array temp___214)
+                         (Sorter__sort__S4b.first temp___213))
+                        (Sorter__sort__S4b.last temp___213) in
+                    ([#"sorter.adb" 35 0 0] (val _f : unit in
+                                             _f));
+                    ((((Sorter__sort_3___axiom.sort_3 Sorter__sort__a.a)
+                         Sorter__sort__a.a__first)
+                        Sorter__sort__a.a__last)
+                       Sorter__sort__count.count))))))));
+         (raise Return__exc)
+       with Return__exc -> ()
+       end)))
+end

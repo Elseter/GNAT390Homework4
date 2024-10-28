@@ -1,0 +1,158 @@
+'2024-10-27T20:51:47.060000':
+  category: GNATprove
+  files:
+  - C:\Users\rking\Downloads\Homework 04 F24\Homework 04 F24\obj\gnatprove
+  label: Examine All
+  output: 'Phase 1 of 2: generation of Global contracts ...
+
+    Phase 2 of 2: analysis of data and information flow ...
+
+    drvr.adb:84:11: medium: "count" might not be initialized after elaboration of
+    main program "Drvr"[#1]
+
+    drvr.adb:90:04: warning: initialization of "Original_Array" has no effect[#0]
+
+    drvr.adb:143:61: medium: "Input" might not be initialized in "Fetch_Safe_Input"[#2]
+
+    sorter.adb:104:20: medium: "right" might not be initialized[#0]
+
+    Summary logged in C:\Users\rking\Downloads\Homework 04 F24\Homework 04 F24\obj\gnatprove\gnatprove.out
+
+    '
+  output_parser: GNATprove_Parser
+  timestamp: '2024-10-27T20:51:47.060000'
+'2024-10-27T20:52:43.141000':
+  category: GNATprove
+  files:
+  - C:\Users\rking\Downloads\Homework 04 F24\Homework 04 F24\obj\gnatprove
+  label: Basic Prove All
+  output: 'Phase 1 of 2: generation of Global contracts ...
+
+    Phase 2 of 2: flow analysis and proof ...
+
+    drvr.adb:84:11: medium: "count" might not be initialized after elaboration of
+    main program "Drvr"[#1]
+
+    drvr.adb:90:04: warning: initialization of "Original_Array" has no effect[#0]
+
+    drvr.adb:112:25: medium: overflow check might fail, in call inlined at drvr.adb:245
+    [reason for check: result of subtraction must fit in a 32-bits machine integer][#8]
+
+    drvr.adb:113:24: medium: array index check might fail, in call inlined at drvr.adb:245
+    [reason for check: result of addition must be a valid index into the array][#7]
+
+    drvr.adb:120:22: medium: overflow check might fail, in call inlined at drvr.adb:245
+    [reason for check: result of addition must fit in a 32-bits machine integer][#10]
+
+    drvr.adb:121:36: medium: array index check might fail, in call inlined at drvr.adb:245
+    [reason for check: value must be a valid index into the array][#9]
+
+    drvr.adb:143:61: medium: "Input" might not be initialized in "Fetch_Safe_Input"[#2]
+
+    drvr.adb:152:20: medium: array index check might fail [reason for check: value
+    must be a valid index into the array][#3]
+
+    drvr.adb:165:30: medium: overflow check might fail, in call inlined at drvr.adb:177
+    [reason for check: result of multiplication must fit in a 32-bits machine integer][#11]
+
+    drvr.adb:165:35: medium: overflow check might fail, in call inlined at drvr.adb:177
+    [reason for check: result of addition must fit in a 32-bits machine integer] [possible
+    fix: postcondition of call at line 173 should mention Item (for argument Input_String)][#12]
+
+    drvr.adb:165:57: medium: overflow check might fail, in call inlined at drvr.adb:177
+    [reason for check: result of subtraction must fit in a 32-bits machine integer]
+    [possible fix: postcondition of call at line 173 should mention Item (for argument
+    Input_String)][#13]
+
+    drvr.adb:195:10: medium: precondition might fail, cannot prove not Is_Open (File),
+    in call inlined at drvr.adb:231 [possible fix: loop at line 213 should mention
+    rand_file in a loop invariant][#4]
+
+    drvr.adb:197:29: medium: array index check might fail, in call inlined at drvr.adb:231
+    [reason for check: value must be a valid index into the array][#5]
+
+    drvr.adb:240:36: medium: array index check might fail [reason for check: value
+    must be a valid index into the array][#6]
+
+    sorter.adb:20:27: medium: overflow check might fail [reason for check: result
+    of subtraction must fit in a 32-bits machine integer] [possible fix: subprogram
+    at sorter.ads:25 should mention count in a precondition][#3]
+
+    sorter.adb:22:18: medium: array index check might fail [reason for check: value
+    must be a valid index into the array][#1]
+
+    sorter.adb:22:27: medium: array index check might fail [reason for check: result
+    of addition must be a valid index into the array][#2]
+
+    sorter.adb:55:21: medium: array index check might fail, in call inlined at sorter.adb:107
+    [reason for check: value must be a valid index into the array][#16]
+
+    sorter.adb:55:33: medium: array index check might fail, in call inlined at sorter.adb:107
+    [reason for check: value must be a valid index into the array][#17]
+
+    sorter.adb:56:24: medium: array index check might fail, in call inlined at sorter.adb:107
+    [reason for check: value must be a valid index into the array][#14]
+
+    sorter.adb:59:24: medium: array index check might fail, in call inlined at sorter.adb:107
+    [reason for check: value must be a valid index into the array][#15]
+
+    sorter.adb:62:20: medium: overflow check might fail, in call inlined at sorter.adb:107
+    [reason for check: result of addition must fit in a 32-bits machine integer][#18]
+
+    sorter.adb:67:20: medium: array index check might fail, in call inlined at sorter.adb:107
+    [reason for check: value must be a valid index into the array][#20]
+
+    sorter.adb:67:31: medium: array index check might fail, in call inlined at sorter.adb:107
+    [reason for check: value must be a valid index into the array][#19]
+
+    sorter.adb:69:20: medium: overflow check might fail, in call inlined at sorter.adb:107
+    [reason for check: result of addition must fit in a 32-bits machine integer][#21]
+
+    sorter.adb:74:20: medium: array index check might fail, in call inlined at sorter.adb:107
+    [reason for check: value must be a valid index into the array][#23]
+
+    sorter.adb:74:32: medium: array index check might fail, in call inlined at sorter.adb:107
+    [reason for check: value must be a valid index into the array][#22]
+
+    sorter.adb:76:20: medium: overflow check might fail, in call inlined at sorter.adb:107
+    [reason for check: result of addition must fit in a 32-bits machine integer][#24]
+
+    sorter.adb:94:26: medium: array index check might fail [reason for check: value
+    must be a valid index into the array][#12]
+
+    sorter.adb:99:34: medium: array index check might fail [reason for check: result
+    of addition must be a valid index into the array][#13]
+
+    sorter.adb:104:20: medium: "right" might not be initialized[#0]
+
+    sorter.adb:122:35: medium: overflow check might fail [reason for check: result
+    of addition must fit in a 32-bits machine integer] [possible fix: subprogram at
+    line 121 should mention high and low in a precondition][#4]
+
+    sorter.adb:122:43: medium: array index check might fail [reason for check: result
+    of division must be a valid index into the array] [possible fix: subprogram at
+    line 121 should mention high and low in a precondition][#5]
+
+    sorter.adb:128:21: medium: array index check might fail [reason for check: value
+    must be a valid index into the array][#7]
+
+    sorter.adb:129:24: medium: overflow check might fail [reason for check: result
+    of addition must fit in a 32-bits machine integer][#6]
+
+    sorter.adb:132:21: medium: array index check might fail [reason for check: value
+    must be a valid index into the array][#9]
+
+    sorter.adb:133:24: medium: overflow check might fail [reason for check: result
+    of subtraction must fit in a 32-bits machine integer][#8]
+
+    sorter.adb:143:24: medium: overflow check might fail [reason for check: result
+    of addition must fit in a 32-bits machine integer][#10]
+
+    sorter.adb:144:24: medium: overflow check might fail [reason for check: result
+    of subtraction must fit in a 32-bits machine integer][#11]
+
+    Summary logged in C:\Users\rking\Downloads\Homework 04 F24\Homework 04 F24\obj\gnatprove\gnatprove.out
+
+    '
+  output_parser: GNATprove_Parser
+  timestamp: '2024-10-27T20:52:43.141000'

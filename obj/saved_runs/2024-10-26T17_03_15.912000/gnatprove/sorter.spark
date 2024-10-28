@@ -1,0 +1,303 @@
+{
+  "spark": [
+    {
+      "name": "Sorter",
+      "sloc": [
+        {
+          "file": "sorter.ads",
+          "line": 5
+        }
+      ],
+      "spark": "all"
+    },
+    {
+      "name": "Sorter.sort",
+      "sloc": [
+        {
+          "file": "sorter.ads",
+          "line": 18
+        }
+      ],
+      "spark": "all"
+    },
+    {
+      "name": "Sorter.sort_1",
+      "sloc": [
+        {
+          "file": "sorter.ads",
+          "line": 25
+        }
+      ],
+      "spark": "all"
+    },
+    {
+      "name": "Sorter.sort_2",
+      "sloc": [
+        {
+          "file": "sorter.ads",
+          "line": 26
+        }
+      ],
+      "spark": "all"
+    },
+    {
+      "name": "Sorter.sort_3",
+      "sloc": [
+        {
+          "file": "sorter.ads",
+          "line": 27
+        }
+      ],
+      "spark": "all"
+    },
+    {
+      "name": "Sorter.sort_2.merge",
+      "sloc": [
+        {
+          "file": "sorter.adb",
+          "line": 48
+        }
+      ],
+      "spark": "all"
+    },
+    {
+      "name": "Sorter.sort_2.merge_sort",
+      "sloc": [
+        {
+          "file": "sorter.adb",
+          "line": 81
+        }
+      ],
+      "spark": "all"
+    },
+    {
+      "name": "Sorter.sort_3.quick_sort",
+      "sloc": [
+        {
+          "file": "sorter.adb",
+          "line": 118
+        }
+      ],
+      "spark": "all"
+    }
+  ],
+  "flow": [
+    {
+      "file": "sorter.adb",
+      "line": 104,
+      "col": 20,
+      "rule": "UNINITIALIZED",
+      "severity": "medium",
+      "entity": {
+        "name": "Sorter.sort_2.merge_sort",
+        "sloc": [
+          {
+            "file": "sorter.adb",
+            "line": 81
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "tracefile": "sorter__flow__0.trace",
+      "msg_id": 0,
+      "how_proved": "flow"
+    },
+    {
+      "file": "sorter.adb",
+      "line": 85,
+      "col": 9,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Sorter.sort_2.merge_sort",
+        "sloc": [
+          {
+            "file": "sorter.adb",
+            "line": 81
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    }
+  ],
+  "assumptions": [
+    {
+      "assumptions": [
+      ],
+      "claim": {
+        "predicate": "CLAIM_EFFECTS",
+        "arg": {
+          "name": "Sorter.sort_1",
+          "sloc": [
+            {
+              "file": "sorter.ads",
+              "line": 25
+            }
+          ]
+        }
+      }
+    },
+    {
+      "assumptions": [
+      ],
+      "claim": {
+        "predicate": "CLAIM_EFFECTS",
+        "arg": {
+          "name": "Sorter.sort_2.merge",
+          "sloc": [
+            {
+              "file": "sorter.adb",
+              "line": 48
+            }
+          ]
+        }
+      }
+    },
+    {
+      "assumptions": [
+        {
+          "predicate": "CLAIM_EFFECTS",
+          "arg": {
+            "name": "Sorter.sort_3.quick_sort",
+            "sloc": [
+              {
+                "file": "sorter.adb",
+                "line": 118
+              }
+            ]
+          }
+        }
+      ],
+      "claim": {
+        "predicate": "CLAIM_EFFECTS",
+        "arg": {
+          "name": "Sorter.sort_3",
+          "sloc": [
+            {
+              "file": "sorter.ads",
+              "line": 27
+            }
+          ]
+        }
+      }
+    },
+    {
+      "assumptions": [
+        {
+          "predicate": "CLAIM_EFFECTS",
+          "arg": {
+            "name": "Sorter.sort_3.quick_sort",
+            "sloc": [
+              {
+                "file": "sorter.adb",
+                "line": 118
+              }
+            ]
+          }
+        }
+      ],
+      "claim": {
+        "predicate": "CLAIM_EFFECTS",
+        "arg": {
+          "name": "Sorter.sort_3.quick_sort",
+          "sloc": [
+            {
+              "file": "sorter.adb",
+              "line": 118
+            }
+          ]
+        }
+      }
+    },
+    {
+      "assumptions": [
+        {
+          "predicate": "CLAIM_EFFECTS",
+          "arg": {
+            "name": "Sorter.sort_2.merge_sort",
+            "sloc": [
+              {
+                "file": "sorter.adb",
+                "line": 81
+              }
+            ]
+          }
+        }
+      ],
+      "claim": {
+        "predicate": "CLAIM_EFFECTS",
+        "arg": {
+          "name": "Sorter.sort_2",
+          "sloc": [
+            {
+              "file": "sorter.ads",
+              "line": 26
+            }
+          ]
+        }
+      }
+    },
+    {
+      "assumptions": [
+        {
+          "predicate": "CLAIM_EFFECTS",
+          "arg": {
+            "name": "Sorter.sort_1",
+            "sloc": [
+              {
+                "file": "sorter.ads",
+                "line": 25
+              }
+            ]
+          }
+        },
+        {
+          "predicate": "CLAIM_EFFECTS",
+          "arg": {
+            "name": "Sorter.sort_2",
+            "sloc": [
+              {
+                "file": "sorter.ads",
+                "line": 26
+              }
+            ]
+          }
+        },
+        {
+          "predicate": "CLAIM_EFFECTS",
+          "arg": {
+            "name": "Sorter.sort_3",
+            "sloc": [
+              {
+                "file": "sorter.ads",
+                "line": 27
+              }
+            ]
+          }
+        }
+      ],
+      "claim": {
+        "predicate": "CLAIM_EFFECTS",
+        "arg": {
+          "name": "Sorter.sort",
+          "sloc": [
+            {
+              "file": "sorter.ads",
+              "line": 18
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "timings": {
+    "globals (advanced)": 3.77099990146235E-04,
+    "flow analysis": 7.26190023124218E-03,
+    "marking": 1.42599994433112E-04,
+    "properties (advanced)": 3.45000007655472E-05,
+    "globals (basic)": 3.66599997505546E-04
+  }
+}

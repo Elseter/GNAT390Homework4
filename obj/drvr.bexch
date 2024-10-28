@@ -1,0 +1,20 @@
+[GENERATED OBJECT FILE]
+b__drvr.o
+[PROJECT FILES]
+C:\Users\rking\Downloads\Homework 04 F24\Homework 04 F24\sorting.gpr
+20241026180930 45b8a562cf4c35f0cc965001939a4887
+[BOUND OBJECT FILES]
+C:\Users\rking\Downloads\Homework 04 F24\Homework 04 F24\obj\sorter.o
+C:\Users\rking\Downloads\Homework 04 F24\Homework 04 F24\obj\drvr.o
+[GENERATED SOURCE FILES]
+b__drvr.ads
+b__drvr.adb
+b__drvr.ali
+[RESULTING OPTIONS]
+-LC:\Users\rking\Downloads\Homework 04 F24\Homework 04 F24\obj\
+-LC:\Users\rking\Downloads\Homework 04 F24\Homework 04 F24\obj\
+-LC:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.1.0/adalib/
+-static
+-static-libgcc
+C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.1.0/adalib/libgnat.a
+-Wl,--stack=0x2000000

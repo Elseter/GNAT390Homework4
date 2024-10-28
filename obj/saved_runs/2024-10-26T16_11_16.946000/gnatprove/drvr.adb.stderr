@@ -1,0 +1,8 @@
+drvr.adb:84:11: medium: "count" might not be initialized after elaboration of main program "Drvr"[#7]
+drvr.adb:88:04: warning: initialization of "A" has no effect[#2]
+drvr.adb:94:14: warning: subprogram "validator" has no effect[#1]
+drvr.adb:99:61: medium: "Input" might not be initialized in "Fetch_Safe_Input"[#0]
+drvr.adb:153:27: warning: "A" is set by "Get" but not used after the call, in call inlined at drvr.adb:163[#3]
+drvr.adb:153:27: warning: "A" is set by "Get" but not used after the call, in call inlined at drvr.adb:185[#4]
+drvr.adb:191:13: warning: statement has no effect[#5]
+drvr.adb:191:18: warning: "A" is set by "sort" but not used after the call[#6]

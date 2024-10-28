@@ -1,0 +1,297 @@
+{
+  "spark": [
+    {
+      "name": "Sorter",
+      "sloc": [
+        {
+          "file": "sorter.ads",
+          "line": 5
+        }
+      ],
+      "spark": "all"
+    },
+    {
+      "name": "Sorter.sort",
+      "sloc": [
+        {
+          "file": "sorter.ads",
+          "line": 18
+        }
+      ],
+      "spark": "all"
+    },
+    {
+      "name": "Sorter.sort_1",
+      "sloc": [
+        {
+          "file": "sorter.ads",
+          "line": 25
+        }
+      ],
+      "spark": "all"
+    },
+    {
+      "name": "Sorter.sort_2",
+      "sloc": [
+        {
+          "file": "sorter.ads",
+          "line": 26
+        }
+      ],
+      "spark": "all"
+    },
+    {
+      "name": "Sorter.sort_3",
+      "sloc": [
+        {
+          "file": "sorter.ads",
+          "line": 27
+        }
+      ],
+      "spark": "all"
+    },
+    {
+      "name": "Sorter.sort_2.merge",
+      "sloc": [
+        {
+          "file": "sorter.adb",
+          "line": 38
+        }
+      ],
+      "spark": "all"
+    },
+    {
+      "name": "Sorter.sort_2.merge_sort",
+      "sloc": [
+        {
+          "file": "sorter.adb",
+          "line": 71
+        }
+      ],
+      "spark": "all"
+    }
+  ],
+  "flow": [
+    {
+      "file": "sorter.ads",
+      "line": 27,
+      "col": 26,
+      "rule": "INOUT_ONLY_READ",
+      "severity": "warning",
+      "entity": {
+        "name": "Sorter.sort_3",
+        "sloc": [
+          {
+            "file": "sorter.ads",
+            "line": 27
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "msg_id": 0,
+      "how_proved": "flow"
+    },
+    {
+      "file": "sorter.ads",
+      "line": 27,
+      "col": 26,
+      "rule": "UNUSED_VARIABLE",
+      "severity": "warning",
+      "entity": {
+        "name": "Sorter.sort_3",
+        "sloc": [
+          {
+            "file": "sorter.ads",
+            "line": 27
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "msg_id": 1,
+      "how_proved": "flow"
+    },
+    {
+      "file": "sorter.ads",
+      "line": 27,
+      "col": 49,
+      "rule": "UNUSED_VARIABLE",
+      "severity": "warning",
+      "entity": {
+        "name": "Sorter.sort_3",
+        "sloc": [
+          {
+            "file": "sorter.ads",
+            "line": 27
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "msg_id": 2,
+      "how_proved": "flow"
+    },
+    {
+      "file": "sorter.adb",
+      "line": 94,
+      "col": 20,
+      "rule": "UNINITIALIZED",
+      "severity": "medium",
+      "entity": {
+        "name": "Sorter.sort_2.merge_sort",
+        "sloc": [
+          {
+            "file": "sorter.adb",
+            "line": 71
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "tracefile": "sorter__flow__0.trace",
+      "msg_id": 3,
+      "how_proved": "flow"
+    },
+    {
+      "file": "sorter.adb",
+      "line": 75,
+      "col": 9,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Sorter.sort_2.merge_sort",
+        "sloc": [
+          {
+            "file": "sorter.adb",
+            "line": 71
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    }
+  ],
+  "assumptions": [
+    {
+      "assumptions": [
+      ],
+      "claim": {
+        "predicate": "CLAIM_EFFECTS",
+        "arg": {
+          "name": "Sorter.sort_1",
+          "sloc": [
+            {
+              "file": "sorter.ads",
+              "line": 25
+            }
+          ]
+        }
+      }
+    },
+    {
+      "assumptions": [
+      ],
+      "claim": {
+        "predicate": "CLAIM_EFFECTS",
+        "arg": {
+          "name": "Sorter.sort_2.merge",
+          "sloc": [
+            {
+              "file": "sorter.adb",
+              "line": 38
+            }
+          ]
+        }
+      }
+    },
+    {
+      "assumptions": [
+        {
+          "predicate": "CLAIM_EFFECTS",
+          "arg": {
+            "name": "Sorter.sort_2.merge_sort",
+            "sloc": [
+              {
+                "file": "sorter.adb",
+                "line": 71
+              }
+            ]
+          }
+        }
+      ],
+      "claim": {
+        "predicate": "CLAIM_EFFECTS",
+        "arg": {
+          "name": "Sorter.sort_2",
+          "sloc": [
+            {
+              "file": "sorter.ads",
+              "line": 26
+            }
+          ]
+        }
+      }
+    },
+    {
+      "assumptions": [
+        {
+          "predicate": "CLAIM_EFFECTS",
+          "arg": {
+            "name": "Sorter.sort_1",
+            "sloc": [
+              {
+                "file": "sorter.ads",
+                "line": 25
+              }
+            ]
+          }
+        },
+        {
+          "predicate": "CLAIM_EFFECTS",
+          "arg": {
+            "name": "Sorter.sort_2",
+            "sloc": [
+              {
+                "file": "sorter.ads",
+                "line": 26
+              }
+            ]
+          }
+        },
+        {
+          "predicate": "CLAIM_EFFECTS",
+          "arg": {
+            "name": "Sorter.sort_3",
+            "sloc": [
+              {
+                "file": "sorter.ads",
+                "line": 27
+              }
+            ]
+          }
+        }
+      ],
+      "claim": {
+        "predicate": "CLAIM_EFFECTS",
+        "arg": {
+          "name": "Sorter.sort",
+          "sloc": [
+            {
+              "file": "sorter.ads",
+              "line": 18
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "timings": {
+    "globals (advanced)": 3.60400008503348E-04,
+    "flow analysis": 5.98180014640093E-03,
+    "marking": 1.33900000946596E-04,
+    "properties (advanced)": 3.32000017806422E-05,
+    "globals (basic)": 3.55500000296161E-04
+  }
+}

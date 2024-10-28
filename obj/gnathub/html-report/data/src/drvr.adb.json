@@ -1,0 +1,796 @@
+{
+  "project": "Sorting",
+  "filename": "drvr.adb",
+  "source_dir": "C:\\Users\\rking\\Downloads\\Homework 04 F24\\Homework 04 F24\\src",
+  "full_path": "C:\\Users\\rking\\Downloads\\Homework 04 F24\\Homework 04 F24\\src\\drvr.adb",
+  "metrics": [
+    {
+      "rule": {
+        "id": 5,
+        "name": "all lines",
+        "tool_id": 2
+      },
+      "value": "97"
+    },
+    {
+      "rule": {
+        "id": 6,
+        "name": "code lines",
+        "tool_id": 2
+      },
+      "value": "15"
+    },
+    {
+      "rule": {
+        "id": 7,
+        "name": "comment lines",
+        "tool_id": 2
+      },
+      "value": "77"
+    },
+    {
+      "rule": {
+        "id": 8,
+        "name": "end-of-line comments",
+        "tool_id": 2
+      },
+      "value": "5"
+    },
+    {
+      "rule": {
+        "id": 9,
+        "name": "comment percentage",
+        "tool_id": 2
+      },
+      "value": "89.13"
+    },
+    {
+      "rule": {
+        "id": 10,
+        "name": "blank lines",
+        "tool_id": 2
+      },
+      "value": "5"
+    },
+    {
+      "rule": {
+        "id": 11,
+        "name": "Average lines in body",
+        "tool_id": 2
+      },
+      "value": "11.00"
+    },
+    {
+      "rule": {
+        "id": 12,
+        "name": "spark lines",
+        "tool_id": 2
+      },
+      "value": "15"
+    },
+    {
+      "rule": {
+        "id": 27,
+        "name": "statement complexity",
+        "tool_id": 2
+      },
+      "value": "2.00"
+    },
+    {
+      "rule": {
+        "id": 28,
+        "name": "expression complexity",
+        "tool_id": 2
+      },
+      "value": "0.00"
+    },
+    {
+      "rule": {
+        "id": 29,
+        "name": "cyclomatic complexity",
+        "tool_id": 2
+      },
+      "value": "2.00"
+    },
+    {
+      "rule": {
+        "id": 30,
+        "name": "essential complexity",
+        "tool_id": 2
+      },
+      "value": "1.00"
+    },
+    {
+      "rule": {
+        "id": 32,
+        "name": "maximum loop nesting",
+        "tool_id": 2
+      },
+      "value": "1.00"
+    }
+  ],
+  "coverage": null,
+  "messages": null,
+  "annotations": null,
+  "lines": [
+    {
+      "number": 1,
+      "content": "--  It is common to recieve code from differet teams that need to be inserted into your project.",
+      "html_content": "<span class=\"c1\">--  It is common to recieve code from differet teams that need to be inserted into your project.</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 2,
+      "content": "--  However, you don't have access to that code and may not be sure the returning data is correct.",
+      "html_content": "<span class=\"c1\">--  However, you don&#39;t have access to that code and may not be sure the returning data is correct.</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 3,
+      "content": "--  ",
+      "html_content": "<span class=\"c1\">--  </span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 4,
+      "content": "--  This project requires you to write three DIFFERENT sort routines for integer arrays and determine the validity of those sorts. ",
+      "html_content": "<span class=\"c1\">--  This project requires you to write three DIFFERENT sort routines for integer arrays and determine the validity of those sorts. </span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 5,
+      "content": "--  You can reuse the code from previous efforts.",
+      "html_content": "<span class=\"c1\">--  You can reuse the code from previous efforts.</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 6,
+      "content": "--",
+      "html_content": "<span class=\"c1\">--</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 7,
+      "content": "--  SORTER.ADS provides the type declaration for an integer array of unknown size. It has a",
+      "html_content": "<span class=\"c1\">--  SORTER.ADS provides the type declaration for an integer array of unknown size. It has a</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 8,
+      "content": "--  private section that identifies the size of a small, medium and anything else would be a large array.  The private section",
+      "html_content": "<span class=\"c1\">--  private section that identifies the size of a small, medium and anything else would be a large array.  The private section</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 9,
+      "content": "--  section also contains the calls to subsequent routines based on array size.",
+      "html_content": "<span class=\"c1\">--  section also contains the calls to subsequent routines based on array size.</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 10,
+      "content": "--  Notice Spark Mode is set to ON",
+      "html_content": "<span class=\"c1\">--  Notice Spark Mode is set to ON</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 11,
+      "content": "--",
+      "html_content": "<span class=\"c1\">--</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 12,
+      "content": "--  SORTER.ADB is where you need to encode the specific sort routines for the small, medium or large",
+      "html_content": "<span class=\"c1\">--  SORTER.ADB is where you need to encode the specific sort routines for the small, medium or large</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 13,
+      "content": "--  array.  You only have access to call the SORT procedure and it determines which subsequent procedure ",
+      "html_content": "<span class=\"c1\">--  array.  You only have access to call the SORT procedure and it determines which subsequent procedure </span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 14,
+      "content": "--  gets invoked.  You will need to code each sorting routine, but you are not allowed to",
+      "html_content": "<span class=\"c1\">--  gets invoked.  You will need to code each sorting routine, but you are not allowed to</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 15,
+      "content": "--  to modify SORT.  The SORTER.ADB must not produce any output other than returning a sorted array. You",
+      "html_content": "<span class=\"c1\">--  to modify SORT.  The SORTER.ADB must not produce any output other than returning a sorted array. You</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 16,
+      "content": "--  will submit your SORTER.ADB file.  Notice Spark Mode is set to ON",
+      "html_content": "<span class=\"c1\">--  will submit your SORTER.ADB file.  Notice Spark Mode is set to ON</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 17,
+      "content": "--",
+      "html_content": "<span class=\"c1\">--</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 18,
+      "content": "-- BEFORE YOU MAKE ANY MODIFICATIONS:",
+      "html_content": "<span class=\"c1\">-- BEFORE YOU MAKE ANY MODIFICATIONS:</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 19,
+      "content": "--",
+      "html_content": "<span class=\"c1\">--</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 20,
+      "content": "--   Open the project using the IDE",
+      "html_content": "<span class=\"c1\">--   Open the project using the IDE</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 21,
+      "content": "--",
+      "html_content": "<span class=\"c1\">--</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 22,
+      "content": "--   Notice it has ",
+      "html_content": "<span class=\"c1\">--   Notice it has </span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 23,
+      "content": "--",
+      "html_content": "<span class=\"c1\">--</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 24,
+      "content": "--        --pragma Spark_Mode (on) (this line is commented out)",
+      "html_content": "<span class=\"c1\">--        --pragma Spark_Mode (on) (this line is commented out)</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 25,
+      "content": "--",
+      "html_content": "<span class=\"c1\">--</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 26,
+      "content": "-- ",
+      "html_content": "<span class=\"c1\">-- </span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 27,
+      "content": "--   You are to run Spark->Examine All",
+      "html_content": "<span class=\"c1\">--   You are to run Spark-&gt;Examine All</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 28,
+      "content": "--   Ensure the Multiprocess box is checked and Analysis Mode is set as Flow Analysis",
+      "html_content": "<span class=\"c1\">--   Ensure the Multiprocess box is checked and Analysis Mode is set as Flow Analysis</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 29,
+      "content": "--   Ensure this appears:  gnatprove -P%PP -j0 %X --mode=flow --output=oneline --ide-progress-bar",
+      "html_content": "<span class=\"c1\">--   Ensure this appears:  gnatprove -P%PP -j0 %X --mode=flow --output=oneline --ide-progress-bar</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 30,
+      "content": "--   After it executes you may need to hit the Show Report tab",
+      "html_content": "<span class=\"c1\">--   After it executes you may need to hit the Show Report tab</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 31,
+      "content": "--   Comment on the results in a seperate txt file.",
+      "html_content": "<span class=\"c1\">--   Comment on the results in a seperate txt file.</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 32,
+      "content": "--",
+      "html_content": "<span class=\"c1\">--</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 33,
+      "content": "--   Then run Spark->Prove All",
+      "html_content": "<span class=\"c1\">--   Then run Spark-&gt;Prove All</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 34,
+      "content": "--   Ensure the Multiprocess box is checked and Prove level is set to Fast (0 level)",
+      "html_content": "<span class=\"c1\">--   Ensure the Multiprocess box is checked and Prove level is set to Fast (0 level)</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 35,
+      "content": "--   and this:  gnatprove -P%PP -j0 %X --level=0 --output=oneline --ide-progress-bar is set",
+      "html_content": "<span class=\"c1\">--   and this:  gnatprove -P%PP -j0 %X --level=0 --output=oneline --ide-progress-bar is set</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 36,
+      "content": "--   Comment on the results in a seperate txt file (can be combined with the txt file above).",
+      "html_content": "<span class=\"c1\">--   Comment on the results in a seperate txt file (can be combined with the txt file above).</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 37,
+      "content": "--",
+      "html_content": "<span class=\"c1\">--</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 38,
+      "content": "--  Then uncomment the pragma line e.g.  pragma Spark_Mode (on)",
+      "html_content": "<span class=\"c1\">--  Then uncomment the pragma line e.g.  pragma Spark_Mode (on)</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 39,
+      "content": "--",
+      "html_content": "<span class=\"c1\">--</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 40,
+      "content": "--   It likely will not allow you to run since Max cannot be verified.  This is an example of how Spark is different from Ada",
+      "html_content": "<span class=\"c1\">--   It likely will not allow you to run since Max cannot be verified.  This is an example of how Spark is different from Ada</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 41,
+      "content": "--   within the array declaration, remove max and use 10000",
+      "html_content": "<span class=\"c1\">--   within the array declaration, remove max and use 10000</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 42,
+      "content": "--",
+      "html_content": "<span class=\"c1\">--</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 43,
+      "content": "--   You are to run Spark->Examine All",
+      "html_content": "<span class=\"c1\">--   You are to run Spark-&gt;Examine All</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 44,
+      "content": "--   Ensure the Multiprocess box is checked and Analysis Mode is set as Flow Analysis",
+      "html_content": "<span class=\"c1\">--   Ensure the Multiprocess box is checked and Analysis Mode is set as Flow Analysis</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 45,
+      "content": "--   Ensure this appears:  gnatprove -P%PP -j0 %X --mode=flow --output=oneline --ide-progress-bar",
+      "html_content": "<span class=\"c1\">--   Ensure this appears:  gnatprove -P%PP -j0 %X --mode=flow --output=oneline --ide-progress-bar</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 46,
+      "content": "--   After it executes you may need to hit the Show Report tab",
+      "html_content": "<span class=\"c1\">--   After it executes you may need to hit the Show Report tab</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 47,
+      "content": "--   Comment on the results in a seperate txt file (can be combined with the txt file above).",
+      "html_content": "<span class=\"c1\">--   Comment on the results in a seperate txt file (can be combined with the txt file above).</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 48,
+      "content": "--",
+      "html_content": "<span class=\"c1\">--</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 49,
+      "content": "--   Then run Spark->Prove All",
+      "html_content": "<span class=\"c1\">--   Then run Spark-&gt;Prove All</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 50,
+      "content": "--   Ensure the Multiprocess box is checked and Prove level is set to Fast (0 level)",
+      "html_content": "<span class=\"c1\">--   Ensure the Multiprocess box is checked and Prove level is set to Fast (0 level)</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 51,
+      "content": "--   and this:  gnatprove -P%PP -j0 %X --level=0 --output=oneline --ide-progress-bar is set",
+      "html_content": "<span class=\"c1\">--   and this:  gnatprove -P%PP -j0 %X --level=0 --output=oneline --ide-progress-bar is set</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 52,
+      "content": "--   Comment on the results (can be combined with the txt file above).",
+      "html_content": "<span class=\"c1\">--   Comment on the results (can be combined with the txt file above).</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 53,
+      "content": "--",
+      "html_content": "<span class=\"c1\">--</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 54,
+      "content": "--",
+      "html_content": "<span class=\"c1\">--</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 55,
+      "content": "--  For your program, comment out Spark_mode(on) and reset the declaration to array(1..max)",
+      "html_content": "<span class=\"c1\">--  For your program, comment out Spark_mode(on) and reset the declaration to array(1..max)</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 56,
+      "content": "--",
+      "html_content": "<span class=\"c1\">--</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 57,
+      "content": "--  Your program must read in a file of a fixed size (denoted by Max). But, you have to ask the user to ",
+      "html_content": "<span class=\"c1\">--  Your program must read in a file of a fixed size (denoted by Max). But, you have to ask the user to </span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 58,
+      "content": "--  enter the number of valid entries that are in the array.  For example, there may be 1000 elements in the array",
+      "html_content": "<span class=\"c1\">--  enter the number of valid entries that are in the array.  For example, there may be 1000 elements in the array</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 59,
+      "content": "--  but only 100 of them are valid.  The number of valid entries needs to be stored in the variable Sorter.Count ",
+      "html_content": "<span class=\"c1\">--  but only 100 of them are valid.  The number of valid entries needs to be stored in the variable Sorter.Count </span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 60,
+      "content": "--  which is defined in Sorter.ads You must ensure that Sorter.Count, when set, is itself valid.",
+      "html_content": "<span class=\"c1\">--  which is defined in Sorter.ads You must ensure that Sorter.Count, when set, is itself valid.</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 61,
+      "content": "--  The valid entries will always start at the first array position and will be continuous. Sorter is based on",
+      "html_content": "<span class=\"c1\">--  The valid entries will always start at the first array position and will be continuous. Sorter is based on</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 62,
+      "content": "--  receiveing arrays of a fixed size (determined by the value of Max).",
+      "html_content": "<span class=\"c1\">--  receiveing arrays of a fixed size (determined by the value of Max).</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 63,
+      "content": "--  ",
+      "html_content": "<span class=\"c1\">--  </span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 64,
+      "content": "--  Your drvr code has to validate that the proper amount of the array was sorted and the rest of the array",
+      "html_content": "<span class=\"c1\">--  Your drvr code has to validate that the proper amount of the array was sorted and the rest of the array</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 65,
+      "content": "--  is unmodified. It should produce the following output:",
+      "html_content": "<span class=\"c1\">--  is unmodified. It should produce the following output:</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 66,
+      "content": "--",
+      "html_content": "<span class=\"c1\">--</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 67,
+      "content": "--  The size of the Array is XXX of which YYY are valid.",
+      "html_content": "<span class=\"c1\">--  The size of the Array is XXX of which YYY are valid.</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 68,
+      "content": "--  Then one of the following:",
+      "html_content": "<span class=\"c1\">--  Then one of the following:</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 69,
+      "content": "--      Array was sorted, remainder of the array was unmodified",
+      "html_content": "<span class=\"c1\">--      Array was sorted, remainder of the array was unmodified</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 70,
+      "content": "--      Array was sorted, remainder of array was modified",
+      "html_content": "<span class=\"c1\">--      Array was sorted, remainder of array was modified</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 71,
+      "content": "--      Array was not sorted, remainder of array was unmodified",
+      "html_content": "<span class=\"c1\">--      Array was not sorted, remainder of array was unmodified</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 72,
+      "content": "--      Array was not sorted, remainder of array was modified",
+      "html_content": "<span class=\"c1\">--      Array was not sorted, remainder of array was modified</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 73,
+      "content": "--",
+      "html_content": "<span class=\"c1\">--</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 74,
+      "content": "--  You need to submit your entire projct (.gpr, src dirctory, obj directory, txt fil of comments running SPARK) you will likely need to zip it prior to submission  ",
+      "html_content": "<span class=\"c1\">--  You need to submit your entire projct (.gpr, src dirctory, obj directory, txt fil of comments running SPARK) you will likely need to zip it prior to submission  </span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 75,
+      "content": "--  If you work with a partner only one submission is required but",
+      "html_content": "<span class=\"c1\">--  If you work with a partner only one submission is required but</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 76,
+      "content": "--  ensure both names are provided in the comments.",
+      "html_content": "<span class=\"c1\">--  ensure both names are provided in the comments.</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 77,
+      "content": "",
+      "html_content": "",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 78,
+      "content": "  pragma Spark_mode (on);",
+      "html_content": "  <span class=\"kr\">pragma</span> <span class=\"cp\">Spark_mode</span> <span class=\"p\">(</span><span class=\"n\">on</span><span class=\"p\">);</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 79,
+      "content": "",
+      "html_content": "",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 80,
+      "content": "with Ada.Text_IO; use Ada.text_io;",
+      "html_content": "<span class=\"kn\">with</span> <span class=\"nn\">Ada.Text_IO</span><span class=\"p\">;</span> <span class=\"kn\">use</span> <span class=\"nn\">Ada.text_io</span><span class=\"p\">;</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 81,
+      "content": "with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;",
+      "html_content": "<span class=\"kn\">with</span> <span class=\"nn\">Ada.Integer_Text_IO</span><span class=\"p\">;</span> <span class=\"kn\">use</span> <span class=\"nn\">Ada.Integer_Text_IO</span><span class=\"p\">;</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 82,
+      "content": "with Sorter; use Sorter;",
+      "html_content": "<span class=\"kn\">with</span> <span class=\"nn\">Sorter</span><span class=\"p\">;</span> <span class=\"kn\">use</span> <span class=\"nn\">Sorter</span><span class=\"p\">;</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 83,
+      "content": "",
+      "html_content": "",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 84,
+      "content": "procedure Drvr is",
+      "html_content": "<span class=\"kd\">procedure</span> <span class=\"nf\">Drvr</span> <span class=\"kr\">is</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 85,
+      "content": "   rand_file : File_Type;         -- input file which is 10k integers (this may vary in the final run but will be <= Max",
+      "html_content": "   <span class=\"n\">rand_file</span> <span class=\"p\">:</span> <span class=\"kt\">File_Type</span><span class=\"p\">;</span>         <span class=\"c1\">-- input file which is 10k integers (this may vary in the final run but will be &lt;= Max</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 86,
+      "content": "   Max : Integer := 10000;     -- this is set on the size of the datafile, it is guarenteed to be greater than zero",
+      "html_content": "   <span class=\"n\">Max</span> <span class=\"p\">:</span> <span class=\"kt\">Integer</span> <span class=\"p\">:=</span> <span class=\"mi\">10000</span><span class=\"p\">;</span>     <span class=\"c1\">-- this is set on the size of the datafile, it is guarenteed to be greater than zero</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 87,
+      "content": "                                  -- and no larger than the datafile, there is no need to check for this",
+      "html_content": "                                  <span class=\"c1\">-- and no larger than the datafile, there is no need to check for this</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 88,
+      "content": "   A : array_type(1..max);",
+      "html_content": "   <span class=\"n\">A</span> <span class=\"p\">:</span> <span class=\"n\">array_type</span><span class=\"p\">(</span><span class=\"mf\">1.</span><span class=\"p\">.</span><span class=\"n\">max</span><span class=\"p\">);</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 89,
+      "content": "                          ",
+      "html_content": "                          ",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 90,
+      "content": "begin",
+      "html_content": "<span class=\"kr\">begin</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 91,
+      "content": "   open(rand_file, In_File, \".\\src\\random10k.txt\");-- opens a 10,000 element data file in the src directory",
+      "html_content": "   <span class=\"n\">open</span><span class=\"p\">(</span><span class=\"n\">rand_file</span><span class=\"p\">,</span> <span class=\"n\">In_File</span><span class=\"p\">,</span> <span class=\"s\">&quot;.\\src\\random10k.txt&quot;</span><span class=\"p\">);</span><span class=\"c1\">-- opens a 10,000 element data file in the src directory</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 92,
+      "content": "   for i in 1..max loop",
+      "html_content": "   <span class=\"kr\">for</span> <span class=\"n\">i</span> <span class=\"ow\">in</span> <span class=\"mf\">1.</span><span class=\"p\">.</span><span class=\"n\">max</span> <span class=\"kr\">loop</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 93,
+      "content": "      get(rand_file,A(i)); -- reads data from a text file",
+      "html_content": "      <span class=\"n\">get</span><span class=\"p\">(</span><span class=\"n\">rand_file</span><span class=\"p\">,</span><span class=\"n\">A</span><span class=\"p\">(</span><span class=\"n\">i</span><span class=\"p\">));</span> <span class=\"c1\">-- reads data from a text file</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 94,
+      "content": "   end loop;",
+      "html_content": "   <span class=\"kr\">end</span> <span class=\"kr\">loop</span><span class=\"p\">;</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 95,
+      "content": "   close(rand_file); -- close the file (often forgotten)",
+      "html_content": "   <span class=\"n\">close</span><span class=\"p\">(</span><span class=\"n\">rand_file</span><span class=\"p\">);</span> <span class=\"c1\">-- close the file (often forgotten)</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 96,
+      "content": "end Drvr;",
+      "html_content": "<span class=\"kr\">end</span> <span class=\"nf\">Drvr</span><span class=\"p\">;</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 97,
+      "content": "",
+      "html_content": "",
+      "coverage": null,
+      "messages": null
+    }
+  ]
+}

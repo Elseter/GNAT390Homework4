@@ -1,0 +1,31 @@
+Summary of SPARK analysis
+=========================
+
+-------------------------------------------------------------------------------------------
+SPARK Analysis results        Total      Flow   CodePeer     Provers   Justified   Unproved
+-------------------------------------------------------------------------------------------
+Data Dependencies                 .         .          .           .           .          .
+Flow Dependencies                 .         .          .           .           .          .
+Initialization                    .         .          .           .           .          .
+Non-Aliasing                      .         .          .           .           .          .
+Run-time Checks                   2         .          .    1 (CVC4)           .          1
+Assertions                        .         .          .           .           .          .
+Functional Contracts              .         .          .           .           .          .
+LSP Verification                  .         .          .           .           .          .
+Termination                       .         .          .           .           .          .
+Concurrency                       .         .          .           .           .          .
+-------------------------------------------------------------------------------------------
+Total                             2         .          .     1 (50%)           .    1 (50%)
+
+
+max steps used for successful proof: 1
+
+Analyzed 2 units
+in unit drvr, 0 subprograms and packages out of 1 analyzed
+  Drvr at drvr.adb:84 skipped
+in unit sorter, 5 subprograms and packages out of 5 analyzed
+  Sorter at sorter.ads:5 flow analyzed (0 errors, 0 checks and 0 warnings) and proved (0 checks)
+  Sorter.sort at sorter.ads:18 flow analyzed (0 errors, 0 checks and 0 warnings) and not proved, 1 checks out of 2 proved
+  Sorter.sort_1 at sorter.ads:25 flow analyzed (0 errors, 0 checks and 3 warnings) and proved (0 checks)
+  Sorter.sort_2 at sorter.ads:26 flow analyzed (0 errors, 0 checks and 3 warnings) and proved (0 checks)
+  Sorter.sort_3 at sorter.ads:27 flow analyzed (0 errors, 0 checks and 3 warnings) and proved (0 checks)

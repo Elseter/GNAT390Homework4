@@ -1,0 +1,838 @@
+(* Module for axiomatizing type "integer", created in Gnat2Why.Types.Translate_Type *)
+module Standard__integer
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  use import int.Int
+  
+  type integer  = <range -2147483648 2147483647>
+  
+  function   first () requires { True } ensures  { True } returns
+    int = -2147483648
+  
+  function   last () requires { True } ensures  { True } returns
+    int = 2147483647
+  
+  function   in_range (x : int) requires { True } ensures  { True } returns
+     = ((first <= x) /\ (x <= last))
+  
+  clone export ada__model.Static_Discrete with axiom . type t = integer,
+    function first = first, function last = last,
+    predicate in_range = in_range
+  
+  type integer__ref  = { mutable integer__content : integer }
+  
+  function   integer__ref_integer__content__projection (a : integer__ref)
+    requires {  } ensures  {  } returns integer = a.integer__content
+  
+  meta model_projection function integer__ref_integer__content__projection
+  
+  meta inline:no function integer__ref_integer__content__projection
+  
+  function   integer__havoc (x : integer__ref) requires {  } ensures  {  }
+    returns unit
+
+end
+
+(* Module giving axioms for type "integer", created in Gnat2Why.Types.Generate_Type_Completion *)
+module Standard__integer___axiom
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  use import int.Int
+  use        Standard__integer
+  
+  function   dynamic_invariant
+    (([mlw:proxy_symbol] [introduced] temp___expr_18) : int
+    ([mlw:proxy_symbol] [introduced] temp___is_init_14) : bool
+    ([mlw:proxy_symbol] [introduced] temp___skip_constant_15) : bool
+    ([mlw:proxy_symbol] [introduced] temp___do_toplevel_16) : bool
+    ([mlw:proxy_symbol] [introduced] temp___do_typ_inv_17) : bool) requires
+    { True } ensures  { True } returns
+     = (if
+       ((([mlw:proxy_symbol] [introduced] temp___is_init_14) = True) \/
+          (Standard__integer.first <= Standard__integer.last))
+       then
+       (Standard__integer.dynamic_property Standard__integer.first
+          Standard__integer.last ([mlw:proxy_symbol]
+          [introduced] temp___expr_18))
+       )
+  
+  function   default_initial_assumption
+    (([mlw:proxy_symbol] [introduced] temp___expr_19) : int
+    ([mlw:proxy_symbol] [introduced] temp___skip_top_level_20) : bool)
+    requires { True } ensures  { True } returns  = True
+
+end
+
+(* Module defining to_rep/of_rep for type "integer", created in Gnat2Why.Types.Translate_Type *)
+module Standard__integer__rep
+  
+  use        Standard__integer
+  use import _gnatprove_standard.Main
+  use import int.Int
+  
+  function   to_rep (x : Standard__integer.integer) requires { True }
+    ensures  { True } returns int = (Standard__integer.integer'int x)
+  
+  clone export ada__model.Rep_Proj_Int with axiom . type t = Standard__integer.integer,
+    predicate in_range = Standard__integer.in_range, function to_rep = to_rep
+  
+  meta model_projection function to_rep
+  
+  meta inline:no function to_rep
+
+end
+
+(* Module for axiomatizing the array theory associated to type "array_type" defined at sorter.ads:13, created in Why.Gen.Arrays.Create_Rep_Array_Theory *)
+module Array__Int__Standard__integer
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  use import int.Int
+  use        Standard__integer
+  use        Standard__integer__rep
+  
+  function   index_I1_one () requires { True } ensures  { True } returns
+    int = 1
+  
+  type component_type  = --pp_transparent_type_definition NOT IMPLEMENTED
+  
+  clone export _gnatprove_standard.Array__1 with axiom . type I1.t = int,
+    predicate I1.le = <=, predicate I1.lt = <, predicate I1.gt = >,
+    function I1.add = +, function I1.sub = -, function I1.one = index_I1_one,
+    type component_type = component_type
+  
+  function   bool_eq
+    (a : map a__first : int a__last : int b : map b__first : int
+    b__last : int) requires { True } ensures  { True } returns
+    bool = ((if (a__first <= a__last) then
+            ((b__first <= b__last) /\
+               ((a__last - a__first) = (b__last - b__first)))
+             else (b__first > b__last)) /\
+              --pp_universal_quantif NOT IMPLEMENTED)
+  
+  axiom bool_eq_rev : --pp_universal_quantif NOT IMPLEMENTED
+
+end
+
+(* Module for defining a ref holding the value of variable "a" defined at sorter.ads:25, created in Gnat2Why.Decls.Translate_Variable *)
+module Sorter__sort_1__a
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  use        Standard__integer
+  use        Array__Int__Standard__integer
+  
+  val a [model_trace:1008] [model_projected]
+  [name:A] [sloc:sorter.ads:25]: Array__Int__Standard__integer.map
+  
+  function [model_trace:1008'First] [model_projected] [name:A]
+    [sloc:sorter.ads:25] a__first () requires {  } ensures  {  } returns
+    Standard__integer.integer
+  
+  function [model_trace:1008'Last] [model_projected] [name:A]
+    [sloc:sorter.ads:25] a__last () requires {  } ensures  {  } returns
+    Standard__integer.integer
+
+end
+
+(* Module for defining the constant "count" defined at sorter.ads:25, created in Gnat2Why.Decls.Translate_Constant *)
+module Sorter__sort_1__count
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  
+  function [name:count] [model_trace:1011] [sloc:sorter.ads:25] count 
+    () requires {  } ensures  {  } returns int
+
+end
+
+(* Module for defining a ref holding the value of variable "i" defined at sorter.adb:15, created in Gnat2Why.Decls.Translate_Variable *)
+module Sorter__sort_1__L_1__i
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  
+  val i [name:i] [model_projected]
+  [model_trace:833] [sloc:sorter.adb:15]: int
+
+end
+
+(* Module for defining a ref holding the value of variable "j" defined at sorter.adb:16, created in Gnat2Why.Decls.Translate_Variable *)
+module Sorter__sort_1__L_2__j
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  
+  val j [name:j] [model_projected]
+  [model_trace:844] [sloc:sorter.adb:16]: int
+
+end
+
+(* Module for defining a ref holding the value of variable "temp" defined at sorter.adb:20, created in Gnat2Why.Decls.Translate_Variable *)
+module Sorter__sort_1__B_3__temp
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  
+  val temp [model_trace:867] [name:temp]
+  [model_projected] [sloc:sorter.adb:20]: int
+
+end
+
+(* Module for axiomatizing type "array_type" defined at sorter.ads:13, created in Gnat2Why.Types.Translate_Type *)
+module Sorter__array_type
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  use import int.Int
+  use        Standard__integer
+  use        Standard__integer
+  use        Standard__integer__rep
+  use        Array__Int__Standard__integer
+  
+  type component_type  = --pp_transparent_type_definition NOT IMPLEMENTED
+  
+  function   index_1_id (x : int) requires { True } ensures  { True } returns
+    int = x
+  
+  clone export ada__model.Unconstr_Array with axiom . type map = Array__Int__Standard__integer.map,
+    function array_bool_eq = Array__Int__Standard__integer.bool_eq,
+    type index_base_type = Standard__integer.integer,
+    type index_rep_type = int,
+    function to_rep = Standard__integer__rep.to_rep,
+    function rep_to_int = index_1_id,
+    predicate in_range_base = Standard__integer.in_range,
+    predicate index_dynamic_property = Standard__integer.dynamic_property,
+    predicate index_rep_le = <=
+  
+  type array_type  = --pp_transparent_type_definition NOT IMPLEMENTED
+  
+  meta model_projection function to_array
+  
+  meta inline:no function to_array
+  
+  meta model_projection function first
+  
+  meta inline:no function first
+  
+  meta model_projection function last
+  
+  meta inline:no function last
+  
+  type array_type__ref  = { mutable array_type__content : array_type }
+  
+  function   array_type__ref_array_type__content__projection
+    (a : array_type__ref) requires {  } ensures  {  } returns
+    array_type = a.array_type__content
+  
+  meta model_projection function array_type__ref_array_type__content__projection
+  
+  meta inline:no function array_type__ref_array_type__content__projection
+  
+  function   array_type__havoc (x : array_type__ref) requires {  } ensures 
+    {  } returns unit
+
+end
+
+(* Module for axiomatizing type "S1b" defined at sorter.adb:12, created in Gnat2Why.Types.Translate_Type *)
+module Sorter__sort_1__S1b
+  
+  use export Sorter__array_type
+  use import _gnatprove_standard.Main
+  use import int.Int
+  
+  type s1b  = --pp_transparent_type_definition NOT IMPLEMENTED
+  
+  type s1b__ref  = { mutable s1b__content : s1b }
+  
+  function   s1b__ref_s1b__content__projection (a : s1b__ref) requires {  }
+    ensures  {  } returns s1b = a.s1b__content
+  
+  meta model_projection function s1b__ref_s1b__content__projection
+  
+  meta inline:no function s1b__ref_s1b__content__projection
+  
+  function   s1b__havoc (x : s1b__ref) requires {  } ensures  {  } returns
+    unit
+
+end
+
+(* Module for defining the loop exit exception for the loop "L_1" defined at sorter.adb:15, created in Gnat2Why.Decls.Translate_Loop_Entity *)
+module Sorter__sort_1__L_1
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  
+  --pp_exception_declaration NOT IMPLEMENTED
+
+end
+
+(* Module for defining the loop exit exception for the loop "L_2" defined at sorter.adb:16, created in Gnat2Why.Decls.Translate_Loop_Entity *)
+module Sorter__sort_1__L_2
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  
+  --pp_exception_declaration NOT IMPLEMENTED
+
+end
+
+(* Module giving an empty axiom for the entity "i" defined at sorter.adb:15, created in Gnat2Why.Driver.Translate_Entity.Generate_Empty_Axiom_Theory *)
+module Sorter__sort_1__L_1__i___axiom
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  
+  
+
+end
+
+(* Module giving an empty axiom for the entity "j" defined at sorter.adb:16, created in Gnat2Why.Driver.Translate_Entity.Generate_Empty_Axiom_Theory *)
+module Sorter__sort_1__L_2__j___axiom
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  
+  
+
+end
+
+(* Module giving an empty axiom for the entity "temp" defined at sorter.adb:20, created in Gnat2Why.Driver.Translate_Entity.Generate_Empty_Axiom_Theory *)
+module Sorter__sort_1__B_3__temp___axiom
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  
+  
+
+end
+
+(* Module giving an empty axiom for the entity "L_2" defined at sorter.adb:16, created in Gnat2Why.Driver.Translate_Entity.Generate_Empty_Axiom_Theory *)
+module Sorter__sort_1__L_2___axiom
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  
+  
+
+end
+
+(* Module giving an empty axiom for the entity "L_1" defined at sorter.adb:15, created in Gnat2Why.Driver.Translate_Entity.Generate_Empty_Axiom_Theory *)
+module Sorter__sort_1__L_1___axiom
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  
+  
+
+end
+
+(* Module giving axioms for type "array_type" defined at sorter.ads:13, created in Gnat2Why.Types.Generate_Type_Completion *)
+module Sorter__array_type___axiom
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  use        Standard__integer
+  use        Sorter__array_type
+  
+  function   dynamic_invariant
+    (([mlw:proxy_symbol]
+    [introduced] temp___expr_166) : Sorter__array_type.array_type
+    ([mlw:proxy_symbol] [introduced] temp___is_init_162) : bool
+    ([mlw:proxy_symbol] [introduced] temp___skip_constant_163) : bool
+    ([mlw:proxy_symbol] [introduced] temp___do_toplevel_164) : bool
+    ([mlw:proxy_symbol] [introduced] temp___do_typ_inv_165) : bool) requires
+    { True } ensures  { True } returns
+     = (if ([mlw:proxy_symbol] [introduced] temp___skip_constant_163) then
+       True  else
+       (Sorter__array_type.dynamic_property Standard__integer.first
+          Standard__integer.last
+          (Sorter__array_type.first ([mlw:proxy_symbol]
+             [introduced] temp___expr_166))
+          (Sorter__array_type.last ([mlw:proxy_symbol]
+             [introduced] temp___expr_166))))
+
+end
+
+(* Module giving an empty axiom for the entity "a" defined at sorter.ads:25, created in Gnat2Why.Driver.Translate_Entity.Generate_Empty_Axiom_Theory *)
+module Sorter__sort_1__a___axiom
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  
+  
+
+end
+
+(* Module giving an empty axiom for the entity "count" defined at sorter.ads:25, created in Gnat2Why.Driver.Translate_Entity.Generate_Empty_Axiom_Theory *)
+module Sorter__sort_1__count___axiom
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  
+  
+
+end
+
+(* Module giving axioms for type "S1b" defined at sorter.adb:12, created in Gnat2Why.Types.Generate_Type_Completion *)
+module Sorter__sort_1__S1b___axiom
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  use        Standard__integer__rep
+  use        Sorter__sort_1__a
+  use        Sorter__sort_1__S1b
+  
+  function   dynamic_invariant
+    (([mlw:proxy_symbol]
+    [introduced] temp___expr_174) : Sorter__sort_1__S1b.s1b
+    ([mlw:proxy_symbol] [introduced] temp___is_init_170) : bool
+    ([mlw:proxy_symbol] [introduced] temp___skip_constant_171) : bool
+    ([mlw:proxy_symbol] [introduced] temp___do_toplevel_172) : bool
+    ([mlw:proxy_symbol] [introduced] temp___do_typ_inv_173) : bool) requires
+    { True } ensures  { True } returns
+     = (if ([mlw:proxy_symbol] [introduced] temp___skip_constant_171) then
+       True  else
+       (((Sorter__sort_1__S1b.dynamic_property
+            (Standard__integer__rep.to_rep Sorter__sort_1__a.a__first)
+            (Standard__integer__rep.to_rep Sorter__sort_1__a.a__last)
+            (Sorter__sort_1__S1b.first ([mlw:proxy_symbol]
+               [introduced] temp___expr_174))
+            (Sorter__sort_1__S1b.last ([mlw:proxy_symbol]
+               [introduced] temp___expr_174))) /\
+           ((Sorter__sort_1__S1b.first ([mlw:proxy_symbol]
+               [introduced] temp___expr_174))
+              = (Standard__integer__rep.to_rep Sorter__sort_1__a.a__first)))
+          /\
+          ((Sorter__sort_1__S1b.last ([mlw:proxy_symbol]
+              [introduced] temp___expr_174))
+             = (Standard__integer__rep.to_rep Sorter__sort_1__a.a__last))))
+  
+  function   default_initial_assumption
+    (([mlw:proxy_symbol]
+    [introduced] temp___expr_176) : Sorter__sort_1__S1b.s1b
+    ([mlw:proxy_symbol] [introduced] temp___skip_top_level_177) : bool)
+    requires { True } ensures  { True } returns
+     = (True /\
+          ((Sorter__sort_1__S1b.first ([mlw:proxy_symbol]
+              [introduced] temp___expr_176))
+             = (Standard__integer__rep.to_rep Sorter__sort_1__a.a__first)) /\
+          ((Sorter__sort_1__S1b.last ([mlw:proxy_symbol]
+              [introduced] temp___expr_176))
+             = (Standard__integer__rep.to_rep Sorter__sort_1__a.a__last)))
+
+end
+
+(* Module for checking contracts and absence of run-time errors in subprogram "sort_1" defined at sorter.ads:25, created in Gnat2Why.Subprograms.Generate_VCs_For_Subprogram *)
+module Sorter__sort_1__subprogram_def
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  use import int.Int
+  use        _gnatprove_standard.Main
+  use        _gnatprove_standard.Boolean
+  use        Standard__integer
+  use        Standard__integer
+  use        Standard__integer___axiom
+  use        Standard__integer__rep
+  use        Standard__integer__rep
+  use        Array__Int__Standard__integer
+  use        Sorter__sort_1__a
+  use        Sorter__sort_1__count
+  use        Sorter__sort_1__L_1__i
+  use        Sorter__sort_1__L_2__j
+  use        Sorter__sort_1__B_3__temp
+  use        Array__Int__Standard__integer
+  use        Sorter__array_type
+  use        Sorter__sort_1__S1b
+  use        Sorter__sort_1__L_1
+  use        Sorter__sort_1__L_2
+  use        Array__Int__Standard__integer
+  use        Array__Int__Standard__integer
+  use        Array__Int__Standard__integer
+  use        Array__Int__Standard__integer
+  use        Array__Int__Standard__integer
+  use        Array__Int__Standard__integer
+  use        Array__Int__Standard__integer
+  use        Array__Int__Standard__integer
+  use        Array__Int__Standard__integer
+  use        Array__Int__Standard__integer
+  use        Array__Int__Standard__integer
+  use        Array__Int__Standard__integer
+  use        Standard__integer___axiom
+  use        Standard__integer___axiom
+  use        Sorter__sort_1__L_1__i___axiom
+  use        Sorter__sort_1__L_2__j___axiom
+  use        Sorter__sort_1__B_3__temp___axiom
+  use        Sorter__sort_1__L_2___axiom
+  use        Sorter__sort_1__L_1___axiom
+  use        Sorter__array_type___axiom
+  use        Sorter__sort_1__a___axiom
+  use        Sorter__sort_1__count___axiom
+  use        Sorter__sort_1__S1b___axiom
+  
+  function [GP_Subp:sorter.ads:25] [sloc:sorter.ads:25] def
+    (__void_param : unit) requires { True } ensures  {  } returns
+     = (* Assume dynamic invariants of inputs of the subprogram sorter.ads:25 *);
+        assume
+        { (if False then True  else
+          (Sorter__array_type.dynamic_property Standard__integer.first
+             Standard__integer.last
+             (Sorter__sort_1__S1b.first
+                (Sorter__sort_1__S1b.of_array !Sorter__sort_1__a.a
+                   (Standard__integer__rep.to_rep Sorter__sort_1__a.a__first)
+                   (Standard__integer__rep.to_rep Sorter__sort_1__a.a__last)))
+             (Sorter__sort_1__S1b.last
+                (Sorter__sort_1__S1b.of_array !Sorter__sort_1__a.a
+                   (Standard__integer__rep.to_rep Sorter__sort_1__a.a__first)
+                   (Standard__integer__rep.to_rep Sorter__sort_1__a.a__last))))) };
+        assume
+        { (Standard__integer___axiom.dynamic_invariant
+             Sorter__sort_1__count.count True False True True) };
+        (* Assume moved pointers in outputs of the subprogram sorter.ads:25 *);
+        (* Check for RTE in the Pre of the subprogram sorter.ads:25 *);
+        abstract ensures
+        { True } begin  (let _ = True in ())  end;
+        (* Assume Pre of the subprogram sorter.ads:25 *);
+        (try
+        ();
+          ([sloc:sorter.adb:12] ());
+          ([sloc:sorter.adb:19] ());
+          ([sloc:sorter.adb:16] ());
+          ([sloc:sorter.adb:15] ());
+          ();
+          ([GP_Sloc:sorter.adb:15:31] ([sloc:sorter.adb:15] (let ([mlw:proxy_symbol]
+                                      [introduced] temp___222) = 1 in
+                                      (let ([mlw:proxy_symbol]
+                                      [introduced] temp___223) =
+                                      ([sloc:sorter.adb:15] ([GP_Id:10]
+                                                            [comment:      for i in 1 .. count - 1 loop                           ^ sorter.adb:15:27:VC_OVERFLOW_CHECK]
+                                                            [GP_Sloc:sorter.adb:15:27]
+                                                            [vc:annotation]
+                                                            [GP_Reason:VC_OVERFLOW_CHECK]
+                                                            [GP_Shape:L_1_while__range__sub] (
+                                                            Standard__integer.range_check_
+                                                              (Sorter__sort_1__count.count
+                                                                 - 1))))
+                                      in ( Sorter__sort_1__L_1__i.i :=
+                                      ([mlw:proxy_symbol]
+                                        [introduced] temp___222));
+                                      (* Translation of an Ada loop from sorter.adb:15 *);
+                                      (if
+                                      (_gnatprove_standard.Boolean.andb
+                                         (([mlw:proxy_symbol]
+                                            [introduced] temp___222)
+                                            <= !Sorter__sort_1__L_1__i.i)
+                                         (!Sorter__sort_1__L_1__i.i
+                                            <= ([mlw:proxy_symbol]
+                                            [introduced] temp___223)))
+                                      then
+                                      (try
+                                      (let temp___loop_entry_241 =
+                                        (Sorter__sort_1__S1b.of_array
+                                           !Sorter__sort_1__a.a
+                                           (Standard__integer__rep.to_rep
+                                              Sorter__sort_1__a.a__first)
+                                           (Standard__integer__rep.to_rep
+                                              Sorter__sort_1__a.a__last)) in
+                                        (* While loop translating the Ada loop from sorter.adb:15 *);
+                                        ([sloc:sorter.adb:15] loop
+                                                                (* Check for absence of RTE in the loop invariant and variant *)
+                                                                
+                                                                
+                                                                (* Assume implicit invariants from the loop sorter.adb:15 *);
+                                                                assume
+                                                                { (_gnatprove_standard.Boolean.andb
+                                                                    (True /\
+                                                                    True /\
+                                                                    True /\
+                                                                    --pp_universal_quantif NOT IMPLEMENTED)
+                                                                    ((1
+                                                                    <= !Sorter__sort_1__L_1__i.i)
+                                                                    /\
+                                                                    (!Sorter__sort_1__L_1__i.i
+                                                                    <= (
+                                                                    Sorter__sort_1__count.count
+                                                                    - 1)))) };
+                                                                (* Continuation of loop after loop invariant and variant *);
+                                                                ();
+                                                                ([GP_Sloc:sorter.adb:16:34] 
+                                                                ([sloc:sorter.adb:16] (let ([mlw:proxy_symbol]
+                                                                [introduced] temp___224)
+                                                                = 1 in
+                                                                (let ([mlw:proxy_symbol]
+                                                                [introduced] temp___225)
+                                                                =
+                                                                ([sloc:sorter.adb:16] 
+                                                                ([GP_Sloc:sorter.adb:16:30]
+                                                                [vc:annotation]
+                                                                [GP_Shape:L_1_while__L_2_while__range__sub]
+                                                                [GP_Reason:VC_OVERFLOW_CHECK]
+                                                                [comment:         for j in 1 .. count - i loop                              ^ sorter.adb:16:30:VC_OVERFLOW_CHECK]
+                                                                [GP_Id:9] (
+                                                                Standard__integer.range_check_
+                                                                  (Sorter__sort_1__count.count
+                                                                    - !Sorter__sort_1__L_1__i.i))))
+                                                                in (
+                                                                Sorter__sort_1__L_2__j.j
+                                                                :=
+                                                                ([mlw:proxy_symbol]
+                                                                  [introduced] temp___224));
+                                                                (* Translation of an Ada loop from sorter.adb:16 *);
+                                                                (if
+                                                                (_gnatprove_standard.Boolean.andb
+                                                                   (([mlw:proxy_symbol]
+                                                                    [introduced] temp___224)
+                                                                    <= !Sorter__sort_1__L_2__j.j)
+                                                                   (!Sorter__sort_1__L_2__j.j
+                                                                    <= ([mlw:proxy_symbol]
+                                                                    [introduced] temp___225)))
+                                                                then
+                                                                (try
+                                                                (let temp___loop_entry_238
+                                                                  =
+                                                                  (Sorter__sort_1__S1b.of_array
+                                                                    !Sorter__sort_1__a.a
+                                                                    (Standard__integer__rep.to_rep
+                                                                    Sorter__sort_1__a.a__first)
+                                                                    (Standard__integer__rep.to_rep
+                                                                    Sorter__sort_1__a.a__last))
+                                                                  in
+                                                                  (* While loop translating the Ada loop from sorter.adb:16 *);
+                                                                  ([sloc:sorter.adb:16] 
+                                                                  loop
+                                                                    (* Check for absence of RTE in the loop invariant and variant *)
+                                                                    
+                                                                    
+                                                                    (* Assume implicit invariants from the loop sorter.adb:16 *);
+                                                                    assume
+                                                                    { (
+                                                                    _gnatprove_standard.Boolean.andb
+                                                                    (True /\
+                                                                    True /\
+                                                                    True /\
+                                                                    --pp_universal_quantif NOT IMPLEMENTED)
+                                                                    ((1
+                                                                    <= !Sorter__sort_1__L_2__j.j)
+                                                                    /\
+                                                                    (!Sorter__sort_1__L_2__j.j
+                                                                    <= (
+                                                                    Sorter__sort_1__count.count
+                                                                    - !Sorter__sort_1__L_1__i.i)))) };
+                                                                    (* Continuation of loop after loop invariant and variant *);
+                                                                    ();
+                                                                    ([GP_Sloc:sorter.adb:17:13] 
+                                                                    ([sloc:sorter.adb:17] 
+                                                                    (if
+                                                                    ([sloc:sorter.adb:17] ([branch_id=855]
+                                                                    _gnatprove_standard.Main.spark__branch
+                                                                    :=
+                                                                    ((Standard__integer__rep.to_rep
+                                                                    (let ([mlw:proxy_symbol]
+                                                                    [introduced] temp___234)
+                                                                    =
+                                                                    (Sorter__sort_1__S1b.of_array
+                                                                    !Sorter__sort_1__a.a
+                                                                    (Standard__integer__rep.to_rep
+                                                                    Sorter__sort_1__a.a__first)
+                                                                    (Standard__integer__rep.to_rep
+                                                                    Sorter__sort_1__a.a__last))
+                                                                    in
+                                                                    (Array__Int__Standard__integer.get
+                                                                    (Sorter__sort_1__S1b.to_array
+                                                                    ([mlw:proxy_symbol]
+                                                                    [introduced] temp___234))
+                                                                    assert
+                                                                    { ([sloc:sorter.adb:17] 
+                                                                    ([comment:            if A(j) > A(j + 1) then                  ^ sorter.adb:17:18:VC_INDEX_CHECK]
+                                                                    [GP_Sloc:sorter.adb:17:18]
+                                                                    [vc:annotation]
+                                                                    [GP_Reason:VC_INDEX_CHECK]
+                                                                    [GP_Shape:L_1_while__L_2_while__if__cmp__ixdcomp]
+                                                                    [GP_Id:6] (
+                                                                    ((Sorter__sort_1__S1b.first
+                                                                    ([mlw:proxy_symbol]
+                                                                    [introduced] temp___234))
+                                                                    <= !Sorter__sort_1__L_2__j.j)
+                                                                    /\
+                                                                    (!Sorter__sort_1__L_2__j.j
+                                                                    <= (
+                                                                    Sorter__sort_1__S1b.last
+                                                                    ([mlw:proxy_symbol]
+                                                                    [introduced] temp___234)))))) };
+                                                                    !Sorter__sort_1__L_2__j.j)))
+                                                                    > (Standard__integer__rep.to_rep
+                                                                    (let ([mlw:proxy_symbol]
+                                                                    [introduced] temp___235)
+                                                                    =
+                                                                    (Sorter__sort_1__S1b.of_array
+                                                                    !Sorter__sort_1__a.a
+                                                                    (Standard__integer__rep.to_rep
+                                                                    Sorter__sort_1__a.a__first)
+                                                                    (Standard__integer__rep.to_rep
+                                                                    Sorter__sort_1__a.a__last))
+                                                                    in
+                                                                    (Array__Int__Standard__integer.get
+                                                                    (Sorter__sort_1__S1b.to_array
+                                                                    ([mlw:proxy_symbol]
+                                                                    [introduced] temp___235))
+                                                                    (let ([mlw:proxy_symbol]
+                                                                    [introduced] temp___236)
+                                                                    =
+                                                                    ([sloc:sorter.adb:17] 
+                                                                    ([comment:            if A(j) > A(j + 1) then                           ^ sorter.adb:17:27:VC_OVERFLOW_CHECK]
+                                                                    [vc:annotation]
+                                                                    [GP_Reason:VC_OVERFLOW_CHECK]
+                                                                    [GP_Shape:L_1_while__L_2_while__if__cmp__ixdcomp__add]
+                                                                    [GP_Id:7]
+                                                                    [GP_Sloc:sorter.adb:17:27] (
+                                                                    Standard__integer.range_check_
+                                                                    (!Sorter__sort_1__L_2__j.j
+                                                                    + 1))))
+                                                                    in assert
+                                                                    { ([sloc:sorter.adb:17] 
+                                                                    ([vc:annotation]
+                                                                    [GP_Reason:VC_INDEX_CHECK]
+                                                                    [GP_Shape:L_1_while__L_2_while__if__cmp__ixdcomp__add]
+                                                                    [comment:            if A(j) > A(j + 1) then                           ^ sorter.adb:17:27:VC_INDEX_CHECK]
+                                                                    [GP_Id:8]
+                                                                    [GP_Sloc:sorter.adb:17:27] (
+                                                                    ((Sorter__sort_1__S1b.first
+                                                                    ([mlw:proxy_symbol]
+                                                                    [introduced] temp___235))
+                                                                    <= ([mlw:proxy_symbol]
+                                                                    [introduced] temp___236))
+                                                                    /\
+                                                                    (([mlw:proxy_symbol]
+                                                                    [introduced] temp___236)
+                                                                    <= (
+                                                                    Sorter__sort_1__S1b.last
+                                                                    ([mlw:proxy_symbol]
+                                                                    [introduced] temp___235)))))) };
+                                                                    ([mlw:proxy_symbol]
+                                                                    [introduced] temp___236))))))));
+                                                                    ([branch_id=855] _gnatprove_standard.Main.spark__branch).bool__content
+                                                                    then
+                                                                    ();
+                                                                    ([GP_Sloc:sorter.adb:19:16] 
+                                                                    ([sloc:sorter.adb:19] ();
+                                                                    ([sloc:sorter.adb:20] (
+                                                                    Sorter__sort_1__B_3__temp.temp
+                                                                    :=
+                                                                    ( (
+                                                                    Standard__integer__rep.to_rep
+                                                                    (let ([mlw:proxy_symbol]
+                                                                    [introduced] temp___233)
+                                                                    =
+                                                                    (Sorter__sort_1__S1b.of_array
+                                                                    !Sorter__sort_1__a.a
+                                                                    (Standard__integer__rep.to_rep
+                                                                    Sorter__sort_1__a.a__first)
+                                                                    (Standard__integer__rep.to_rep
+                                                                    Sorter__sort_1__a.a__last))
+                                                                    in
+                                                                    (Array__Int__Standard__integer.get
+                                                                    (Sorter__sort_1__S1b.to_array
+                                                                    ([mlw:proxy_symbol]
+                                                                    [introduced] temp___233))
+                                                                    assert
+                                                                    { ([sloc:sorter.adb:20] 
+                                                                    ([GP_Sloc:sorter.adb:20:39]
+                                                                    [vc:annotation]
+                                                                    [comment:                  temp : Integer := A(j);                                       ^ sorter.adb:20:39:VC_INDEX_CHECK]
+                                                                    [GP_Reason:VC_INDEX_CHECK]
+                                                                    [GP_Shape:L_1_while__L_2_while__if__B_3_declblk__temp_decl__ixdcomp]
+                                                                    [GP_Id:5] (
+                                                                    ((Sorter__sort_1__S1b.first
+                                                                    ([mlw:proxy_symbol]
+                                                                    [introduced] temp___233))
+                                                                    <= !Sorter__sort_1__L_2__j.j)
+                                                                    /\
+                                                                    (!Sorter__sort_1__L_2__j.j
+                                                                    <= (
+                                                                    Sorter__sort_1__S1b.last
+                                                                    ([mlw:proxy_symbol]
+                                                                    [introduced] temp___233)))))) };
+                                                                    !Sorter__sort_1__L_2__j.j)))));
+                                                                    assume
+                                                                    { (
+                                                                    Standard__integer___axiom.dynamic_invariant
+                                                                    !Sorter__sort_1__B_3__temp.temp
+                                                                    True
+                                                                    False
+                                                                    True True) });
+                                                                    ();
+                                                                    ([GP_Sloc:sorter.adb:22:24] 
+                                                                    ([sloc:sorter.adb:22] (
+                                                                    Sorter__sort_1__a.a
+                                                                    :=
+                                                                    (Sorter__sort_1__S1b.to_array
+                                                                    (let ([mlw:proxy_symbol]
+                                                                    [introduced] temp___229)
+                                                                    =
+                                                                    (Sorter__sort_1__S1b.of_array
+                                                                    !Sorter__sort_1__a.a
+                                                                    (Standard__integer__rep.to_rep
+                                                                    Sorter__sort_1__a.a__first)
+                                                                    (Standard__integer__rep.to_rep
+                                                                    Sorter__sort_1__a.a__last))
+                                                                    in
+                                                                    --pp_record_update NOT IMPLEMENTED)))));
+                                                                    ([GP_Sloc:sorter.adb:23:31] 
+                                                                    ([sloc:sorter.adb:23] ()));
+                                                                    ([GP_Sloc:sorter.adb:23:28] 
+                                                                    ([sloc:sorter.adb:23] (
+                                                                    Sorter__sort_1__a.a
+                                                                    :=
+                                                                    (Sorter__sort_1__S1b.to_array
+                                                                    (let ([mlw:proxy_symbol]
+                                                                    [introduced] temp___231)
+                                                                    =
+                                                                    (Sorter__sort_1__S1b.of_array
+                                                                    !Sorter__sort_1__a.a
+                                                                    (Standard__integer__rep.to_rep
+                                                                    Sorter__sort_1__a.a__first)
+                                                                    (Standard__integer__rep.to_rep
+                                                                    Sorter__sort_1__a.a__last))
+                                                                    in
+                                                                    --pp_record_update NOT IMPLEMENTED)))))))
+                                                                     else 
+                                                                    ())));
+                                                                    (* Check for the exit condition and loop statements appearing before the loop invariant of loop sorter.adb:16 *);
+                                                                    (if
+                                                                    (
+                                                                    !Sorter__sort_1__L_2__j.j
+                                                                    = ([mlw:proxy_symbol]
+                                                                    [introduced] temp___225))
+                                                                    then
+                                                                    raise Sorter__sort_1__L_2.L_2
+                                                                    );
+                                                                    ([sloc:sorter.adb:16] (
+                                                                    Sorter__sort_1__L_2__j.j
+                                                                    :=
+                                                                    (!Sorter__sort_1__L_2__j.j
+                                                                    + 1)))
+                                                                     end loop)) with
+                                                                | Sorter__sort_1__L_2.L_2 
+                                                                -> ()) )))));
+                                                                (* Check for the exit condition and loop statements appearing before the loop invariant of loop sorter.adb:15 *);
+                                                                (if
+                                                                (!Sorter__sort_1__L_1__i.i
+                                                                   = ([mlw:proxy_symbol]
+                                                                   [introduced] temp___223))
+                                                                then
+                                                                raise Sorter__sort_1__L_1.L_1
+                                                                );
+                                                                ([sloc:sorter.adb:15] (
+                                                                Sorter__sort_1__L_1__i.i
+                                                                :=
+                                                                (!Sorter__sort_1__L_1__i.i
+                                                                   + 1)))
+                                                                 end loop)) with
+                                      | Sorter__sort_1__L_1.L_1  -> ()) )))));
+          raise Return__exc with | Return__exc  -> ());
+        abstract ensures { True } begin  (let _ = True in ())  end
+
+end

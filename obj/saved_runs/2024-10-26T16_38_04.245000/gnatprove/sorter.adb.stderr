@@ -1,0 +1,5 @@
+sorter.adb:73:34: error: subtype constraint cannot depend on variable input "middle" (SPARK RM 4.4(2))[#3]
+sorter.adb:74:41: error: subtype constraint cannot depend on variable input "middle" (SPARK RM 4.4(2))[#4]
+sorter.ads:27:26: warning: "A" is not modified, could be IN[#0]
+sorter.ads:27:26: warning: unused variable "A"[#1]
+sorter.ads:27:49: warning: unused variable "count"[#2]

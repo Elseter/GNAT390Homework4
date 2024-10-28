@@ -1,0 +1,1 @@
+drvr.adb:88:22: error: subtype constraint cannot depend on variable input "Max" (SPARK RM 4.4(2))[#0]

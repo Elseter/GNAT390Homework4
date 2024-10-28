@@ -1,0 +1,404 @@
+{
+  "spark": [
+    {
+      "name": "Drvr",
+      "sloc": [
+        {
+          "file": "drvr.adb",
+          "line": 84
+        }
+      ],
+      "spark": "all"
+    },
+    {
+      "name": "Drvr.validator",
+      "sloc": [
+        {
+          "file": "drvr.adb",
+          "line": 91
+        }
+      ],
+      "spark": "all"
+    },
+    {
+      "name": "Drvr.Fetch_Safe_Input",
+      "sloc": [
+        {
+          "file": "drvr.adb",
+          "line": 96
+        }
+      ],
+      "spark": "all"
+    },
+    {
+      "name": "Drvr.Fetch_Safe_Input.Is_Digit_String",
+      "sloc": [
+        {
+          "file": "drvr.adb",
+          "line": 102
+        }
+      ],
+      "spark": "all"
+    },
+    {
+      "name": "Drvr.Fetch_Safe_Input.String_To_Integer",
+      "sloc": [
+        {
+          "file": "drvr.adb",
+          "line": 113
+        }
+      ],
+      "spark": "all"
+    },
+    {
+      "name": "Drvr.fetch_array",
+      "sloc": [
+        {
+          "file": "drvr.adb",
+          "line": 145
+        }
+      ],
+      "spark": "all"
+    }
+  ],
+  "flow": [
+    {
+      "file": "drvr.adb",
+      "line": 91,
+      "col": 14,
+      "rule": "INEFFECTIVE",
+      "severity": "warning",
+      "entity": {
+        "name": "Drvr.validator",
+        "sloc": [
+          {
+            "file": "drvr.adb",
+            "line": 91
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "msg_id": 0,
+      "how_proved": "flow"
+    },
+    {
+      "file": "drvr.adb",
+      "line": 88,
+      "col": 4,
+      "rule": "INEFFECTIVE",
+      "severity": "warning",
+      "entity": {
+        "name": "Drvr",
+        "sloc": [
+          {
+            "file": "drvr.adb",
+            "line": 84
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "tracefile": "drvr__flow__0.trace",
+      "msg_id": 1,
+      "how_proved": "flow"
+    },
+    {
+      "file": "drvr.adb",
+      "line": 150,
+      "col": 27,
+      "rule": "INEFFECTIVE",
+      "severity": "warning",
+      "entity": {
+        "name": "Drvr",
+        "sloc": [
+          {
+            "file": "drvr.adb",
+            "line": 84
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "tracefile": "drvr__flow__1.trace",
+      "msg_id": 2,
+      "how_proved": "flow"
+    },
+    {
+      "file": "drvr.adb",
+      "line": 150,
+      "col": 27,
+      "rule": "INEFFECTIVE",
+      "severity": "warning",
+      "entity": {
+        "name": "Drvr",
+        "sloc": [
+          {
+            "file": "drvr.adb",
+            "line": 84
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "tracefile": "drvr__flow__2.trace",
+      "msg_id": 3,
+      "how_proved": "flow"
+    },
+    {
+      "file": "drvr.adb",
+      "line": 185,
+      "col": 13,
+      "rule": "INEFFECTIVE",
+      "severity": "warning",
+      "entity": {
+        "name": "Drvr",
+        "sloc": [
+          {
+            "file": "drvr.adb",
+            "line": 84
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "msg_id": 4,
+      "how_proved": "flow"
+    },
+    {
+      "file": "drvr.adb",
+      "line": 185,
+      "col": 18,
+      "rule": "INEFFECTIVE",
+      "severity": "warning",
+      "entity": {
+        "name": "Drvr",
+        "sloc": [
+          {
+            "file": "drvr.adb",
+            "line": 84
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "msg_id": 5,
+      "how_proved": "flow"
+    },
+    {
+      "file": "drvr.adb",
+      "line": 84,
+      "col": 11,
+      "rule": "UNINITIALIZED",
+      "severity": "medium",
+      "entity": {
+        "name": "Drvr",
+        "sloc": [
+          {
+            "file": "drvr.adb",
+            "line": 84
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "tracefile": "drvr__flow__3.trace",
+      "msg_id": 6,
+      "how_proved": "flow"
+    },
+    {
+      "file": "drvr.adb",
+      "line": 89,
+      "col": 4,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Drvr",
+        "sloc": [
+          {
+            "file": "drvr.adb",
+            "line": 84
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "drvr.adb",
+      "line": 85,
+      "col": 4,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Drvr",
+        "sloc": [
+          {
+            "file": "drvr.adb",
+            "line": 84
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "drvr.adb",
+      "line": 96,
+      "col": 61,
+      "rule": "UNINITIALIZED",
+      "severity": "medium",
+      "entity": {
+        "name": "Drvr.Fetch_Safe_Input",
+        "sloc": [
+          {
+            "file": "drvr.adb",
+            "line": 96
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "tracefile": "drvr__flow__4.trace",
+      "msg_id": 7,
+      "how_proved": "flow"
+    },
+    {
+      "file": "drvr.adb",
+      "line": 98,
+      "col": 4,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Drvr.Fetch_Safe_Input",
+        "sloc": [
+          {
+            "file": "drvr.adb",
+            "line": 96
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "drvr.adb",
+      "line": 97,
+      "col": 4,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Drvr.Fetch_Safe_Input",
+        "sloc": [
+          {
+            "file": "drvr.adb",
+            "line": 96
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    }
+  ],
+  "assumptions": [
+    {
+      "assumptions": [
+      ],
+      "claim": {
+        "predicate": "CLAIM_EFFECTS",
+        "arg": {
+          "name": "Drvr.Fetch_Safe_Input.Is_Digit_String",
+          "sloc": [
+            {
+              "file": "drvr.adb",
+              "line": 102
+            }
+          ]
+        }
+      }
+    },
+    {
+      "assumptions": [
+        {
+          "predicate": "CLAIM_EFFECTS",
+          "arg": {
+            "name": "Ada.Integer_Text_IO.Get",
+            "sloc": [
+              {
+                "file": "a-tiinio.ads",
+                "line": 51
+              },
+              {
+                "file": "a-inteio.ads",
+                "line": 18
+              }
+            ]
+          }
+        },
+        {
+          "predicate": "CLAIM_EFFECTS",
+          "arg": {
+            "name": "Ada.Text_IO.Close",
+            "sloc": [
+              {
+                "file": "a-textio.ads",
+                "line": 127
+              }
+            ]
+          }
+        },
+        {
+          "predicate": "CLAIM_EFFECTS",
+          "arg": {
+            "name": "Ada.Text_IO.Open",
+            "sloc": [
+              {
+                "file": "a-textio.ads",
+                "line": 112
+              }
+            ]
+          }
+        }
+      ],
+      "claim": {
+        "predicate": "CLAIM_EFFECTS",
+        "arg": {
+          "name": "Drvr.fetch_array",
+          "sloc": [
+            {
+              "file": "drvr.adb",
+              "line": 145
+            }
+          ]
+        }
+      }
+    },
+    {
+      "assumptions": [
+      ],
+      "claim": {
+        "predicate": "CLAIM_EFFECTS",
+        "arg": {
+          "name": "Drvr.Fetch_Safe_Input.String_To_Integer",
+          "sloc": [
+            {
+              "file": "drvr.adb",
+              "line": 113
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "timings": {
+    "globals (advanced)": 1.37860001996160E-02,
+    "flow analysis": 1.20761003345251E-02,
+    "marking": 2.40099994698539E-04,
+    "properties (advanced)": 9.12000032258220E-05,
+    "globals (basic)": 1.50303002446890E-02
+  }
+}

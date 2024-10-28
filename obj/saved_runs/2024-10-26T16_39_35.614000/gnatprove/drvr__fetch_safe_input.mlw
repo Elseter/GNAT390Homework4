@@ -1,0 +1,2929 @@
+module Standard__integer
+  use _gnatprove_standard.Main
+  use int.Int
+  use int.Int
+  
+  type integer = <range -2147483648 2147483647>
+  
+  val function first : int
+    ensures { result = ((- 2147483648) : int) }
+  
+  val function last : int
+    ensures { result = (2147483647 : int) }
+  
+  predicate in_range (x: int) = ((first <= x) /\ (x <= last))
+  
+  val in_range (x: int) : bool
+    ensures { result <-> (in_range (x : int)) }
+  
+  clone export ada__model.Static_Discrete with
+    axiom .,
+    type t = integer,
+    function first = first,
+    function last = last,
+    predicate in_range = in_range
+  
+  type integer__ref = { mutable integer__content : integer }
+  
+  function integer__ref_integer__content__projection (a: integer__ref) : integer =
+    a.integer__content
+  
+  meta "model_projection" function integer__ref_integer__content__projection
+  
+  meta "inline:no" function integer__ref_integer__content__projection
+  
+  val integer__havoc (x: integer__ref) : unit
+    writes { x }
+end
+
+module Standard__positive
+  use _gnatprove_standard.Main
+  use int.Int
+  use int.Int
+  
+  type positive = <range 1 2147483647>
+  
+  val function first : int
+    ensures { result = (1 : int) }
+  
+  val function last : int
+    ensures { result = (2147483647 : int) }
+  
+  predicate in_range (x: int) = ((first <= x) /\ (x <= last))
+  
+  val in_range (x: int) : bool
+    ensures { result <-> (in_range (x : int)) }
+  
+  clone export ada__model.Static_Discrete with
+    axiom .,
+    type t = positive,
+    function first = first,
+    function last = last,
+    predicate in_range = in_range
+  
+  type positive__ref = { mutable positive__content : positive }
+  
+  function positive__ref_positive__content__projection (a: positive__ref) : positive =
+    a.positive__content
+  
+  meta "model_projection" function positive__ref_positive__content__projection
+  
+  meta "inline:no" function positive__ref_positive__content__projection
+  
+  val positive__havoc (x: positive__ref) : unit
+    writes { x }
+end
+
+module Standard__character
+  use _gnatprove_standard.Main
+  use int.Int
+  use int.Int
+  
+  type character
+  
+  val function first : int
+    ensures { result = (0 : int) }
+  
+  val function last : int
+    ensures { result = (255 : int) }
+  
+  predicate in_range (x: int) = ((first <= x) /\ (x <= last))
+  
+  val in_range (x: int) : bool
+    ensures { result <-> (in_range (x : int)) }
+  
+  clone export ada__model.Static_Discrete with
+    axiom .,
+    type t = character,
+    function first = first,
+    function last = last,
+    predicate in_range = in_range
+  
+  type character__ref = { mutable character__content : character }
+  
+  function character__ref_character__content__projection (a: character__ref) : character =
+    a.character__content
+  
+  meta "model_projection" function character__ref_character__content__projection
+  
+  meta "inline:no" function character__ref_character__content__projection
+  
+  val character__havoc (x: character__ref) : unit
+    writes { x }
+end
+
+module Standard__character__rep
+  use Standard__character as Standard__character
+  use _gnatprove_standard.Main
+  use int.Int
+  clone export ada__model.Rep_Proj_Int with
+    axiom .,
+    type t = Standard__character.character,
+    predicate in_range = Standard__character.in_range
+  
+  meta "model_projection" function to_rep
+  
+  meta "inline:no" function to_rep
+end
+
+module Array__Int__Standard__character
+  use _gnatprove_standard.Main
+  use int.Int
+  use int.Int
+  use Standard__character as Standard__character
+  use Standard__character__rep as Standard__character__rep
+  
+  function index_I1_one : int = 1 : int
+  
+  type component_type = Standard__character.character
+  
+  clone export _gnatprove_standard.Array__1 with
+    axiom .,
+    type I1.t = int,
+    predicate I1.le = Int.( <= ),
+    predicate I1.lt = Int.( < ),
+    predicate I1.gt = Int.( > ),
+    function I1.add = Int.( + ),
+    function I1.sub = Int.( - ),
+    function I1.one = index_I1_one,
+    type component_type = component_type
+  
+  function bool_eq (a: map) (a__first: int) (a__last: int) (b: map) (b__first: int) (b__last: int) : bool =
+    ((if (a__first <= a__last) then
+        ((b__first <= b__last) /\
+           ((a__last - a__first) = (b__last - b__first)))
+      else (b__first > b__last)) /\
+       (forall temp___idx_98 : int.
+          if ((a__first <= temp___idx_98) /\ (temp___idx_98 <= a__last)) then
+            ((Standard__character__rep.to_rep ((get a) temp___idx_98))
+               = (Standard__character__rep.to_rep
+                    ((get b) ((b__first - a__first) + temp___idx_98))))
+          else true))
+  
+  val bool_eq (a: map) (a__first: int) (a__last: int) (b: map) (b__first: int) (b__last: int) : 
+    bool
+    ensures { result
+      =
+      ((((((bool_eq (a : map)) (a__first : int)) (a__last : int)) (b : map))
+          (b__first : int))
+         (b__last : int)) }
+  
+  axiom bool_eq_rev:
+    forall a : map, b : map.
+      forall a__first : int, a__last : int, b__first : int, b__last : int.
+        ((((((((bool_eq b) b__first) b__last) a) a__first) a__last) = True) ->
+           ((if (a__first <= a__last) then
+               ((b__first <= b__last) /\
+                  ((a__last - a__first) = (b__last - b__first)))
+             else (b__first > b__last)) /\
+              (forall temp___idx_98 : int.
+                 if ((a__first <= temp___idx_98) /\
+                       (temp___idx_98 <= a__last)) then
+                   ((Standard__character__rep.to_rep ((get a) temp___idx_98))
+                      = (Standard__character__rep.to_rep
+                           ((get b) ((b__first - a__first) + temp___idx_98))))
+                 else true)))
+end
+
+module Standard__integer__rep
+  use Standard__integer as Standard__integer
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  function to_rep (x: Standard__integer.integer) : int =
+    Standard__integer.integer'int x
+  
+  clone export ada__model.Rep_Proj_Int with
+    axiom .,
+    type t = Standard__integer.integer,
+    predicate in_range = Standard__integer.in_range,
+    function to_rep = to_rep
+  
+  meta "model_projection" function to_rep
+  
+  meta "inline:no" function to_rep
+end
+
+module Standard__string
+  use _gnatprove_standard.Main
+  use int.Int
+  use int.Int
+  use Standard__integer as Standard__integer
+  use Standard__positive as Standard__positive
+  use Standard__character as Standard__character
+  use Array__Int__Standard__character as Array__Int__Standard__character
+  use Standard__integer__rep as Standard__integer__rep
+  
+  type component_type = Standard__character.character
+  
+  function index_1_id (x: int) : int = x
+  
+  clone export ada__model.Unconstr_Array with
+    axiom .,
+    type map = Array__Int__Standard__character.map,
+    function array_bool_eq = Array__Int__Standard__character.bool_eq,
+    type index_base_type = Standard__integer.integer,
+    type index_rep_type = int,
+    function to_rep = Standard__integer__rep.to_rep,
+    function rep_to_int = index_1_id,
+    predicate in_range_base = Standard__integer.in_range,
+    predicate index_dynamic_property = Standard__positive.dynamic_property,
+    predicate index_rep_le = Int.( <= )
+  
+  type string__ = __t
+  
+  meta "model_projection" function to_array
+  
+  meta "inline:no" function to_array
+  
+  meta "model_projection" function first
+  
+  meta "inline:no" function first
+  
+  meta "model_projection" function last
+  
+  meta "inline:no" function last
+  
+  type string____ref = { mutable string____content : string__ }
+  
+  function string____ref_string____content__projection (a: string____ref) : string__ =
+    a.string____content
+  
+  meta "model_projection" function string____ref_string____content__projection
+  
+  meta "inline:no" function string____ref_string____content__projection
+  
+  val string____havoc (x: string____ref) : unit
+    writes { x }
+end
+
+module Standard_String__Img
+  use int.Int
+  use Standard__string as Standard__string
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  val function to_string (x: Main.__image) (s: int) : Standard__string.string__
+  
+  val function from_string (x: Standard__string.string__) : Main.__image
+  
+  axiom to_string__first:
+    forall x : Main.__image.
+      forall s : int [(to_string x) s].
+        ((Standard__string.first ((to_string x) s)) = (1 : int))
+  
+  axiom to_string__length:
+    forall x : Main.__image.
+      forall s : int [(to_string x) s].
+        ((s >= (0 : int)) ->
+           ((Standard__string.length ((to_string x) s)) <= s))
+end
+
+module Standard__integer___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+  use int.Int
+  use Standard__integer as Standard__integer
+  
+  predicate dynamic_invariant (temp___expr_18: int) (temp___is_init_14: bool) (temp___skip_constant_15: bool) (temp___do_toplevel_16: bool) (temp___do_typ_inv_17: bool) =
+    if ((temp___is_init_14 = True) \/
+          (Standard__integer.first <= Standard__integer.last)) then
+      (((Standard__integer.dynamic_property Standard__integer.first)
+          Standard__integer.last)
+         temp___expr_18)
+    else true
+  
+  val dynamic_invariant (temp___expr_18: int) (temp___is_init_14: bool) (temp___skip_constant_15: bool) (temp___do_toplevel_16: bool) (temp___do_typ_inv_17: bool) : 
+    bool
+    ensures { result
+                <->
+                (((((dynamic_invariant (temp___expr_18 : int))
+                      (temp___is_init_14 : bool))
+                     (temp___skip_constant_15 : bool))
+                    (temp___do_toplevel_16 : bool))
+                   (temp___do_typ_inv_17 : bool)) }
+  
+  predicate default_initial_assumption (temp___expr_19: int) (temp___skip_top_level_20: bool) =
+    true
+  
+  val default_initial_assumption (temp___expr_19: int) (temp___skip_top_level_20: bool) : 
+    bool
+    ensures { result
+                <->
+                ((default_initial_assumption (temp___expr_19 : int))
+                   (temp___skip_top_level_20 : bool)) }
+end
+
+module Standard__natural
+  use _gnatprove_standard.Main
+  use int.Int
+  use int.Int
+  
+  type natural = <range 0 2147483647>
+  
+  val function first : int
+    ensures { result = (0 : int) }
+  
+  val function last : int
+    ensures { result = (2147483647 : int) }
+  
+  predicate in_range (x: int) = ((first <= x) /\ (x <= last))
+  
+  val in_range (x: int) : bool
+    ensures { result <-> (in_range (x : int)) }
+  
+  clone export ada__model.Static_Discrete with
+    axiom .,
+    type t = natural,
+    function first = first,
+    function last = last,
+    predicate in_range = in_range
+  
+  type natural__ref = { mutable natural__content : natural }
+  
+  function natural__ref_natural__content__projection (a: natural__ref) : natural =
+    a.natural__content
+  
+  meta "model_projection" function natural__ref_natural__content__projection
+  
+  meta "inline:no" function natural__ref_natural__content__projection
+  
+  val natural__havoc (x: natural__ref) : unit
+    writes { x }
+end
+
+module Standard__natural___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+  use int.Int
+  use Standard__natural as Standard__natural
+  
+  predicate dynamic_invariant (temp___expr_46: int) (temp___is_init_42: bool) (temp___skip_constant_43: bool) (temp___do_toplevel_44: bool) (temp___do_typ_inv_45: bool) =
+    if ((temp___is_init_42 = True) \/
+          (Standard__natural.first <= Standard__natural.last)) then
+      (((Standard__natural.dynamic_property Standard__natural.first)
+          Standard__natural.last)
+         temp___expr_46)
+    else true
+  
+  val dynamic_invariant (temp___expr_46: int) (temp___is_init_42: bool) (temp___skip_constant_43: bool) (temp___do_toplevel_44: bool) (temp___do_typ_inv_45: bool) : 
+    bool
+    ensures { result
+                <->
+                (((((dynamic_invariant (temp___expr_46 : int))
+                      (temp___is_init_42 : bool))
+                     (temp___skip_constant_43 : bool))
+                    (temp___do_toplevel_44 : bool))
+                   (temp___do_typ_inv_45 : bool)) }
+  
+  predicate default_initial_assumption (temp___expr_47: int) (temp___skip_top_level_48: bool) =
+    true
+  
+  val default_initial_assumption (temp___expr_47: int) (temp___skip_top_level_48: bool) : 
+    bool
+    ensures { result
+                <->
+                ((default_initial_assumption (temp___expr_47 : int))
+                   (temp___skip_top_level_48 : bool)) }
+end
+
+module Array__Int__Standard__character__Concat
+  use _gnatprove_standard.Main
+  use int.Int
+  use int.Int
+  use Array__Int__Standard__character as Array__Int__Standard__character
+  
+  function index_Index_one : int = 1 : int
+  
+  clone export _gnatprove_standard.Array__1__Concat with
+    axiom .,
+    type component_type = Array__Int__Standard__character.component_type,
+    type map = Array__Int__Standard__character.map,
+    type Index.t = int,
+    predicate Index.le = Int.( <= ),
+    predicate Index.lt = Int.( < ),
+    predicate Index.gt = Int.( > ),
+    function Index.add = Int.( + ),
+    function Index.sub = Int.( - ),
+    function Index.one = index_Index_one,
+    function get = Array__Int__Standard__character.get
+end
+
+module Drvr__fetch_safe_input__min
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  val function min : int
+end
+
+module Drvr__fetch_safe_input__max
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  val function max : int
+end
+
+module Drvr__fetch_safe_input__input
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  val input : int__ref
+end
+
+module Drvr__fetch_safe_input__input_string
+  use _gnatprove_standard.Main
+  use int.Int
+  use Array__Int__Standard__character as Array__Int__Standard__character
+  
+  val input_string : Array__Int__Standard__character.map__ref
+end
+
+module Drvr__fetch_safe_input__length
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  val length : int__ref
+end
+
+module Drvr__fetch_safe_input__valid
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  val valid : bool__ref
+end
+
+module Standard__string___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+  use Standard__positive as Standard__positive
+  use Standard__string as Standard__string
+  
+  predicate dynamic_invariant (temp___expr_103: Standard__string.string__) (temp___is_init_99: bool) (temp___skip_constant_100: bool) (temp___do_toplevel_101: bool) (temp___do_typ_inv_102: bool) =
+    if temp___skip_constant_100 then true
+    else
+      ((((Standard__string.dynamic_property Standard__positive.first)
+           Standard__positive.last)
+          (Standard__string.first temp___expr_103))
+         (Standard__string.last temp___expr_103))
+  
+  val dynamic_invariant (temp___expr_103: Standard__string.string__) (temp___is_init_99: bool) (temp___skip_constant_100: bool) (temp___do_toplevel_101: bool) (temp___do_typ_inv_102: bool) : 
+    bool
+    ensures { result
+                <->
+                (((((dynamic_invariant
+                       (temp___expr_103 : Standard__string.string__))
+                      (temp___is_init_99 : bool))
+                     (temp___skip_constant_100 : bool))
+                    (temp___do_toplevel_101 : bool))
+                   (temp___do_typ_inv_102 : bool)) }
+end
+
+module Drvr__fetch_safe_input__is_digit_string
+  use _gnatprove_standard.Main
+  use int.Int
+  use Standard__string as Standard__string
+  
+  val function is_digit_string (s: Standard__string.string__) (len: int) : 
+    bool
+  
+  val predicate is_digit_string__function_guard (temp___result_164: bool) (s: 
+    Standard__string.string__) (len: int)
+end
+
+module Drvr__fetch_safe_input__is_digit_string___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+  use Standard__natural___axiom as Standard__natural___axiom
+  use Standard__string as Standard__string
+  use Standard__string___axiom as Standard__string___axiom
+  use Drvr__fetch_safe_input__is_digit_string as Drvr__fetch_safe_input__is_digit_string
+  
+  val is_digit_string (s: Standard__string.string__) (len: int) : bool
+    requires { true }
+    ensures { (((result
+                   = ((Drvr__fetch_safe_input__is_digit_string.is_digit_string
+                         s)
+                        len)) /\
+                  (((Drvr__fetch_safe_input__is_digit_string.is_digit_string__function_guard
+                       result)
+                      s)
+                     len)) /\
+                 true) }
+  
+  axiom is_digit_string__post_axiom:
+    forall s : Standard__string.string__.
+      forall len : int
+            [(Drvr__fetch_safe_input__is_digit_string.is_digit_string s) len].
+        (((((((Standard__string___axiom.dynamic_invariant s) True) True) True)
+             True) /\
+            (((((Standard__natural___axiom.dynamic_invariant len) True) True)
+                True)
+               True)) ->
+           (let result =
+              (Drvr__fetch_safe_input__is_digit_string.is_digit_string s) len in
+            if (((Drvr__fetch_safe_input__is_digit_string.is_digit_string__function_guard
+                    result)
+                   s)
+                  len) then
+              ((true /\ true) /\ true)
+            else true))
+end
+
+module Ada___ada__text_io__line_length__2
+  use _gnatprove_standard.Main
+  use int.Int
+  use _gnatprove_standard.Main as Main
+  
+  val function line_length (Ada___ada__text_io__file_system___file_system___: 
+    Main.__private) (Ada___ada__text_io__standard_in___standard_in___: 
+    Main.__private) (Ada___ada__text_io__standard_out___standard_out___: 
+    Main.__private) (Ada___ada__text_io__standard_err___standard_err___: 
+    Main.__private) (Ada___ada__text_io__current_in___current_in___: 
+    Main.__private) (Ada___ada__text_io__current_out___current_out___: 
+    Main.__private) (Ada___ada__text_io__current_err___current_err___: 
+    Main.__private) : int
+  
+  val predicate line_length__function_guard (temp___result_161: int) (Ada___ada__text_io__file_system___file_system___: 
+    Main.__private) (Ada___ada__text_io__standard_in___standard_in___: 
+    Main.__private) (Ada___ada__text_io__standard_out___standard_out___: 
+    Main.__private) (Ada___ada__text_io__standard_err___standard_err___: 
+    Main.__private) (Ada___ada__text_io__current_in___current_in___: 
+    Main.__private) (Ada___ada__text_io__current_out___current_out___: 
+    Main.__private) (Ada___ada__text_io__current_err___current_err___: 
+    Main.__private)
+end
+
+module Ada___ada__text_io__page_length__2
+  use _gnatprove_standard.Main
+  use int.Int
+  use _gnatprove_standard.Main as Main
+  
+  val function page_length (Ada___ada__text_io__file_system___file_system___: 
+    Main.__private) (Ada___ada__text_io__standard_in___standard_in___: 
+    Main.__private) (Ada___ada__text_io__standard_out___standard_out___: 
+    Main.__private) (Ada___ada__text_io__standard_err___standard_err___: 
+    Main.__private) (Ada___ada__text_io__current_in___current_in___: 
+    Main.__private) (Ada___ada__text_io__current_out___current_out___: 
+    Main.__private) (Ada___ada__text_io__current_err___current_err___: 
+    Main.__private) : int
+  
+  val predicate page_length__function_guard (temp___result_162: int) (Ada___ada__text_io__file_system___file_system___: 
+    Main.__private) (Ada___ada__text_io__standard_in___standard_in___: 
+    Main.__private) (Ada___ada__text_io__standard_out___standard_out___: 
+    Main.__private) (Ada___ada__text_io__standard_err___standard_err___: 
+    Main.__private) (Ada___ada__text_io__current_in___current_in___: 
+    Main.__private) (Ada___ada__text_io__current_out___current_out___: 
+    Main.__private) (Ada___ada__text_io__current_err___current_err___: 
+    Main.__private)
+end
+
+module Ada___ada__text_io__file_system
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  val file_system : Main.__private__ref
+end
+
+module Ada___ada__text_io__standard_in
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  val standard_in : Main.__private__ref
+end
+
+module Ada___ada__text_io__standard_out
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  val standard_out : Main.__private__ref
+end
+
+module Ada___ada__text_io__standard_err
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  val standard_err : Main.__private__ref
+end
+
+module Ada___ada__text_io__current_in
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  val current_in : Main.__private__ref
+end
+
+module Ada___ada__text_io__current_out
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  val current_out : Main.__private__ref
+end
+
+module Ada___ada__text_io__current_err
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  val current_err : Main.__private__ref
+end
+
+module Ada___ada__text_io__get_line__2___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+  use int.Int
+  use _gnatprove_standard.Main as Main
+  use _gnatprove_standard.Integer as Integer
+  use Standard__integer as Standard__integer
+  use Standard__natural___axiom as Standard__natural___axiom
+  use Standard__string as Standard__string
+  use Standard__integer__rep as Standard__integer__rep
+  use Standard__string___axiom as Standard__string___axiom
+  use Ada___ada__text_io__line_length__2 as Ada___ada__text_io__line_length__2
+  use Ada___ada__text_io__page_length__2 as Ada___ada__text_io__page_length__2
+  use Array__Int__Standard__character as Array__Int__Standard__character
+  use Ada___ada__text_io__file_system as Ada___ada__text_io__file_system
+  use Ada___ada__text_io__standard_in as Ada___ada__text_io__standard_in
+  use Ada___ada__text_io__standard_out as Ada___ada__text_io__standard_out
+  use Ada___ada__text_io__standard_err as Ada___ada__text_io__standard_err
+  use Ada___ada__text_io__current_in as Ada___ada__text_io__current_in
+  use Ada___ada__text_io__current_out as Ada___ada__text_io__current_out
+  use Ada___ada__text_io__current_err as Ada___ada__text_io__current_err
+  use Ada___ada__text_io__file_system as Ada___ada__text_io__file_system
+  use Ada___ada__text_io__standard_in as Ada___ada__text_io__standard_in
+  use Ada___ada__text_io__standard_out as Ada___ada__text_io__standard_out
+  use Ada___ada__text_io__standard_err as Ada___ada__text_io__standard_err
+  use Ada___ada__text_io__current_in as Ada___ada__text_io__current_in
+  use Ada___ada__text_io__current_out as Ada___ada__text_io__current_out
+  use Ada___ada__text_io__current_err as Ada___ada__text_io__current_err
+  use Ada___ada__text_io__file_system as Ada___ada__text_io__file_system
+  use Ada___ada__text_io__standard_in as Ada___ada__text_io__standard_in
+  use Ada___ada__text_io__standard_out as Ada___ada__text_io__standard_out
+  use Ada___ada__text_io__standard_err as Ada___ada__text_io__standard_err
+  use Ada___ada__text_io__current_in as Ada___ada__text_io__current_in
+  use Ada___ada__text_io__current_out as Ada___ada__text_io__current_out
+  use Ada___ada__text_io__current_err as Ada___ada__text_io__current_err
+  use Ada___ada__text_io__file_system as Ada___ada__text_io__file_system
+  use Ada___ada__text_io__standard_in as Ada___ada__text_io__standard_in
+  use Ada___ada__text_io__standard_out as Ada___ada__text_io__standard_out
+  use Ada___ada__text_io__standard_err as Ada___ada__text_io__standard_err
+  use Ada___ada__text_io__current_in as Ada___ada__text_io__current_in
+  use Ada___ada__text_io__current_out as Ada___ada__text_io__current_out
+  use Ada___ada__text_io__current_err as Ada___ada__text_io__current_err
+  use Ada___ada__text_io__file_system as Ada___ada__text_io__file_system
+  use Ada___ada__text_io__standard_in as Ada___ada__text_io__standard_in
+  use Ada___ada__text_io__standard_out as Ada___ada__text_io__standard_out
+  use Ada___ada__text_io__standard_err as Ada___ada__text_io__standard_err
+  use Ada___ada__text_io__current_in as Ada___ada__text_io__current_in
+  use Ada___ada__text_io__current_out as Ada___ada__text_io__current_out
+  use Ada___ada__text_io__current_err as Ada___ada__text_io__current_err
+  use Ada___ada__text_io__file_system as Ada___ada__text_io__file_system
+  use Ada___ada__text_io__standard_in as Ada___ada__text_io__standard_in
+  use Ada___ada__text_io__standard_out as Ada___ada__text_io__standard_out
+  use Ada___ada__text_io__standard_err as Ada___ada__text_io__standard_err
+  use Ada___ada__text_io__current_in as Ada___ada__text_io__current_in
+  use Ada___ada__text_io__current_out as Ada___ada__text_io__current_out
+  use Ada___ada__text_io__current_err as Ada___ada__text_io__current_err
+  
+  val get_line (item: Array__Int__Standard__character.map__ref) (item__first: 
+    Standard__integer.integer) (item__last: Standard__integer.integer) (last: int__ref) : 
+    unit
+    reads { Ada___ada__text_io__file_system.file_system,
+      Ada___ada__text_io__standard_in.standard_in,
+      Ada___ada__text_io__standard_out.standard_out,
+      Ada___ada__text_io__standard_err.standard_err,
+      Ada___ada__text_io__current_in.current_in,
+      Ada___ada__text_io__current_out.current_out,
+      Ada___ada__text_io__current_err.current_err }
+    requires { true }
+    writes { Ada___ada__text_io__file_system.file_system, Ada___ada__text_io__standard_in.standard_in, Ada___ada__text_io__standard_out.standard_out, Ada___ada__text_io__standard_err.standard_err, Ada___ada__text_io__current_in.current_in, Ada___ada__text_io__current_out.current_out, Ada___ada__text_io__current_err.current_err, item, last }
+    ensures { (((([@GP_Pretty_Ada:3436]
+                  ((old (((((((Ada___ada__text_io__line_length__2.line_length
+                                 (Main.__private__content
+                                     Ada___ada__text_io__file_system.file_system))
+                                (Main.__private__content
+                                    Ada___ada__text_io__standard_in.standard_in))
+                               (Main.__private__content
+                                   Ada___ada__text_io__standard_out.standard_out))
+                              (Main.__private__content
+                                  Ada___ada__text_io__standard_err.standard_err))
+                             (Main.__private__content
+                                 Ada___ada__text_io__current_in.current_in))
+                            (Main.__private__content
+                                Ada___ada__text_io__current_out.current_out))
+                           (Main.__private__content
+                               Ada___ada__text_io__current_err.current_err)))
+                     = (((((((Ada___ada__text_io__line_length__2.line_length
+                                (Main.__private__content
+                                    Ada___ada__text_io__file_system.file_system))
+                               (Main.__private__content
+                                   Ada___ada__text_io__standard_in.standard_in))
+                              (Main.__private__content
+                                  Ada___ada__text_io__standard_out.standard_out))
+                             (Main.__private__content
+                                 Ada___ada__text_io__standard_err.standard_err))
+                            (Main.__private__content
+                                Ada___ada__text_io__current_in.current_in))
+                           (Main.__private__content
+                               Ada___ada__text_io__current_out.current_out))
+                          (Main.__private__content
+                              Ada___ada__text_io__current_err.current_err)))) /\
+                   ([@GP_Pretty_Ada:3442]
+                    ((old (((((((Ada___ada__text_io__page_length__2.page_length
+                                   (Main.__private__content
+                                       Ada___ada__text_io__file_system.file_system))
+                                  (Main.__private__content
+                                      Ada___ada__text_io__standard_in.standard_in))
+                                 (Main.__private__content
+                                     Ada___ada__text_io__standard_out.standard_out))
+                                (Main.__private__content
+                                    Ada___ada__text_io__standard_err.standard_err))
+                               (Main.__private__content
+                                   Ada___ada__text_io__current_in.current_in))
+                              (Main.__private__content
+                                  Ada___ada__text_io__current_out.current_out))
+                             (Main.__private__content
+                                 Ada___ada__text_io__current_err.current_err)))
+                       = (((((((Ada___ada__text_io__page_length__2.page_length
+                                  (Main.__private__content
+                                      Ada___ada__text_io__file_system.file_system))
+                                 (Main.__private__content
+                                     Ada___ada__text_io__standard_in.standard_in))
+                                (Main.__private__content
+                                    Ada___ada__text_io__standard_out.standard_out))
+                               (Main.__private__content
+                                   Ada___ada__text_io__standard_err.standard_err))
+                              (Main.__private__content
+                                  Ada___ada__text_io__current_in.current_in))
+                             (Main.__private__content
+                                 Ada___ada__text_io__current_out.current_out))
+                            (Main.__private__content
+                                Ada___ada__text_io__current_err.current_err))))) /\
+                  (if (((Integer.length
+                           (Standard__integer__rep.to_rep item__first))
+                          (Standard__integer__rep.to_rep item__last))
+                         > (0 : int)) then
+                     ([@GP_Pretty_Ada:3451]
+                      ((((Standard__integer__rep.to_rep item__first)
+                           - (1 : int))
+                          <= (last.int__content)) /\
+                         ((last.int__content)
+                            <= (Standard__integer__rep.to_rep item__last))))
+                   else
+                     ([@GP_Pretty_Ada:3462]
+                      ((last.int__content)
+                         = ((Standard__integer__rep.to_rep item__first)
+                              - (1 : int)))))) /\
+                 ((((((Standard__string___axiom.dynamic_invariant
+                         (((Standard__string.of_array
+                              (item.Array__Int__Standard__character.map__content))
+                             (Standard__integer__rep.to_rep item__first))
+                            (Standard__integer__rep.to_rep item__last)))
+                        True)
+                       True)
+                      True)
+                     True) /\
+                    (((((Standard__natural___axiom.dynamic_invariant
+                           (last.int__content))
+                          True)
+                         True)
+                        True)
+                       True))) }
+end
+
+module Drvr__fetch_safe_input__L_3__T16b
+  use export Standard__string
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  type t16b = string__
+  
+  type t16b__ref = { mutable t16b__content : t16b }
+  
+  function t16b__ref_t16b__content__projection (a: t16b__ref) : t16b =
+    a.t16b__content
+  
+  meta "model_projection" function t16b__ref_t16b__content__projection
+  
+  meta "inline:no" function t16b__ref_t16b__content__projection
+  
+  val t16b__havoc (x: t16b__ref) : unit
+    writes { x }
+end
+
+module Drvr__fetch_safe_input__L_3__C18b
+  use _gnatprove_standard.Main
+  use int.Int
+  use Drvr__fetch_safe_input__L_3__T16b as Drvr__fetch_safe_input__L_3__T16b
+  
+  val function c18b : Drvr__fetch_safe_input__L_3__T16b.t16b
+end
+
+module Drvr__fetch_safe_input__L_3__R20b
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  val function r20b : int
+end
+
+module Drvr__fetch_safe_input__L_3__C19b
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  val function c19b : int
+end
+
+module Drvr__fetch_safe_input__L_3__B22b__result
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  val result__ : int__ref
+end
+
+module Drvr__fetch_safe_input__L_3__B22b__L_2__i
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  val i : int__ref
+end
+
+module Ada___ada__text_io__put_line__2___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+  use _gnatprove_standard.Main as Main
+  use Standard__string as Standard__string
+  use Ada___ada__text_io__line_length__2 as Ada___ada__text_io__line_length__2
+  use Ada___ada__text_io__page_length__2 as Ada___ada__text_io__page_length__2
+  use Ada___ada__text_io__file_system as Ada___ada__text_io__file_system
+  use Ada___ada__text_io__standard_in as Ada___ada__text_io__standard_in
+  use Ada___ada__text_io__standard_out as Ada___ada__text_io__standard_out
+  use Ada___ada__text_io__standard_err as Ada___ada__text_io__standard_err
+  use Ada___ada__text_io__current_in as Ada___ada__text_io__current_in
+  use Ada___ada__text_io__current_out as Ada___ada__text_io__current_out
+  use Ada___ada__text_io__current_err as Ada___ada__text_io__current_err
+  use Ada___ada__text_io__file_system as Ada___ada__text_io__file_system
+  use Ada___ada__text_io__standard_in as Ada___ada__text_io__standard_in
+  use Ada___ada__text_io__standard_out as Ada___ada__text_io__standard_out
+  use Ada___ada__text_io__standard_err as Ada___ada__text_io__standard_err
+  use Ada___ada__text_io__current_in as Ada___ada__text_io__current_in
+  use Ada___ada__text_io__current_out as Ada___ada__text_io__current_out
+  use Ada___ada__text_io__current_err as Ada___ada__text_io__current_err
+  use Ada___ada__text_io__file_system as Ada___ada__text_io__file_system
+  use Ada___ada__text_io__standard_in as Ada___ada__text_io__standard_in
+  use Ada___ada__text_io__standard_out as Ada___ada__text_io__standard_out
+  use Ada___ada__text_io__standard_err as Ada___ada__text_io__standard_err
+  use Ada___ada__text_io__current_in as Ada___ada__text_io__current_in
+  use Ada___ada__text_io__current_out as Ada___ada__text_io__current_out
+  use Ada___ada__text_io__current_err as Ada___ada__text_io__current_err
+  use Ada___ada__text_io__file_system as Ada___ada__text_io__file_system
+  use Ada___ada__text_io__standard_in as Ada___ada__text_io__standard_in
+  use Ada___ada__text_io__standard_out as Ada___ada__text_io__standard_out
+  use Ada___ada__text_io__standard_err as Ada___ada__text_io__standard_err
+  use Ada___ada__text_io__current_in as Ada___ada__text_io__current_in
+  use Ada___ada__text_io__current_out as Ada___ada__text_io__current_out
+  use Ada___ada__text_io__current_err as Ada___ada__text_io__current_err
+  use Ada___ada__text_io__file_system as Ada___ada__text_io__file_system
+  use Ada___ada__text_io__standard_in as Ada___ada__text_io__standard_in
+  use Ada___ada__text_io__standard_out as Ada___ada__text_io__standard_out
+  use Ada___ada__text_io__standard_err as Ada___ada__text_io__standard_err
+  use Ada___ada__text_io__current_in as Ada___ada__text_io__current_in
+  use Ada___ada__text_io__current_out as Ada___ada__text_io__current_out
+  use Ada___ada__text_io__current_err as Ada___ada__text_io__current_err
+  use Ada___ada__text_io__file_system as Ada___ada__text_io__file_system
+  use Ada___ada__text_io__standard_in as Ada___ada__text_io__standard_in
+  use Ada___ada__text_io__standard_out as Ada___ada__text_io__standard_out
+  use Ada___ada__text_io__standard_err as Ada___ada__text_io__standard_err
+  use Ada___ada__text_io__current_in as Ada___ada__text_io__current_in
+  use Ada___ada__text_io__current_out as Ada___ada__text_io__current_out
+  use Ada___ada__text_io__current_err as Ada___ada__text_io__current_err
+  
+  val put_line (item: Standard__string.string__) : unit
+    reads { Ada___ada__text_io__file_system.file_system,
+      Ada___ada__text_io__standard_in.standard_in,
+      Ada___ada__text_io__standard_out.standard_out,
+      Ada___ada__text_io__standard_err.standard_err,
+      Ada___ada__text_io__current_in.current_in,
+      Ada___ada__text_io__current_out.current_out,
+      Ada___ada__text_io__current_err.current_err }
+    requires { true }
+    writes { Ada___ada__text_io__file_system.file_system, Ada___ada__text_io__standard_in.standard_in, Ada___ada__text_io__standard_out.standard_out, Ada___ada__text_io__standard_err.standard_err, Ada___ada__text_io__current_in.current_in, Ada___ada__text_io__current_out.current_out, Ada___ada__text_io__current_err.current_err }
+    ensures { (([@GP_Pretty_Ada:3569]
+                ((old (((((((Ada___ada__text_io__line_length__2.line_length
+                               (Main.__private__content
+                                   Ada___ada__text_io__file_system.file_system))
+                              (Main.__private__content
+                                  Ada___ada__text_io__standard_in.standard_in))
+                             (Main.__private__content
+                                 Ada___ada__text_io__standard_out.standard_out))
+                            (Main.__private__content
+                                Ada___ada__text_io__standard_err.standard_err))
+                           (Main.__private__content
+                               Ada___ada__text_io__current_in.current_in))
+                          (Main.__private__content
+                              Ada___ada__text_io__current_out.current_out))
+                         (Main.__private__content
+                             Ada___ada__text_io__current_err.current_err)))
+                   = (((((((Ada___ada__text_io__line_length__2.line_length
+                              (Main.__private__content
+                                  Ada___ada__text_io__file_system.file_system))
+                             (Main.__private__content
+                                 Ada___ada__text_io__standard_in.standard_in))
+                            (Main.__private__content
+                                Ada___ada__text_io__standard_out.standard_out))
+                           (Main.__private__content
+                               Ada___ada__text_io__standard_err.standard_err))
+                          (Main.__private__content
+                              Ada___ada__text_io__current_in.current_in))
+                         (Main.__private__content
+                             Ada___ada__text_io__current_out.current_out))
+                        (Main.__private__content
+                            Ada___ada__text_io__current_err.current_err)))) /\
+                 ([@GP_Pretty_Ada:3575]
+                  ((old (((((((Ada___ada__text_io__page_length__2.page_length
+                                 (Main.__private__content
+                                     Ada___ada__text_io__file_system.file_system))
+                                (Main.__private__content
+                                    Ada___ada__text_io__standard_in.standard_in))
+                               (Main.__private__content
+                                   Ada___ada__text_io__standard_out.standard_out))
+                              (Main.__private__content
+                                  Ada___ada__text_io__standard_err.standard_err))
+                             (Main.__private__content
+                                 Ada___ada__text_io__current_in.current_in))
+                            (Main.__private__content
+                                Ada___ada__text_io__current_out.current_out))
+                           (Main.__private__content
+                               Ada___ada__text_io__current_err.current_err)))
+                     = (((((((Ada___ada__text_io__page_length__2.page_length
+                                (Main.__private__content
+                                    Ada___ada__text_io__file_system.file_system))
+                               (Main.__private__content
+                                   Ada___ada__text_io__standard_in.standard_in))
+                              (Main.__private__content
+                                  Ada___ada__text_io__standard_out.standard_out))
+                             (Main.__private__content
+                                 Ada___ada__text_io__standard_err.standard_err))
+                            (Main.__private__content
+                                Ada___ada__text_io__current_in.current_in))
+                           (Main.__private__content
+                               Ada___ada__text_io__current_out.current_out))
+                          (Main.__private__content
+                              Ada___ada__text_io__current_err.current_err))))) }
+end
+
+module Drvr__fetch_safe_input__TTinput_stringSP1
+  use _gnatprove_standard.Main
+  use int.Int
+  use int.Int
+  
+  type tTinput_stringSP1 = <range 1 10>
+  
+  val function first : int
+    ensures { result = (1 : int) }
+  
+  val function last : int
+    ensures { result = (10 : int) }
+  
+  predicate in_range (x: int) = ((first <= x) /\ (x <= last))
+  
+  val in_range (x: int) : bool
+    ensures { result <-> (in_range (x : int)) }
+  
+  clone export ada__model.Static_Discrete with
+    axiom .,
+    type t = tTinput_stringSP1,
+    function first = first,
+    function last = last,
+    predicate in_range = in_range
+  
+  type tTinput_stringSP1__ref = {
+                               mutable tTinput_stringSP1__content :
+                                 tTinput_stringSP1
+                               }
+  
+  function tTinput_stringSP1__ref_tTinput_stringSP1__content__projection (a: tTinput_stringSP1__ref) : tTinput_stringSP1 =
+    a.tTinput_stringSP1__content
+  
+  meta "model_projection" function tTinput_stringSP1__ref_tTinput_stringSP1__content__projection
+  
+  meta "inline:no" function tTinput_stringSP1__ref_tTinput_stringSP1__content__projection
+  
+  val tTinput_stringSP1__havoc (x: tTinput_stringSP1__ref) : unit
+    writes { x }
+end
+
+module Drvr__fetch_safe_input__Tinput_stringS___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+  use Array__Int__Standard__character as Array__Int__Standard__character
+  use Array__Int__Standard__character as Array__Int__Standard__character
+  
+  predicate dynamic_invariant (temp___expr_236: Array__Int__Standard__character.map) (temp___is_init_232: bool) (temp___skip_constant_233: bool) (temp___do_toplevel_234: bool) (temp___do_typ_inv_235: bool) =
+    true
+  
+  val dynamic_invariant (temp___expr_236: Array__Int__Standard__character.map) (temp___is_init_232: bool) (temp___skip_constant_233: bool) (temp___do_toplevel_234: bool) (temp___do_typ_inv_235: bool) : 
+    bool
+    ensures { result
+                <->
+                (((((dynamic_invariant
+                       (temp___expr_236 : Array__Int__Standard__character.map))
+                      (temp___is_init_232 : bool))
+                     (temp___skip_constant_233 : bool))
+                    (temp___do_toplevel_234 : bool))
+                   (temp___do_typ_inv_235 : bool)) }
+  
+  predicate default_initial_assumption (temp___expr_238: Array__Int__Standard__character.map) (temp___skip_top_level_239: bool) =
+    true
+  
+  val default_initial_assumption (temp___expr_238: Array__Int__Standard__character.map) (temp___skip_top_level_239: bool) : 
+    bool
+    ensures { result
+                <->
+                ((default_initial_assumption
+                    (temp___expr_238 : Array__Int__Standard__character.map))
+                   (temp___skip_top_level_239 : bool)) }
+end
+
+module Drvr__fetch_safe_input__L_3
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  exception L_3
+end
+
+module Drvr__fetch_safe_input__L_3__T14b
+  use export Standard__string
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  type t14b = string__
+  
+  type t14b__ref = { mutable t14b__content : t14b }
+  
+  function t14b__ref_t14b__content__projection (a: t14b__ref) : t14b =
+    a.t14b__content
+  
+  meta "model_projection" function t14b__ref_t14b__content__projection
+  
+  meta "inline:no" function t14b__ref_t14b__content__projection
+  
+  val t14b__havoc (x: t14b__ref) : unit
+    writes { x }
+end
+
+module Drvr__fetch_safe_input__L_3__B22b__L_2
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  exception L_2
+end
+
+module Drvr__fetch_safe_input__L_3__B22b__L_2__T25b
+  use export Standard__string
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  type t25b = string__
+  
+  type t25b__ref = { mutable t25b__content : t25b }
+  
+  function t25b__ref_t25b__content__projection (a: t25b__ref) : t25b =
+    a.t25b__content
+  
+  meta "model_projection" function t25b__ref_t25b__content__projection
+  
+  meta "inline:no" function t25b__ref_t25b__content__projection
+  
+  val t25b__havoc (x: t25b__ref) : unit
+    writes { x }
+end
+
+module Drvr__fetch_safe_input__L_3__B22b__L_2__T27b
+  use export Standard__string
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  type t27b = string__
+  
+  type t27b__ref = { mutable t27b__content : t27b }
+  
+  function t27b__ref_t27b__content__projection (a: t27b__ref) : t27b =
+    a.t27b__content
+  
+  meta "model_projection" function t27b__ref_t27b__content__projection
+  
+  meta "inline:no" function t27b__ref_t27b__content__projection
+  
+  val t27b__havoc (x: t27b__ref) : unit
+    writes { x }
+end
+
+module Temp___String_Literal_403
+  use _gnatprove_standard.Main
+  use int.Int
+  use int.Int
+  use Standard__character as Standard__character
+  use Standard__character__rep as Standard__character__rep
+  use Array__Int__Standard__character as Array__Int__Standard__character
+  use Array__Int__Standard__character as Array__Int__Standard__character
+  
+  val function temp___String_Literal_403 (__void_param: unit) : Array__Int__Standard__character.map
+  
+  axiom temp___String_Literal_403__def_axiom:
+    forall __void_param : unit [temp___String_Literal_403 __void_param].
+      ((((Standard__character__rep.to_rep
+            ((Array__Int__Standard__character.get
+                (temp___String_Literal_403 __void_param))
+               (1 : int)))
+           = (32 : int)) /\
+          ((Standard__character__rep.to_rep
+              ((Array__Int__Standard__character.get
+                  (temp___String_Literal_403 __void_param))
+                 (2 : int)))
+             = (97 : int))) /\
+         ((((Standard__character__rep.to_rep
+               ((Array__Int__Standard__character.get
+                   (temp___String_Literal_403 __void_param))
+                  (3 : int)))
+              = (110 : int)) /\
+             ((Standard__character__rep.to_rep
+                 ((Array__Int__Standard__character.get
+                     (temp___String_Literal_403 __void_param))
+                    (4 : int)))
+                = (100 : int))) /\
+            ((Standard__character__rep.to_rep
+                ((Array__Int__Standard__character.get
+                    (temp___String_Literal_403 __void_param))
+                   (5 : int)))
+               = (32 : int))))
+end
+
+module Temp___String_Literal_404
+  use _gnatprove_standard.Main
+  use int.Int
+  use int.Int
+  use Standard__character as Standard__character
+  use Standard__character__rep as Standard__character__rep
+  use Array__Int__Standard__character as Array__Int__Standard__character
+  use Array__Int__Standard__character as Array__Int__Standard__character
+  
+  val function temp___String_Literal_404 (__void_param: unit) : Array__Int__Standard__character.map
+  
+  axiom temp___String_Literal_404__def_axiom:
+    forall __void_param : unit [temp___String_Literal_404 __void_param].
+      ((((Standard__character__rep.to_rep
+            ((Array__Int__Standard__character.get
+                (temp___String_Literal_404 __void_param))
+               (1 : int)))
+           = (73 : int)) /\
+          ((Standard__character__rep.to_rep
+              ((Array__Int__Standard__character.get
+                  (temp___String_Literal_404 __void_param))
+                 (2 : int)))
+             = (110 : int))) /\
+         ((((((((Standard__character__rep.to_rep
+                   ((Array__Int__Standard__character.get
+                       (temp___String_Literal_404 __void_param))
+                      (3 : int)))
+                  = (118 : int)) /\
+                 ((Standard__character__rep.to_rep
+                     ((Array__Int__Standard__character.get
+                         (temp___String_Literal_404 __void_param))
+                        (4 : int)))
+                    = (97 : int))) /\
+                ((Standard__character__rep.to_rep
+                    ((Array__Int__Standard__character.get
+                        (temp___String_Literal_404 __void_param))
+                       (5 : int)))
+                   = (108 : int))) /\
+               ((((Standard__character__rep.to_rep
+                     ((Array__Int__Standard__character.get
+                         (temp___String_Literal_404 __void_param))
+                        (6 : int)))
+                    = (105 : int)) /\
+                   ((Standard__character__rep.to_rep
+                       ((Array__Int__Standard__character.get
+                           (temp___String_Literal_404 __void_param))
+                          (7 : int)))
+                      = (100 : int))) /\
+                  ((Standard__character__rep.to_rep
+                      ((Array__Int__Standard__character.get
+                          (temp___String_Literal_404 __void_param))
+                         (8 : int)))
+                     = (32 : int)))) /\
+              (((((Standard__character__rep.to_rep
+                     ((Array__Int__Standard__character.get
+                         (temp___String_Literal_404 __void_param))
+                        (9 : int)))
+                    = (101 : int)) /\
+                   ((Standard__character__rep.to_rep
+                       ((Array__Int__Standard__character.get
+                           (temp___String_Literal_404 __void_param))
+                          (10 : int)))
+                      = (110 : int))) /\
+                  ((Standard__character__rep.to_rep
+                      ((Array__Int__Standard__character.get
+                          (temp___String_Literal_404 __void_param))
+                         (11 : int)))
+                     = (116 : int))) /\
+                 (((Standard__character__rep.to_rep
+                      ((Array__Int__Standard__character.get
+                          (temp___String_Literal_404 __void_param))
+                         (12 : int)))
+                     = (114 : int)) /\
+                    ((Standard__character__rep.to_rep
+                        ((Array__Int__Standard__character.get
+                            (temp___String_Literal_404 __void_param))
+                           (13 : int)))
+                       = (121 : int))))) /\
+             ((((((Standard__character__rep.to_rep
+                     ((Array__Int__Standard__character.get
+                         (temp___String_Literal_404 __void_param))
+                        (14 : int)))
+                    = (46 : int)) /\
+                   ((Standard__character__rep.to_rep
+                       ((Array__Int__Standard__character.get
+                           (temp___String_Literal_404 __void_param))
+                          (15 : int)))
+                      = (32 : int))) /\
+                  ((Standard__character__rep.to_rep
+                      ((Array__Int__Standard__character.get
+                          (temp___String_Literal_404 __void_param))
+                         (16 : int)))
+                     = (80 : int))) /\
+                 (((Standard__character__rep.to_rep
+                      ((Array__Int__Standard__character.get
+                          (temp___String_Literal_404 __void_param))
+                         (17 : int)))
+                     = (108 : int)) /\
+                    ((Standard__character__rep.to_rep
+                        ((Array__Int__Standard__character.get
+                            (temp___String_Literal_404 __void_param))
+                           (18 : int)))
+                       = (101 : int)))) /\
+                (((((Standard__character__rep.to_rep
+                       ((Array__Int__Standard__character.get
+                           (temp___String_Literal_404 __void_param))
+                          (19 : int)))
+                      = (97 : int)) /\
+                     ((Standard__character__rep.to_rep
+                         ((Array__Int__Standard__character.get
+                             (temp___String_Literal_404 __void_param))
+                            (20 : int)))
+                        = (115 : int))) /\
+                    ((Standard__character__rep.to_rep
+                        ((Array__Int__Standard__character.get
+                            (temp___String_Literal_404 __void_param))
+                           (21 : int)))
+                       = (101 : int))) /\
+                   (((Standard__character__rep.to_rep
+                        ((Array__Int__Standard__character.get
+                            (temp___String_Literal_404 __void_param))
+                           (22 : int)))
+                       = (32 : int)) /\
+                      ((Standard__character__rep.to_rep
+                          ((Array__Int__Standard__character.get
+                              (temp___String_Literal_404 __void_param))
+                             (23 : int)))
+                         = (101 : int)))))) /\
+            (((((((Standard__character__rep.to_rep
+                     ((Array__Int__Standard__character.get
+                         (temp___String_Literal_404 __void_param))
+                        (24 : int)))
+                    = (110 : int)) /\
+                   ((Standard__character__rep.to_rep
+                       ((Array__Int__Standard__character.get
+                           (temp___String_Literal_404 __void_param))
+                          (25 : int)))
+                      = (116 : int))) /\
+                  ((Standard__character__rep.to_rep
+                      ((Array__Int__Standard__character.get
+                          (temp___String_Literal_404 __void_param))
+                         (26 : int)))
+                     = (101 : int))) /\
+                 ((((Standard__character__rep.to_rep
+                       ((Array__Int__Standard__character.get
+                           (temp___String_Literal_404 __void_param))
+                          (27 : int)))
+                      = (114 : int)) /\
+                     ((Standard__character__rep.to_rep
+                         ((Array__Int__Standard__character.get
+                             (temp___String_Literal_404 __void_param))
+                            (28 : int)))
+                        = (32 : int))) /\
+                    ((Standard__character__rep.to_rep
+                        ((Array__Int__Standard__character.get
+                            (temp___String_Literal_404 __void_param))
+                           (29 : int)))
+                       = (97 : int)))) /\
+                (((((Standard__character__rep.to_rep
+                       ((Array__Int__Standard__character.get
+                           (temp___String_Literal_404 __void_param))
+                          (30 : int)))
+                      = (32 : int)) /\
+                     ((Standard__character__rep.to_rep
+                         ((Array__Int__Standard__character.get
+                             (temp___String_Literal_404 __void_param))
+                            (31 : int)))
+                        = (118 : int))) /\
+                    ((Standard__character__rep.to_rep
+                        ((Array__Int__Standard__character.get
+                            (temp___String_Literal_404 __void_param))
+                           (32 : int)))
+                       = (97 : int))) /\
+                   (((Standard__character__rep.to_rep
+                        ((Array__Int__Standard__character.get
+                            (temp___String_Literal_404 __void_param))
+                           (33 : int)))
+                       = (108 : int)) /\
+                      ((Standard__character__rep.to_rep
+                          ((Array__Int__Standard__character.get
+                              (temp___String_Literal_404 __void_param))
+                             (34 : int)))
+                         = (117 : int))))) /\
+               ((((((Standard__character__rep.to_rep
+                       ((Array__Int__Standard__character.get
+                           (temp___String_Literal_404 __void_param))
+                          (35 : int)))
+                      = (101 : int)) /\
+                     ((Standard__character__rep.to_rep
+                         ((Array__Int__Standard__character.get
+                             (temp___String_Literal_404 __void_param))
+                            (36 : int)))
+                        = (32 : int))) /\
+                    ((Standard__character__rep.to_rep
+                        ((Array__Int__Standard__character.get
+                            (temp___String_Literal_404 __void_param))
+                           (37 : int)))
+                       = (98 : int))) /\
+                   (((Standard__character__rep.to_rep
+                        ((Array__Int__Standard__character.get
+                            (temp___String_Literal_404 __void_param))
+                           (38 : int)))
+                       = (101 : int)) /\
+                      ((Standard__character__rep.to_rep
+                          ((Array__Int__Standard__character.get
+                              (temp___String_Literal_404 __void_param))
+                             (39 : int)))
+                         = (116 : int)))) /\
+                  (((((Standard__character__rep.to_rep
+                         ((Array__Int__Standard__character.get
+                             (temp___String_Literal_404 __void_param))
+                            (40 : int)))
+                        = (119 : int)) /\
+                       ((Standard__character__rep.to_rep
+                           ((Array__Int__Standard__character.get
+                               (temp___String_Literal_404 __void_param))
+                              (41 : int)))
+                          = (101 : int))) /\
+                      ((Standard__character__rep.to_rep
+                          ((Array__Int__Standard__character.get
+                              (temp___String_Literal_404 __void_param))
+                             (42 : int)))
+                         = (101 : int))) /\
+                     (((Standard__character__rep.to_rep
+                          ((Array__Int__Standard__character.get
+                              (temp___String_Literal_404 __void_param))
+                             (43 : int)))
+                         = (110 : int)) /\
+                        ((Standard__character__rep.to_rep
+                            ((Array__Int__Standard__character.get
+                                (temp___String_Literal_404 __void_param))
+                               (44 : int)))
+                           = (32 : int))))))))
+end
+
+module Temp___String_Literal_411
+  use _gnatprove_standard.Main
+  use int.Int
+  use int.Int
+  use Standard__character as Standard__character
+  use Standard__character__rep as Standard__character__rep
+  use Array__Int__Standard__character as Array__Int__Standard__character
+  use Array__Int__Standard__character as Array__Int__Standard__character
+  
+  val function temp___String_Literal_411 (__void_param: unit) : Array__Int__Standard__character.map
+  
+  axiom temp___String_Literal_411__def_axiom:
+    forall __void_param : unit [temp___String_Literal_411 __void_param].
+      ((((Standard__character__rep.to_rep
+            ((Array__Int__Standard__character.get
+                (temp___String_Literal_411 __void_param))
+               (1 : int)))
+           = (73 : int)) /\
+          ((Standard__character__rep.to_rep
+              ((Array__Int__Standard__character.get
+                  (temp___String_Literal_411 __void_param))
+                 (2 : int)))
+             = (110 : int))) /\
+         ((((((((Standard__character__rep.to_rep
+                   ((Array__Int__Standard__character.get
+                       (temp___String_Literal_411 __void_param))
+                      (3 : int)))
+                  = (118 : int)) /\
+                 ((Standard__character__rep.to_rep
+                     ((Array__Int__Standard__character.get
+                         (temp___String_Literal_411 __void_param))
+                        (4 : int)))
+                    = (97 : int))) /\
+                ((Standard__character__rep.to_rep
+                    ((Array__Int__Standard__character.get
+                        (temp___String_Literal_411 __void_param))
+                       (5 : int)))
+                   = (108 : int))) /\
+               ((((Standard__character__rep.to_rep
+                     ((Array__Int__Standard__character.get
+                         (temp___String_Literal_411 __void_param))
+                        (6 : int)))
+                    = (105 : int)) /\
+                   ((Standard__character__rep.to_rep
+                       ((Array__Int__Standard__character.get
+                           (temp___String_Literal_411 __void_param))
+                          (7 : int)))
+                      = (100 : int))) /\
+                  ((Standard__character__rep.to_rep
+                      ((Array__Int__Standard__character.get
+                          (temp___String_Literal_411 __void_param))
+                         (8 : int)))
+                     = (32 : int)))) /\
+              (((((Standard__character__rep.to_rep
+                     ((Array__Int__Standard__character.get
+                         (temp___String_Literal_411 __void_param))
+                        (9 : int)))
+                    = (101 : int)) /\
+                   ((Standard__character__rep.to_rep
+                       ((Array__Int__Standard__character.get
+                           (temp___String_Literal_411 __void_param))
+                          (10 : int)))
+                      = (110 : int))) /\
+                  ((Standard__character__rep.to_rep
+                      ((Array__Int__Standard__character.get
+                          (temp___String_Literal_411 __void_param))
+                         (11 : int)))
+                     = (116 : int))) /\
+                 (((Standard__character__rep.to_rep
+                      ((Array__Int__Standard__character.get
+                          (temp___String_Literal_411 __void_param))
+                         (12 : int)))
+                     = (114 : int)) /\
+                    ((Standard__character__rep.to_rep
+                        ((Array__Int__Standard__character.get
+                            (temp___String_Literal_411 __void_param))
+                           (13 : int)))
+                       = (121 : int))))) /\
+             ((((((Standard__character__rep.to_rep
+                     ((Array__Int__Standard__character.get
+                         (temp___String_Literal_411 __void_param))
+                        (14 : int)))
+                    = (46 : int)) /\
+                   ((Standard__character__rep.to_rep
+                       ((Array__Int__Standard__character.get
+                           (temp___String_Literal_411 __void_param))
+                          (15 : int)))
+                      = (32 : int))) /\
+                  ((Standard__character__rep.to_rep
+                      ((Array__Int__Standard__character.get
+                          (temp___String_Literal_411 __void_param))
+                         (16 : int)))
+                     = (80 : int))) /\
+                 ((((Standard__character__rep.to_rep
+                       ((Array__Int__Standard__character.get
+                           (temp___String_Literal_411 __void_param))
+                          (17 : int)))
+                      = (108 : int)) /\
+                     ((Standard__character__rep.to_rep
+                         ((Array__Int__Standard__character.get
+                             (temp___String_Literal_411 __void_param))
+                            (18 : int)))
+                        = (101 : int))) /\
+                    ((Standard__character__rep.to_rep
+                        ((Array__Int__Standard__character.get
+                            (temp___String_Literal_411 __void_param))
+                           (19 : int)))
+                       = (97 : int)))) /\
+                (((((Standard__character__rep.to_rep
+                       ((Array__Int__Standard__character.get
+                           (temp___String_Literal_411 __void_param))
+                          (20 : int)))
+                      = (115 : int)) /\
+                     ((Standard__character__rep.to_rep
+                         ((Array__Int__Standard__character.get
+                             (temp___String_Literal_411 __void_param))
+                            (21 : int)))
+                        = (101 : int))) /\
+                    ((Standard__character__rep.to_rep
+                        ((Array__Int__Standard__character.get
+                            (temp___String_Literal_411 __void_param))
+                           (22 : int)))
+                       = (32 : int))) /\
+                   (((Standard__character__rep.to_rep
+                        ((Array__Int__Standard__character.get
+                            (temp___String_Literal_411 __void_param))
+                           (23 : int)))
+                       = (101 : int)) /\
+                      ((Standard__character__rep.to_rep
+                          ((Array__Int__Standard__character.get
+                              (temp___String_Literal_411 __void_param))
+                             (24 : int)))
+                         = (110 : int)))))) /\
+            (((((((Standard__character__rep.to_rep
+                     ((Array__Int__Standard__character.get
+                         (temp___String_Literal_411 __void_param))
+                        (25 : int)))
+                    = (116 : int)) /\
+                   ((Standard__character__rep.to_rep
+                       ((Array__Int__Standard__character.get
+                           (temp___String_Literal_411 __void_param))
+                          (26 : int)))
+                      = (101 : int))) /\
+                  ((Standard__character__rep.to_rep
+                      ((Array__Int__Standard__character.get
+                          (temp___String_Literal_411 __void_param))
+                         (27 : int)))
+                     = (114 : int))) /\
+                 ((((Standard__character__rep.to_rep
+                       ((Array__Int__Standard__character.get
+                           (temp___String_Literal_411 __void_param))
+                          (28 : int)))
+                      = (32 : int)) /\
+                     ((Standard__character__rep.to_rep
+                         ((Array__Int__Standard__character.get
+                             (temp___String_Literal_411 __void_param))
+                            (29 : int)))
+                        = (97 : int))) /\
+                    ((Standard__character__rep.to_rep
+                        ((Array__Int__Standard__character.get
+                            (temp___String_Literal_411 __void_param))
+                           (30 : int)))
+                       = (110 : int)))) /\
+                (((((Standard__character__rep.to_rep
+                       ((Array__Int__Standard__character.get
+                           (temp___String_Literal_411 __void_param))
+                          (31 : int)))
+                      = (32 : int)) /\
+                     ((Standard__character__rep.to_rep
+                         ((Array__Int__Standard__character.get
+                             (temp___String_Literal_411 __void_param))
+                            (32 : int)))
+                        = (105 : int))) /\
+                    ((Standard__character__rep.to_rep
+                        ((Array__Int__Standard__character.get
+                            (temp___String_Literal_411 __void_param))
+                           (33 : int)))
+                       = (110 : int))) /\
+                   (((Standard__character__rep.to_rep
+                        ((Array__Int__Standard__character.get
+                            (temp___String_Literal_411 __void_param))
+                           (34 : int)))
+                       = (116 : int)) /\
+                      ((Standard__character__rep.to_rep
+                          ((Array__Int__Standard__character.get
+                              (temp___String_Literal_411 __void_param))
+                             (35 : int)))
+                         = (101 : int))))) /\
+               ((((((Standard__character__rep.to_rep
+                       ((Array__Int__Standard__character.get
+                           (temp___String_Literal_411 __void_param))
+                          (36 : int)))
+                      = (103 : int)) /\
+                     ((Standard__character__rep.to_rep
+                         ((Array__Int__Standard__character.get
+                             (temp___String_Literal_411 __void_param))
+                            (37 : int)))
+                        = (101 : int))) /\
+                    ((Standard__character__rep.to_rep
+                        ((Array__Int__Standard__character.get
+                            (temp___String_Literal_411 __void_param))
+                           (38 : int)))
+                       = (114 : int))) /\
+                   (((Standard__character__rep.to_rep
+                        ((Array__Int__Standard__character.get
+                            (temp___String_Literal_411 __void_param))
+                           (39 : int)))
+                       = (32 : int)) /\
+                      ((Standard__character__rep.to_rep
+                          ((Array__Int__Standard__character.get
+                              (temp___String_Literal_411 __void_param))
+                             (40 : int)))
+                         = (118 : int)))) /\
+                  (((((Standard__character__rep.to_rep
+                         ((Array__Int__Standard__character.get
+                             (temp___String_Literal_411 __void_param))
+                            (41 : int)))
+                        = (97 : int)) /\
+                       ((Standard__character__rep.to_rep
+                           ((Array__Int__Standard__character.get
+                               (temp___String_Literal_411 __void_param))
+                              (42 : int)))
+                          = (108 : int))) /\
+                      ((Standard__character__rep.to_rep
+                          ((Array__Int__Standard__character.get
+                              (temp___String_Literal_411 __void_param))
+                             (43 : int)))
+                         = (117 : int))) /\
+                     (((Standard__character__rep.to_rep
+                          ((Array__Int__Standard__character.get
+                              (temp___String_Literal_411 __void_param))
+                             (44 : int)))
+                         = (101 : int)) /\
+                        ((Standard__character__rep.to_rep
+                            ((Array__Int__Standard__character.get
+                                (temp___String_Literal_411 __void_param))
+                               (45 : int)))
+                           = (46 : int))))))))
+end
+
+module Standard__positive___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+  use int.Int
+  use Standard__positive as Standard__positive
+  
+  predicate dynamic_invariant (temp___expr_53: int) (temp___is_init_49: bool) (temp___skip_constant_50: bool) (temp___do_toplevel_51: bool) (temp___do_typ_inv_52: bool) =
+    if ((temp___is_init_49 = True) \/
+          (Standard__positive.first <= Standard__positive.last)) then
+      (((Standard__positive.dynamic_property Standard__positive.first)
+          Standard__positive.last)
+         temp___expr_53)
+    else true
+  
+  val dynamic_invariant (temp___expr_53: int) (temp___is_init_49: bool) (temp___skip_constant_50: bool) (temp___do_toplevel_51: bool) (temp___do_typ_inv_52: bool) : 
+    bool
+    ensures { result
+                <->
+                (((((dynamic_invariant (temp___expr_53 : int))
+                      (temp___is_init_49 : bool))
+                     (temp___skip_constant_50 : bool))
+                    (temp___do_toplevel_51 : bool))
+                   (temp___do_typ_inv_52 : bool)) }
+  
+  predicate default_initial_assumption (temp___expr_54: int) (temp___skip_top_level_55: bool) =
+    true
+  
+  val default_initial_assumption (temp___expr_54: int) (temp___skip_top_level_55: bool) : 
+    bool
+    ensures { result
+                <->
+                ((default_initial_assumption (temp___expr_54 : int))
+                   (temp___skip_top_level_55 : bool)) }
+end
+
+module Standard__character___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+  use int.Int
+  use Standard__character as Standard__character
+  
+  predicate dynamic_invariant (temp___expr_81: int) (temp___is_init_77: bool) (temp___skip_constant_78: bool) (temp___do_toplevel_79: bool) (temp___do_typ_inv_80: bool) =
+    if ((temp___is_init_77 = True) \/
+          (Standard__character.first <= Standard__character.last)) then
+      (((Standard__character.dynamic_property Standard__character.first)
+          Standard__character.last)
+         temp___expr_81)
+    else true
+  
+  val dynamic_invariant (temp___expr_81: int) (temp___is_init_77: bool) (temp___skip_constant_78: bool) (temp___do_toplevel_79: bool) (temp___do_typ_inv_80: bool) : 
+    bool
+    ensures { result
+                <->
+                (((((dynamic_invariant (temp___expr_81 : int))
+                      (temp___is_init_77 : bool))
+                     (temp___skip_constant_78 : bool))
+                    (temp___do_toplevel_79 : bool))
+                   (temp___do_typ_inv_80 : bool)) }
+  
+  predicate default_initial_assumption (temp___expr_82: int) (temp___skip_top_level_83: bool) =
+    true
+  
+  val default_initial_assumption (temp___expr_82: int) (temp___skip_top_level_83: bool) : 
+    bool
+    ensures { result
+                <->
+                ((default_initial_assumption (temp___expr_82 : int))
+                   (temp___skip_top_level_83 : bool)) }
+end
+
+module Drvr__fetch_safe_input__input_string___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+end
+
+module Drvr__fetch_safe_input__length___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+end
+
+module Drvr__fetch_safe_input__valid___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+end
+
+module Drvr__fetch_safe_input__L_3___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+end
+
+module Ada___ada__text_io__count
+  use _gnatprove_standard.Main
+  use int.Int
+  use int.Int
+  
+  type count = <range 0 2147483647>
+  
+  val function first : int
+    ensures { result = (0 : int) }
+  
+  val function last : int
+    ensures { result = (2147483647 : int) }
+  
+  predicate in_range (x: int) = ((first <= x) /\ (x <= last))
+  
+  val in_range (x: int) : bool
+    ensures { result <-> (in_range (x : int)) }
+  
+  clone export ada__model.Static_Discrete with
+    axiom .,
+    type t = count,
+    function first = first,
+    function last = last,
+    predicate in_range = in_range
+  
+  type count__ref = { mutable count__content : count }
+  
+  function count__ref_count__content__projection (a: count__ref) : count =
+    a.count__content
+  
+  meta "model_projection" function count__ref_count__content__projection
+  
+  meta "inline:no" function count__ref_count__content__projection
+  
+  val count__havoc (x: count__ref) : unit
+    writes { x }
+end
+
+module Ada___ada__text_io__count___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+  use int.Int
+  use Ada___ada__text_io__count as Ada___ada__text_io__count
+  
+  predicate dynamic_invariant (temp___expr_174: int) (temp___is_init_170: bool) (temp___skip_constant_171: bool) (temp___do_toplevel_172: bool) (temp___do_typ_inv_173: bool) =
+    if ((temp___is_init_170 = True) \/
+          (Ada___ada__text_io__count.first <= Ada___ada__text_io__count.last)) then
+      (((Ada___ada__text_io__count.dynamic_property
+           Ada___ada__text_io__count.first)
+          Ada___ada__text_io__count.last)
+         temp___expr_174)
+    else true
+  
+  val dynamic_invariant (temp___expr_174: int) (temp___is_init_170: bool) (temp___skip_constant_171: bool) (temp___do_toplevel_172: bool) (temp___do_typ_inv_173: bool) : 
+    bool
+    ensures { result
+                <->
+                (((((dynamic_invariant (temp___expr_174 : int))
+                      (temp___is_init_170 : bool))
+                     (temp___skip_constant_171 : bool))
+                    (temp___do_toplevel_172 : bool))
+                   (temp___do_typ_inv_173 : bool)) }
+  
+  predicate default_initial_assumption (temp___expr_175: int) (temp___skip_top_level_176: bool) =
+    true
+  
+  val default_initial_assumption (temp___expr_175: int) (temp___skip_top_level_176: bool) : 
+    bool
+    ensures { result
+                <->
+                ((default_initial_assumption (temp___expr_175 : int))
+                   (temp___skip_top_level_176 : bool)) }
+end
+
+module Ada___ada__text_io__line_length__2___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+  use _gnatprove_standard.Main as Main
+  use Ada___ada__text_io__line_length__2 as Ada___ada__text_io__line_length__2
+  use Ada___ada__text_io__count___axiom as Ada___ada__text_io__count___axiom
+  use Ada___ada__text_io__file_system as Ada___ada__text_io__file_system
+  use Ada___ada__text_io__standard_in as Ada___ada__text_io__standard_in
+  use Ada___ada__text_io__standard_out as Ada___ada__text_io__standard_out
+  use Ada___ada__text_io__standard_err as Ada___ada__text_io__standard_err
+  use Ada___ada__text_io__current_in as Ada___ada__text_io__current_in
+  use Ada___ada__text_io__current_out as Ada___ada__text_io__current_out
+  use Ada___ada__text_io__current_err as Ada___ada__text_io__current_err
+  use Ada___ada__text_io__file_system as Ada___ada__text_io__file_system
+  use Ada___ada__text_io__standard_in as Ada___ada__text_io__standard_in
+  use Ada___ada__text_io__standard_out as Ada___ada__text_io__standard_out
+  use Ada___ada__text_io__standard_err as Ada___ada__text_io__standard_err
+  use Ada___ada__text_io__current_in as Ada___ada__text_io__current_in
+  use Ada___ada__text_io__current_out as Ada___ada__text_io__current_out
+  use Ada___ada__text_io__current_err as Ada___ada__text_io__current_err
+  
+  val line_length (__void_param: unit) : int
+    reads { Ada___ada__text_io__file_system.file_system,
+      Ada___ada__text_io__standard_in.standard_in,
+      Ada___ada__text_io__standard_out.standard_out,
+      Ada___ada__text_io__standard_err.standard_err,
+      Ada___ada__text_io__current_in.current_in,
+      Ada___ada__text_io__current_out.current_out,
+      Ada___ada__text_io__current_err.current_err }
+    requires { true }
+    writes {  }
+    ensures { (((result
+                   = (((((((Ada___ada__text_io__line_length__2.line_length
+                              (Main.__private__content
+                                  Ada___ada__text_io__file_system.file_system))
+                             (Main.__private__content
+                                 Ada___ada__text_io__standard_in.standard_in))
+                            (Main.__private__content
+                                Ada___ada__text_io__standard_out.standard_out))
+                           (Main.__private__content
+                               Ada___ada__text_io__standard_err.standard_err))
+                          (Main.__private__content
+                              Ada___ada__text_io__current_in.current_in))
+                         (Main.__private__content
+                             Ada___ada__text_io__current_out.current_out))
+                        (Main.__private__content
+                            Ada___ada__text_io__current_err.current_err))) /\
+                  true) /\
+                 (((((Ada___ada__text_io__count___axiom.dynamic_invariant
+                        result)
+                       True)
+                      False)
+                     True)
+                    True)) }
+  
+  axiom line_length__post_axiom:
+    forall Ada___ada__text_io__file_system___file_system___ : Main.__private, Ada___ada__text_io__standard_in___standard_in___ : 
+          Main.__private, Ada___ada__text_io__standard_out___standard_out___ : 
+          Main.__private, Ada___ada__text_io__standard_err___standard_err___ : 
+          Main.__private, Ada___ada__text_io__current_in___current_in___ : 
+          Main.__private, Ada___ada__text_io__current_out___current_out___ : 
+          Main.__private, Ada___ada__text_io__current_err___current_err___ : 
+          Main.__private
+          [((((((Ada___ada__text_io__line_length__2.line_length
+                   Ada___ada__text_io__file_system___file_system___)
+                  Ada___ada__text_io__standard_in___standard_in___)
+                 Ada___ada__text_io__standard_out___standard_out___)
+                Ada___ada__text_io__standard_err___standard_err___)
+               Ada___ada__text_io__current_in___current_in___)
+              Ada___ada__text_io__current_out___current_out___)
+             Ada___ada__text_io__current_err___current_err___].
+      let result =
+        ((((((Ada___ada__text_io__line_length__2.line_length
+                Ada___ada__text_io__file_system___file_system___)
+               Ada___ada__text_io__standard_in___standard_in___)
+              Ada___ada__text_io__standard_out___standard_out___)
+             Ada___ada__text_io__standard_err___standard_err___)
+            Ada___ada__text_io__current_in___current_in___)
+           Ada___ada__text_io__current_out___current_out___)
+          Ada___ada__text_io__current_err___current_err___ in
+      ((true /\
+          (((((Ada___ada__text_io__count___axiom.dynamic_invariant result)
+                True)
+               False)
+              True)
+             True)) /\
+         true)
+end
+
+module Ada___ada__text_io__page_length__2___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+  use _gnatprove_standard.Main as Main
+  use Ada___ada__text_io__page_length__2 as Ada___ada__text_io__page_length__2
+  use Ada___ada__text_io__count___axiom as Ada___ada__text_io__count___axiom
+  use Ada___ada__text_io__file_system as Ada___ada__text_io__file_system
+  use Ada___ada__text_io__standard_in as Ada___ada__text_io__standard_in
+  use Ada___ada__text_io__standard_out as Ada___ada__text_io__standard_out
+  use Ada___ada__text_io__standard_err as Ada___ada__text_io__standard_err
+  use Ada___ada__text_io__current_in as Ada___ada__text_io__current_in
+  use Ada___ada__text_io__current_out as Ada___ada__text_io__current_out
+  use Ada___ada__text_io__current_err as Ada___ada__text_io__current_err
+  use Ada___ada__text_io__file_system as Ada___ada__text_io__file_system
+  use Ada___ada__text_io__standard_in as Ada___ada__text_io__standard_in
+  use Ada___ada__text_io__standard_out as Ada___ada__text_io__standard_out
+  use Ada___ada__text_io__standard_err as Ada___ada__text_io__standard_err
+  use Ada___ada__text_io__current_in as Ada___ada__text_io__current_in
+  use Ada___ada__text_io__current_out as Ada___ada__text_io__current_out
+  use Ada___ada__text_io__current_err as Ada___ada__text_io__current_err
+  
+  val page_length (__void_param: unit) : int
+    reads { Ada___ada__text_io__file_system.file_system,
+      Ada___ada__text_io__standard_in.standard_in,
+      Ada___ada__text_io__standard_out.standard_out,
+      Ada___ada__text_io__standard_err.standard_err,
+      Ada___ada__text_io__current_in.current_in,
+      Ada___ada__text_io__current_out.current_out,
+      Ada___ada__text_io__current_err.current_err }
+    requires { true }
+    writes {  }
+    ensures { (((result
+                   = (((((((Ada___ada__text_io__page_length__2.page_length
+                              (Main.__private__content
+                                  Ada___ada__text_io__file_system.file_system))
+                             (Main.__private__content
+                                 Ada___ada__text_io__standard_in.standard_in))
+                            (Main.__private__content
+                                Ada___ada__text_io__standard_out.standard_out))
+                           (Main.__private__content
+                               Ada___ada__text_io__standard_err.standard_err))
+                          (Main.__private__content
+                              Ada___ada__text_io__current_in.current_in))
+                         (Main.__private__content
+                             Ada___ada__text_io__current_out.current_out))
+                        (Main.__private__content
+                            Ada___ada__text_io__current_err.current_err))) /\
+                  true) /\
+                 (((((Ada___ada__text_io__count___axiom.dynamic_invariant
+                        result)
+                       True)
+                      False)
+                     True)
+                    True)) }
+  
+  axiom page_length__post_axiom:
+    forall Ada___ada__text_io__file_system___file_system___ : Main.__private, Ada___ada__text_io__standard_in___standard_in___ : 
+          Main.__private, Ada___ada__text_io__standard_out___standard_out___ : 
+          Main.__private, Ada___ada__text_io__standard_err___standard_err___ : 
+          Main.__private, Ada___ada__text_io__current_in___current_in___ : 
+          Main.__private, Ada___ada__text_io__current_out___current_out___ : 
+          Main.__private, Ada___ada__text_io__current_err___current_err___ : 
+          Main.__private
+          [((((((Ada___ada__text_io__page_length__2.page_length
+                   Ada___ada__text_io__file_system___file_system___)
+                  Ada___ada__text_io__standard_in___standard_in___)
+                 Ada___ada__text_io__standard_out___standard_out___)
+                Ada___ada__text_io__standard_err___standard_err___)
+               Ada___ada__text_io__current_in___current_in___)
+              Ada___ada__text_io__current_out___current_out___)
+             Ada___ada__text_io__current_err___current_err___].
+      let result =
+        ((((((Ada___ada__text_io__page_length__2.page_length
+                Ada___ada__text_io__file_system___file_system___)
+               Ada___ada__text_io__standard_in___standard_in___)
+              Ada___ada__text_io__standard_out___standard_out___)
+             Ada___ada__text_io__standard_err___standard_err___)
+            Ada___ada__text_io__current_in___current_in___)
+           Ada___ada__text_io__current_out___current_out___)
+          Ada___ada__text_io__current_err___current_err___ in
+      ((true /\
+          (((((Ada___ada__text_io__count___axiom.dynamic_invariant result)
+                True)
+               False)
+              True)
+             True)) /\
+         true)
+end
+
+module Drvr__fetch_safe_input__min___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+end
+
+module Drvr__fetch_safe_input__max___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+end
+
+module Drvr__fetch_safe_input__input___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+end
+
+module Drvr__fetch_safe_input__TTinput_stringSP1___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+end
+
+module Drvr__fetch_safe_input__L_3__T14b___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+end
+
+module Drvr__fetch_safe_input__L_3__T16b___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+end
+
+module Drvr__fetch_safe_input__L_3__B22b__result___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+end
+
+module Drvr__fetch_safe_input__L_3__B22b__L_2___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+end
+
+module Drvr__fetch_safe_input__L_3__B22b__L_2__i___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+end
+
+module Drvr__fetch_safe_input__L_3__C18b___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+end
+
+module Drvr__fetch_safe_input__L_3__C19b___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+end
+
+module Drvr__fetch_safe_input__L_3__R20b___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+end
+
+module Drvr__fetch_safe_input__L_3__B22b__L_2__T25b___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+end
+
+module Drvr__fetch_safe_input__L_3__B22b__L_2__T27b___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+end
+
+module Drvr__fetch_safe_input__subprogram_def
+  use _gnatprove_standard.Main
+  use int.Int
+  use int.Int
+  use _gnatprove_standard.Main as Main
+  use _gnatprove_standard.Integer as Integer
+  use _gnatprove_standard.Boolean as Boolean
+  use Standard_String__Img as Standard_String__Img
+  use Standard__integer as Standard__integer
+  use Standard__integer as Standard__integer
+  use Standard__integer___axiom as Standard__integer___axiom
+  use Standard__natural___axiom as Standard__natural___axiom
+  use Standard__positive as Standard__positive
+  use Standard__character as Standard__character
+  use Standard__character__rep as Standard__character__rep
+  use Array__Int__Standard__character as Array__Int__Standard__character
+  use Array__Int__Standard__character__Concat as Array__Int__Standard__character__Concat
+  use Standard__string as Standard__string
+  use Standard__integer__rep as Standard__integer__rep
+  use Drvr__fetch_safe_input__min as Drvr__fetch_safe_input__min
+  use Drvr__fetch_safe_input__max as Drvr__fetch_safe_input__max
+  use Drvr__fetch_safe_input__input as Drvr__fetch_safe_input__input
+  use Array__Int__Standard__character as Array__Int__Standard__character
+  use Drvr__fetch_safe_input__input_string as Drvr__fetch_safe_input__input_string
+  use Drvr__fetch_safe_input__length as Drvr__fetch_safe_input__length
+  use Drvr__fetch_safe_input__valid as Drvr__fetch_safe_input__valid
+  use Drvr__fetch_safe_input__is_digit_string___axiom as Drvr__fetch_safe_input__is_digit_string___axiom
+  use Ada___ada__text_io__get_line__2___axiom as Ada___ada__text_io__get_line__2___axiom
+  use Drvr__fetch_safe_input__L_3__T16b as Drvr__fetch_safe_input__L_3__T16b
+  use Drvr__fetch_safe_input__L_3__C18b as Drvr__fetch_safe_input__L_3__C18b
+  use Drvr__fetch_safe_input__L_3__R20b as Drvr__fetch_safe_input__L_3__R20b
+  use Drvr__fetch_safe_input__L_3__C19b as Drvr__fetch_safe_input__L_3__C19b
+  use Drvr__fetch_safe_input__L_3__B22b__result as Drvr__fetch_safe_input__L_3__B22b__result
+  use Drvr__fetch_safe_input__L_3__B22b__L_2__i as Drvr__fetch_safe_input__L_3__B22b__L_2__i
+  use Ada___ada__text_io__put_line__2___axiom as Ada___ada__text_io__put_line__2___axiom
+  use Drvr__fetch_safe_input__TTinput_stringSP1 as Drvr__fetch_safe_input__TTinput_stringSP1
+  use Drvr__fetch_safe_input__Tinput_stringS___axiom as Drvr__fetch_safe_input__Tinput_stringS___axiom
+  use Drvr__fetch_safe_input__L_3 as Drvr__fetch_safe_input__L_3
+  use Drvr__fetch_safe_input__L_3__T14b as Drvr__fetch_safe_input__L_3__T14b
+  use Drvr__fetch_safe_input__L_3__B22b__L_2 as Drvr__fetch_safe_input__L_3__B22b__L_2
+  use Drvr__fetch_safe_input__L_3__B22b__L_2__T25b as Drvr__fetch_safe_input__L_3__B22b__L_2__T25b
+  use Drvr__fetch_safe_input__L_3__B22b__L_2__T27b as Drvr__fetch_safe_input__L_3__B22b__L_2__T27b
+  use Array__Int__Standard__character as Array__Int__Standard__character
+  use Array__Int__Standard__character as Array__Int__Standard__character
+  use Array__Int__Standard__character as Array__Int__Standard__character
+  use Array__Int__Standard__character as Array__Int__Standard__character
+  use Array__Int__Standard__character as Array__Int__Standard__character
+  use Temp___String_Literal_403 as Temp___String_Literal_403
+  use Array__Int__Standard__character as Array__Int__Standard__character
+  use Temp___String_Literal_404 as Temp___String_Literal_404
+  use Array__Int__Standard__character as Array__Int__Standard__character
+  use Array__Int__Standard__character as Array__Int__Standard__character
+  use Array__Int__Standard__character as Array__Int__Standard__character
+  use Array__Int__Standard__character as Array__Int__Standard__character
+  use Array__Int__Standard__character as Array__Int__Standard__character
+  use Array__Int__Standard__character as Array__Int__Standard__character
+  use Temp___String_Literal_411 as Temp___String_Literal_411
+  use Array__Int__Standard__character as Array__Int__Standard__character
+  use Array__Int__Standard__character as Array__Int__Standard__character
+  use Array__Int__Standard__character as Array__Int__Standard__character
+  use Array__Int__Standard__character as Array__Int__Standard__character
+  use Standard__integer___axiom as Standard__integer___axiom
+  use Standard__natural___axiom as Standard__natural___axiom
+  use Standard__positive___axiom as Standard__positive___axiom
+  use Standard__character___axiom as Standard__character___axiom
+  use Standard__string___axiom as Standard__string___axiom
+  use Standard__integer___axiom as Standard__integer___axiom
+  use Drvr__fetch_safe_input__input_string___axiom as Drvr__fetch_safe_input__input_string___axiom
+  use Drvr__fetch_safe_input__length___axiom as Drvr__fetch_safe_input__length___axiom
+  use Drvr__fetch_safe_input__valid___axiom as Drvr__fetch_safe_input__valid___axiom
+  use Drvr__fetch_safe_input__L_3___axiom as Drvr__fetch_safe_input__L_3___axiom
+  use Ada___ada__text_io__count___axiom as Ada___ada__text_io__count___axiom
+  use Ada___ada__text_io__line_length__2___axiom as Ada___ada__text_io__line_length__2___axiom
+  use Ada___ada__text_io__page_length__2___axiom as Ada___ada__text_io__page_length__2___axiom
+  use Ada___ada__text_io__get_line__2___axiom as Ada___ada__text_io__get_line__2___axiom
+  use Ada___ada__text_io__put_line__2___axiom as Ada___ada__text_io__put_line__2___axiom
+  use Drvr__fetch_safe_input__min___axiom as Drvr__fetch_safe_input__min___axiom
+  use Drvr__fetch_safe_input__max___axiom as Drvr__fetch_safe_input__max___axiom
+  use Drvr__fetch_safe_input__input___axiom as Drvr__fetch_safe_input__input___axiom
+  use Drvr__fetch_safe_input__Tinput_stringS___axiom as Drvr__fetch_safe_input__Tinput_stringS___axiom
+  use Drvr__fetch_safe_input__TTinput_stringSP1___axiom as Drvr__fetch_safe_input__TTinput_stringSP1___axiom
+  use Drvr__fetch_safe_input__is_digit_string___axiom as Drvr__fetch_safe_input__is_digit_string___axiom
+  use Drvr__fetch_safe_input__L_3__T14b___axiom as Drvr__fetch_safe_input__L_3__T14b___axiom
+  use Drvr__fetch_safe_input__L_3__T16b___axiom as Drvr__fetch_safe_input__L_3__T16b___axiom
+  use Drvr__fetch_safe_input__L_3__B22b__result___axiom as Drvr__fetch_safe_input__L_3__B22b__result___axiom
+  use Drvr__fetch_safe_input__L_3__B22b__L_2___axiom as Drvr__fetch_safe_input__L_3__B22b__L_2___axiom
+  use Drvr__fetch_safe_input__L_3__B22b__L_2__i___axiom as Drvr__fetch_safe_input__L_3__B22b__L_2__i___axiom
+  use Drvr__fetch_safe_input__L_3__C18b___axiom as Drvr__fetch_safe_input__L_3__C18b___axiom
+  use Drvr__fetch_safe_input__L_3__C19b___axiom as Drvr__fetch_safe_input__L_3__C19b___axiom
+  use Drvr__fetch_safe_input__L_3__R20b___axiom as Drvr__fetch_safe_input__L_3__R20b___axiom
+  use Drvr__fetch_safe_input__L_3__B22b__L_2__T25b___axiom as Drvr__fetch_safe_input__L_3__B22b__L_2__T25b___axiom
+  use Drvr__fetch_safe_input__L_3__B22b__L_2__T27b___axiom as Drvr__fetch_safe_input__L_3__B22b__L_2__T27b___axiom
+  
+  let def (__void_param : unit)
+    requires { [#"drvr.adb" 99 0 0] true }
+  = [@vc:divergent]
+    (([@GNAT-comment:Assume dynamic invariants of inputs of the subprogram drvr.adb:99]
+      ());
+     ([#"drvr.adb" 99 0 0]
+      assume {
+        [#"drvr.adb" 99 0 0]
+        (((((Standard__integer___axiom.dynamic_invariant
+               Drvr__fetch_safe_input__min.min)
+              True)
+             False)
+            True)
+           True) });
+     ([#"drvr.adb" 99 0 0]
+      assume {
+        [#"drvr.adb" 99 0 0]
+        (((((Standard__integer___axiom.dynamic_invariant
+               Drvr__fetch_safe_input__max.max)
+              True)
+             False)
+            True)
+           True) });
+     ([#"drvr.adb" 99 0 0]
+      assume {
+        [#"drvr.adb" 99 0 0]
+        (((((Standard__integer___axiom.dynamic_invariant
+               (Drvr__fetch_safe_input__input.input.int__content))
+              False)
+             False)
+            True)
+           True) });
+     ([@GNAT-comment:Assume moved pointers in outputs of the subprogram drvr.adb:99]
+      ());
+     ([@GNAT-comment:Check for RTE in the Pre of the subprogram drvr.adb:99]
+      ());
+     ([#"drvr.adb" 99 0 0] ());
+     ([@GNAT-comment:Assume Pre of the subprogram drvr.adb:99] ());
+     ([#"drvr.adb" 99 0 0]
+      (try
+         ([#"drvr.adb" 100 0 0] ());
+         ([#"drvr.adb" 100 0 0]
+          (([#"drvr.adb" 100 0 0]
+            assume {
+              [#"drvr.adb" 100 0 0]
+              ((Drvr__fetch_safe_input__Tinput_stringS___axiom.default_initial_assumption
+                  (Drvr__fetch_safe_input__input_string.input_string.
+                     Array__Int__Standard__character.map__content))
+                 False) });
+           ([#"drvr.adb" 100 0 0]
+            assume {
+              [#"drvr.adb" 100 0 0]
+              (((((Drvr__fetch_safe_input__Tinput_stringS___axiom.dynamic_invariant
+                     (Drvr__fetch_safe_input__input_string.input_string.
+                        Array__Int__Standard__character.map__content))
+                    False)
+                   False)
+                  True)
+                 True) })));
+         ([#"drvr.adb" 101 0 0]
+          (([#"drvr.adb" 101 0 0]
+            assume {
+              [#"drvr.adb" 101 0 0]
+              ((Standard__natural___axiom.default_initial_assumption
+                  (Drvr__fetch_safe_input__length.length.int__content))
+                 False) });
+           ([#"drvr.adb" 101 0 0]
+            assume {
+              [#"drvr.adb" 101 0 0]
+              (((((Standard__natural___axiom.dynamic_invariant
+                     (Drvr__fetch_safe_input__length.length.int__content))
+                    False)
+                   False)
+                  True)
+                 True) })));
+         ([#"drvr.adb" 102 0 0]
+          [#"drvr.adb" 102 0 0]
+          (Drvr__fetch_safe_input__valid.valid.bool__content <-
+             (Boolean.of_int (0 : int))));
+         ([#"drvr.adb" 105 0 0] ());
+         ([#"drvr.adb" 105 0 0] ());
+         ([#"drvr.adb" 105 0 0] ());
+         ([#"drvr.adb" 116 0 0] ());
+         ([#"drvr.adb" 116 0 0] ());
+         ([#"drvr.adb" 116 0 0] ());
+         ([#"drvr.adb" 128 0 0] ());
+         ([@GP_Sloc:drvr.adb:128:20]
+          [#"drvr.adb" 128 0 0]
+          (([@GNAT-comment:Translation of an Ada loop from drvr.adb:128] ());
+           (if (not (Drvr__fetch_safe_input__valid.valid.bool__content)) then
+              ([#"drvr.adb" 128 0 0]
+               (try
+                  let temp___loop_entry_416 =
+                    Drvr__fetch_safe_input__input_string.input_string.
+                      Array__Int__Standard__character.map__content in
+                  ([@GNAT-comment:While loop translating the Ada loop from drvr.adb:128]
+                   ());
+                  ([#"drvr.adb" 128 0 0]
+                   [#"drvr.adb" 128 0 0]
+                   (([@GNAT-comment:Check for absence of RTE in the loop invariant and variant]
+                     ());
+                    while True do
+                      ([@GNAT-comment:gnat_ast_to_ptree: code after the loop invariant]
+                       (([@GNAT-comment:Assume implicit invariants from the loop drvr.adb:128]
+                         ());
+                        ([#"drvr.adb" 128 0 0]
+                         assume {
+                           [#"drvr.adb" 128 0 0]
+                           ((Boolean.andb
+                               ((((((((true /\
+                                         (((((Standard__natural___axiom.dynamic_invariant
+                                                (Drvr__fetch_safe_input__length.length.int__content))
+                                               False)
+                                              True)
+                                             True)
+                                            True)) /\
+                                        (true /\ true)) /\
+                                       true) /\
+                                      (true /\ true)) /\
+                                     (((((Standard__integer___axiom.dynamic_invariant
+                                            (Drvr__fetch_safe_input__input.input.int__content))
+                                           False)
+                                          True)
+                                         True)
+                                        True)) /\
+                                    (true /\ true)) /\
+                                   (((((Drvr__fetch_safe_input__Tinput_stringS___axiom.dynamic_invariant
+                                          (Drvr__fetch_safe_input__input_string.input_string.
+                                             Array__Int__Standard__character.map__content))
+                                         False)
+                                        True)
+                                       True)
+                                      True)) /\
+                                  (true /\ true)))
+                              (not ((Drvr__fetch_safe_input__valid.valid.bool__content)
+                                      = True))) });
+                        ([@GNAT-comment:Continuation of loop after loop invariant and variant]
+                         ());
+                        ([@GP_Sloc:drvr.adb:129:16] [#"drvr.adb" 129 0 0] ());
+                        ([@GP_Sloc:drvr.adb:129:30] [#"drvr.adb" 129 0 0] ());
+                        ([@GP_Sloc:drvr.adb:129:7] [#"drvr.adb" 129 0 0] ());
+                        ([@GP_Sloc:drvr.adb:129:7]
+                         [#"drvr.adb" 129 0 0]
+                         (let temp___compl_388 =
+                            let temp___387 =
+                              Drvr__fetch_safe_input__input_string.input_string.
+                                Array__Int__Standard__character.map__content in
+                            ((Standard__string.of_array temp___387)
+                               Drvr__fetch_safe_input__TTinput_stringSP1.first)
+                              Drvr__fetch_safe_input__TTinput_stringSP1.last in
+                          [#"drvr.adb" 129 0 0]
+                          (let item =
+                             { Array__Int__Standard__character.map__content =
+                                 (Standard__string.to_array temp___compl_388) } in
+                           let temp___compl_391 =
+                             Drvr__fetch_safe_input__length.length.int__content in
+                           ([#"drvr.adb" 129 0 0] (val _f : unit in
+                                                   _f));
+                           ((((Ada___ada__text_io__get_line__2___axiom.get_line
+                                 item)
+                                (Standard__integer__rep.of_rep
+                                   (Standard__string.first temp___compl_388)))
+                               (Standard__integer__rep.of_rep
+                                  (Standard__string.last temp___compl_388)))
+                              Drvr__fetch_safe_input__length.length);
+                           ([#"drvr.adb" 129 0 0]
+                            (Drvr__fetch_safe_input__input_string.input_string.
+                               Array__Int__Standard__character.map__content <-
+                               (let temp___389 =
+                                  ((Standard__string.of_array
+                                      (item.Array__Int__Standard__character.map__content))
+                                     (Standard__string.first temp___compl_388))
+                                    (Standard__string.last temp___compl_388) in
+                                let temp___390 =
+                                  ((Array__Int__Standard__character.slide
+                                      (Standard__string.to_array temp___389))
+                                     (Standard__string.first temp___389))
+                                    Drvr__fetch_safe_input__TTinput_stringSP1.first in
+                                temp___390))))));
+                        ([@GP_Sloc:drvr.adb:132:51] [#"drvr.adb" 132 0 0] ());
+                        ([@GP_Sloc:drvr.adb:132:10] [#"drvr.adb" 132 0 0] ());
+                        ([@GP_Sloc:drvr.adb:132:7]
+                         [#"drvr.adb" 132 0 0]
+                         (if (([#"drvr.adb" 132 0 0]
+                               [#"drvr.adb" 132 0 0]
+                               (([@branch_id=1006] Main.spark__branch).bool__content <-
+                                  ((Drvr__fetch_safe_input__is_digit_string___axiom.is_digit_string
+                                      (let temp___414 =
+                                         let temp___413 = 1 : int in
+                                         ((Drvr__fetch_safe_input__L_3__T14b.of_array
+                                             (([#"drvr.adb" 132 0 0]
+                                               assert {
+                                                 [#"drvr.adb" 132 0 0]
+                                                 [#"drvr.adb" 132 0 0]
+                                                 [@GP_Shape:L_3_while__if__call_is_digit_string__slice]
+                                                 [@GP_Sloc:drvr.adb:132:26]
+                                                 [@vc:annotation]
+                                                 [@comment:      if Is_Digit_String(Input_String(1..Length), Length) then                          ^ drvr.adb:132:26:VC_RANGE_CHECK]
+                                                 [@GP_Id:32]
+                                                 [@GP_Reason:VC_RANGE_CHECK]
+                                                 ((temp___413
+                                                     <= (Drvr__fetch_safe_input__length.length.int__content)) ->
+                                                    (((Drvr__fetch_safe_input__TTinput_stringSP1.first
+                                                         <= temp___413) /\
+                                                        (temp___413
+                                                           <= Drvr__fetch_safe_input__TTinput_stringSP1.last)) /\
+                                                       ((Drvr__fetch_safe_input__TTinput_stringSP1.first
+                                                           <= (Drvr__fetch_safe_input__length.length.int__content)) /\
+                                                          ((Drvr__fetch_safe_input__length.length.int__content)
+                                                             <= Drvr__fetch_safe_input__TTinput_stringSP1.last)))) });
+                                              (Drvr__fetch_safe_input__input_string.input_string.
+                                                 Array__Int__Standard__character.map__content)))
+                                            temp___413)
+                                           (Drvr__fetch_safe_input__length.length.int__content) in
+                                       let temp___415 =
+                                         Drvr__fetch_safe_input__L_3__T14b.to_array
+                                           temp___414 in
+                                       ((Standard__string.of_array temp___415)
+                                          (Drvr__fetch_safe_input__L_3__T14b.first
+                                             temp___414))
+                                         (Drvr__fetch_safe_input__L_3__T14b.last
+                                            temp___414)))
+                                     (Drvr__fetch_safe_input__length.length.int__content))));
+                              (([@branch_id=1006] Main.spark__branch).bool__content)) then
+                            (([@GP_Sloc:drvr.adb:133:62]
+                              [#"drvr.adb" 133 0 0] ());
+                             ([@GP_Sloc:drvr.adb:133:19]
+                              [#"drvr.adb" 133 0 0] ());
+                             ([@GP_Sloc:drvr.adb:133:19]
+                              [#"drvr.adb" 133 0 0]
+                              [#"drvr.adb" 133 0 0]
+                              ((let drvr__fetch_safe_input__L_3__C18b__assume =
+                                  let temp___392 = 1 : int in
+                                  ((Drvr__fetch_safe_input__L_3__T16b.of_array
+                                      (([#"drvr.adb" 133 0 0]
+                                        assert {
+                                          [#"drvr.adb" 133 0 0]
+                                          [#"drvr.adb" 133 0 0]
+                                          [@GP_Shape:L_3_while__if__C18b_decl__slice]
+                                          [@vc:annotation]
+                                          [@GP_Reason:VC_RANGE_CHECK]
+                                          [@comment:         Input := String_To_Integer(Input_String(1..Length), Length);                   ^ drvr.adb:133:19:VC_RANGE_CHECK]
+                                          [@GP_Id:20]
+                                          [@GP_Sloc:drvr.adb:133:19]
+                                          ((temp___392
+                                              <= (Drvr__fetch_safe_input__length.length.int__content)) ->
+                                             (((Drvr__fetch_safe_input__TTinput_stringSP1.first
+                                                  <= temp___392) /\
+                                                 (temp___392
+                                                    <= Drvr__fetch_safe_input__TTinput_stringSP1.last)) /\
+                                                ((Drvr__fetch_safe_input__TTinput_stringSP1.first
+                                                    <= (Drvr__fetch_safe_input__length.length.int__content)) /\
+                                                   ((Drvr__fetch_safe_input__length.length.int__content)
+                                                      <= Drvr__fetch_safe_input__TTinput_stringSP1.last)))) });
+                                       (Drvr__fetch_safe_input__input_string.input_string.
+                                          Array__Int__Standard__character.map__content)))
+                                     temp___392)
+                                    (Drvr__fetch_safe_input__length.length.int__content) in
+                                assume {
+                                  (drvr__fetch_safe_input__L_3__C18b__assume
+                                     = Drvr__fetch_safe_input__L_3__C18b.c18b) });
+                               assume {
+                                 if False then true
+                                 else
+                                   ((((((Drvr__fetch_safe_input__L_3__T16b.dynamic_property
+                                           (1 : int))
+                                          (Drvr__fetch_safe_input__length.length.int__content))
+                                         (Drvr__fetch_safe_input__L_3__T16b.first
+                                            Drvr__fetch_safe_input__L_3__C18b.c18b))
+                                        (Drvr__fetch_safe_input__L_3__T16b.last
+                                           Drvr__fetch_safe_input__L_3__C18b.c18b)) /\
+                                       ((Drvr__fetch_safe_input__L_3__T16b.first
+                                           Drvr__fetch_safe_input__L_3__C18b.c18b)
+                                          = (1 : int))) /\
+                                      ((Drvr__fetch_safe_input__L_3__T16b.last
+                                          Drvr__fetch_safe_input__L_3__C18b.c18b)
+                                         = (Drvr__fetch_safe_input__length.length.int__content))) }));
+                             ([@GP_Sloc:drvr.adb:133:53]
+                              [#"drvr.adb" 133 0 0]
+                              [#"drvr.adb" 133 0 0]
+                              ((let drvr__fetch_safe_input__L_3__R20b__assume =
+                                  Drvr__fetch_safe_input__length.length.int__content in
+                                [#"drvr.adb" 133 0 0]
+                                assume {
+                                  [#"drvr.adb" 133 0 0]
+                                  (drvr__fetch_safe_input__L_3__R20b__assume
+                                     = Drvr__fetch_safe_input__L_3__R20b.r20b) });
+                               ([#"drvr.adb" 133 0 0]
+                                assume {
+                                  [#"drvr.adb" 133 0 0]
+                                  (((((Standard__natural___axiom.dynamic_invariant
+                                         Drvr__fetch_safe_input__L_3__R20b.r20b)
+                                        True)
+                                       False)
+                                      True)
+                                     True) })));
+                             ([@GP_Sloc:drvr.adb:133:19]
+                              [#"drvr.adb" 133 0 0]
+                              [#"drvr.adb" 133 0 0]
+                              [#"drvr.adb" 133 0 0]
+                              (begin
+                                 ensures { true }
+                                 let _ =
+                                   let _ =
+                                     let temp___394 = 1 : int in
+                                     ((Drvr__fetch_safe_input__L_3__T16b.of_array
+                                         (([#"drvr.adb" 133 0 0]
+                                           assert {
+                                             [#"drvr.adb" 133 0 0]
+                                             [#"drvr.adb" 133 0 0]
+                                             [@GP_Shape:L_3_while__if__slice]
+                                             [@vc:annotation]
+                                             [@GP_Reason:VC_RANGE_CHECK]
+                                             [@comment:         Input := String_To_Integer(Input_String(1..Length), Length);                   ^ drvr.adb:133:19:VC_RANGE_CHECK]
+                                             [@GP_Id:21]
+                                             [@GP_Sloc:drvr.adb:133:19]
+                                             ((temp___394
+                                                 <= Drvr__fetch_safe_input__L_3__R20b.r20b) ->
+                                                (((Drvr__fetch_safe_input__TTinput_stringSP1.first
+                                                     <= temp___394) /\
+                                                    (temp___394
+                                                       <= Drvr__fetch_safe_input__TTinput_stringSP1.last)) /\
+                                                   ((Drvr__fetch_safe_input__TTinput_stringSP1.first
+                                                       <= Drvr__fetch_safe_input__L_3__R20b.r20b) /\
+                                                      (Drvr__fetch_safe_input__L_3__R20b.r20b
+                                                         <= Drvr__fetch_safe_input__TTinput_stringSP1.last)))) });
+                                          (Drvr__fetch_safe_input__input_string.input_string.
+                                             Array__Int__Standard__character.map__content)))
+                                        temp___394)
+                                       Drvr__fetch_safe_input__L_3__R20b.r20b in
+                                   () in
+                                 ()
+                               end));
+                             ([@GP_Sloc:drvr.adb:133:19]
+                              [#"drvr.adb" 133 0 0]
+                              [#"drvr.adb" 133 0 0]
+                              ((let drvr__fetch_safe_input__L_3__C19b__assume =
+                                  Drvr__fetch_safe_input__length.length.int__content in
+                                [#"drvr.adb" 133 0 0]
+                                assume {
+                                  [#"drvr.adb" 133 0 0]
+                                  (drvr__fetch_safe_input__L_3__C19b__assume
+                                     = Drvr__fetch_safe_input__L_3__C19b.c19b) });
+                               ([#"drvr.adb" 133 0 0]
+                                assume {
+                                  [#"drvr.adb" 133 0 0]
+                                  (((((Standard__natural___axiom.dynamic_invariant
+                                         Drvr__fetch_safe_input__L_3__C19b.c19b)
+                                        True)
+                                       False)
+                                      True)
+                                     True) })));
+                             ([@GP_Sloc:drvr.adb:133:19]
+                              [#"drvr.adb" 133 0 0]
+                              (([#"drvr.adb" 117 0 0]
+                                (([#"drvr.adb" 117 0 0]
+                                  (Drvr__fetch_safe_input__L_3__B22b__result.result__.int__content <-
+                                     (0 : int)));
+                                 ([#"drvr.adb" 117 0 0]
+                                  assume {
+                                    [#"drvr.adb" 117 0 0]
+                                    (((((Standard__integer___axiom.dynamic_invariant
+                                           (Drvr__fetch_safe_input__L_3__B22b__result.result__.int__content))
+                                          True)
+                                         False)
+                                        True)
+                                       True) })));
+                               ([#"drvr.adb" 119 0 0] ());
+                               ([@GP_Sloc:drvr.adb:119:25:inlined:drvr.adb:133:19]
+                                [#"drvr.adb" 119 0 0]
+                                (let temp___395 = 1 : int in
+                                 let temp___396 =
+                                   Drvr__fetch_safe_input__L_3__C19b.c19b in
+                                 ([#"drvr.adb" 119 0 0]
+                                  (Drvr__fetch_safe_input__L_3__B22b__L_2__i.i.int__content <-
+                                     temp___395));
+                                 ([@GNAT-comment:Translation of an Ada loop from drvr.adb:119 instantiated at drvr.adb:133]
+                                  ());
+                                 (if ((Boolean.andb
+                                         (temp___395
+                                            <= (Drvr__fetch_safe_input__L_3__B22b__L_2__i.i.int__content)))
+                                        ((Drvr__fetch_safe_input__L_3__B22b__L_2__i.i.int__content)
+                                           <= temp___396)) then
+                                    ([#"drvr.adb" 119 0 0]
+                                     (try
+                                        ([@GNAT-comment:While loop translating the Ada loop from drvr.adb:119 instantiated at drvr.adb:133]
+                                         ());
+                                        ([#"drvr.adb" 119 0 0]
+                                         [#"drvr.adb" 119 0 0]
+                                         (([@GNAT-comment:Check for absence of RTE in the loop invariant and variant]
+                                           ());
+                                          while True do
+                                            ([@GNAT-comment:gnat_ast_to_ptree: code after the loop invariant]
+                                             (([@GNAT-comment:Assume implicit invariants from the loop drvr.adb:119 instantiated at drvr.adb:133]
+                                               ());
+                                              ([#"drvr.adb" 119 0 0]
+                                               assume {
+                                                 [#"drvr.adb" 119 0 0]
+                                                 ((Boolean.andb
+                                                     ((true /\
+                                                         (((((Standard__integer___axiom.dynamic_invariant
+                                                                (Drvr__fetch_safe_input__L_3__B22b__result.result__.int__content))
+                                                               True)
+                                                              True)
+                                                             True)
+                                                            True)) /\
+                                                        (true /\ true)))
+                                                    (((1 : int)
+                                                        <= (Drvr__fetch_safe_input__L_3__B22b__L_2__i.i.int__content)) /\
+                                                       ((Drvr__fetch_safe_input__L_3__B22b__L_2__i.i.int__content)
+                                                          <= Drvr__fetch_safe_input__L_3__C19b.c19b))) });
+                                              ([@GNAT-comment:Continuation of loop after loop invariant and variant]
+                                               ());
+                                              ([@GP_Sloc:drvr.adb:120:10:inlined:drvr.adb:133:19]
+                                               [#"drvr.adb" 120 0 0]
+                                               (if (([#"drvr.adb" 120 0 0]
+                                                     [#"drvr.adb" 120 0 0]
+                                                     (([@branch_id=13821]
+                                                       Main.spark__branch).bool__content <-
+                                                        ((Drvr__fetch_safe_input__L_3__B22b__L_2__i.i.int__content)
+                                                           <= ([#"drvr.adb" 120 0 0]
+                                                               [@GP_Sloc:drvr.adb:120:19:inlined:drvr.adb:133:19]
+                                                               [@vc:annotation]
+                                                               [@GP_Reason:VC_RANGE_CHECK]
+                                                               [@GP_Shape:L_3_while__if__B22b_declblk__L_2_while__if__cmp__typeconv__length_ref]
+                                                               [@comment:         if I <= S'Length then                   ^ drvr.adb:120:19:inlined:drvr.adb:133:19:VC_RANGE_CHECK]
+                                                               [@GP_Id:28]
+                                                               (Standard__integer.range_check_
+                                                                  (([#"drvr.adb" 120 0 0]
+                                                                    (begin
+                                                                    ensures { true }
+                                                                    let _ =
+                                                                    let _ =
+                                                                    let temp___400 =
+                                                                    1 : int in
+                                                                    ((Drvr__fetch_safe_input__L_3__B22b__L_2__T25b.of_array
+                                                                    (([#"drvr.adb" 120 0 0]
+                                                                    assert {
+                                                                    [#"drvr.adb" 120 0 0]
+                                                                    [#"drvr.adb" 120 0 0]
+                                                                    [@vc:annotation]
+                                                                    [@GP_Reason:VC_RANGE_CHECK]
+                                                                    [@GP_Sloc:drvr.adb:120:18:inlined:drvr.adb:133:19]
+                                                                    [@comment:         if I <= S'Length then                  ^ drvr.adb:120:18:inlined:drvr.adb:133:19:VC_RANGE_CHECK]
+                                                                    [@GP_Shape:L_3_while__if__B22b_declblk__L_2_while__if__cmp__typeconv__length_ref__slice]
+                                                                    [@GP_Id:27]
+                                                                    ((temp___400
+                                                                    <= Drvr__fetch_safe_input__L_3__R20b.r20b) ->
+                                                                    (((Drvr__fetch_safe_input__TTinput_stringSP1.first
+                                                                    <= temp___400) /\
+                                                                    (temp___400
+                                                                    <= Drvr__fetch_safe_input__TTinput_stringSP1.last)) /\
+                                                                    ((Drvr__fetch_safe_input__TTinput_stringSP1.first
+                                                                    <= Drvr__fetch_safe_input__L_3__R20b.r20b) /\
+                                                                    (Drvr__fetch_safe_input__L_3__R20b.r20b
+                                                                    <= Drvr__fetch_safe_input__TTinput_stringSP1.last)))) });
+                                                                    (Drvr__fetch_safe_input__input_string.input_string.
+                                                                    Array__Int__Standard__character.map__content)))
+                                                                    temp___400)
+                                                                    Drvr__fetch_safe_input__L_3__R20b.r20b in
+                                                                    () in
+                                                                    ()
+                                                                    end));
+                                                                   (Drvr__fetch_safe_input__L_3__B22b__L_2__T25b.length
+                                                                    (let temp___400 =
+                                                                    1 : int in
+                                                                    ((Drvr__fetch_safe_input__L_3__B22b__L_2__T25b.of_array
+                                                                    (assert {
+                                                                    [#"drvr.adb" 120 0 0]
+                                                                    [@vc:annotation]
+                                                                    [@GP_Reason:VC_RANGE_CHECK]
+                                                                    [@GP_Sloc:drvr.adb:120:18:inlined:drvr.adb:133:19]
+                                                                    [@comment:         if I <= S'Length then                  ^ drvr.adb:120:18:inlined:drvr.adb:133:19:VC_RANGE_CHECK]
+                                                                    [@GP_Shape:L_3_while__if__B22b_declblk__L_2_while__if__cmp__typeconv__length_ref__slice]
+                                                                    [@GP_Id:27]
+                                                                    ((temp___400
+                                                                    <= Drvr__fetch_safe_input__L_3__R20b.r20b) ->
+                                                                    (((Drvr__fetch_safe_input__TTinput_stringSP1.first
+                                                                    <= temp___400) /\
+                                                                    (temp___400
+                                                                    <= Drvr__fetch_safe_input__TTinput_stringSP1.last)) /\
+                                                                    ((Drvr__fetch_safe_input__TTinput_stringSP1.first
+                                                                    <= Drvr__fetch_safe_input__L_3__R20b.r20b) /\
+                                                                    (Drvr__fetch_safe_input__L_3__R20b.r20b
+                                                                    <= Drvr__fetch_safe_input__TTinput_stringSP1.last)))) };
+                                                                    (Drvr__fetch_safe_input__input_string.input_string.
+                                                                    Array__Int__Standard__character.map__content)))
+                                                                    temp___400)
+                                                                    Drvr__fetch_safe_input__L_3__R20b.r20b))))))));
+                                                    (([@branch_id=13821]
+                                                      Main.spark__branch).bool__content)) then
+                                                  ([@GP_Sloc:drvr.adb:121:20:inlined:drvr.adb:133:19]
+                                                   [#"drvr.adb" 121 0 0]
+                                                   [#"drvr.adb" 121 0 0]
+                                                   (Drvr__fetch_safe_input__L_3__B22b__result.result__.int__content <-
+                                                      ([#"drvr.adb" 121 0 0]
+                                                       [@vc:annotation]
+                                                       [@GP_Reason:VC_OVERFLOW_CHECK]
+                                                       [@GP_Sloc:drvr.adb:121:57:inlined:drvr.adb:133:19]
+                                                       [@comment:            Result := Result * 10 + Character'Pos(S(I)) - Character'Pos('0');                                                         ^ drvr.adb:121:57:inlined:drvr.adb:133:19:VC_OVERFLOW_CHECK]
+                                                       [@GP_Shape:L_3_while__if__B22b_declblk__L_2_while__if__result_assign__sub]
+                                                       [@GP_Id:26]
+                                                       (Standard__integer.range_check_
+                                                          (([#"drvr.adb" 121 0 0]
+                                                            [@vc:annotation]
+                                                            [@GP_Reason:VC_OVERFLOW_CHECK]
+                                                            [@GP_Shape:L_3_while__if__B22b_declblk__L_2_while__if__result_assign__sub__add]
+                                                            [@GP_Sloc:drvr.adb:121:35:inlined:drvr.adb:133:19]
+                                                            [@GP_Id:25]
+                                                            [@comment:            Result := Result * 10 + Character'Pos(S(I)) - Character'Pos('0');                                   ^ drvr.adb:121:35:inlined:drvr.adb:133:19:VC_OVERFLOW_CHECK]
+                                                            (Standard__integer.range_check_
+                                                               (([#"drvr.adb" 121 0 0]
+                                                                 [@comment:            Result := Result * 10 + Character'Pos(S(I)) - Character'Pos('0');                              ^ drvr.adb:121:30:inlined:drvr.adb:133:19:VC_OVERFLOW_CHECK]
+                                                                 [@GP_Shape:L_3_while__if__B22b_declblk__L_2_while__if__result_assign__sub__add__mult]
+                                                                 [@vc:annotation]
+                                                                 [@GP_Reason:VC_OVERFLOW_CHECK]
+                                                                 [@GP_Id:22]
+                                                                 [@GP_Sloc:drvr.adb:121:30:inlined:drvr.adb:133:19]
+                                                                 (Standard__integer.range_check_
+                                                                    ((Drvr__fetch_safe_input__L_3__B22b__result.result__.int__content)
+                                                                    * (10 :
+                                                                    int))))
+                                                                  + (Standard__character__rep.to_rep
+                                                                    (let temp___399 =
+                                                                    let temp___398 =
+                                                                    1 : int in
+                                                                    ((Drvr__fetch_safe_input__L_3__B22b__L_2__T27b.of_array
+                                                                    (assert {
+                                                                    [#"drvr.adb" 121 0 0]
+                                                                    [@comment:            Result := Result * 10 + Character'Pos(S(I)) - Character'Pos('0');                                                   ^ drvr.adb:121:51:inlined:drvr.adb:133:19:VC_RANGE_CHECK]
+                                                                    [@vc:annotation]
+                                                                    [@GP_Shape:L_3_while__if__B22b_declblk__L_2_while__if__result_assign__sub__add__typeconv__pos_ref__ixdcomp__slice]
+                                                                    [@GP_Reason:VC_RANGE_CHECK]
+                                                                    [@GP_Id:23]
+                                                                    [@GP_Sloc:drvr.adb:121:51:inlined:drvr.adb:133:19]
+                                                                    ((temp___398
+                                                                    <= Drvr__fetch_safe_input__L_3__R20b.r20b) ->
+                                                                    (((Drvr__fetch_safe_input__TTinput_stringSP1.first
+                                                                    <= temp___398) /\
+                                                                    (temp___398
+                                                                    <= Drvr__fetch_safe_input__TTinput_stringSP1.last)) /\
+                                                                    ((Drvr__fetch_safe_input__TTinput_stringSP1.first
+                                                                    <= Drvr__fetch_safe_input__L_3__R20b.r20b) /\
+                                                                    (Drvr__fetch_safe_input__L_3__R20b.r20b
+                                                                    <= Drvr__fetch_safe_input__TTinput_stringSP1.last)))) };
+                                                                    (Drvr__fetch_safe_input__input_string.input_string.
+                                                                    Array__Int__Standard__character.map__content)))
+                                                                    temp___398)
+                                                                    Drvr__fetch_safe_input__L_3__R20b.r20b in
+                                                                    (Array__Int__Standard__character.get
+                                                                    (Drvr__fetch_safe_input__L_3__B22b__L_2__T27b.to_array
+                                                                    temp___399))
+                                                                    (assert {
+                                                                    [#"drvr.adb" 121 0 0]
+                                                                    [@GP_Shape:L_3_while__if__B22b_declblk__L_2_while__if__result_assign__sub__add__typeconv__pos_ref__ixdcomp]
+                                                                    [@vc:annotation]
+                                                                    [@GP_Sloc:drvr.adb:121:53:inlined:drvr.adb:133:19]
+                                                                    [@GP_Reason:VC_INDEX_CHECK]
+                                                                    [@GP_Id:24]
+                                                                    [@comment:            Result := Result * 10 + Character'Pos(S(I)) - Character'Pos('0');                                                     ^ drvr.adb:121:53:inlined:drvr.adb:133:19:VC_INDEX_CHECK]
+                                                                    (((Drvr__fetch_safe_input__L_3__B22b__L_2__T27b.first
+                                                                    temp___399)
+                                                                    <= (Drvr__fetch_safe_input__L_3__B22b__L_2__i.i.int__content)) /\
+                                                                    ((Drvr__fetch_safe_input__L_3__B22b__L_2__i.i.int__content)
+                                                                    <= (Drvr__fetch_safe_input__L_3__B22b__L_2__T27b.last
+                                                                    temp___399))) };
+                                                                    (Drvr__fetch_safe_input__L_3__B22b__L_2__i.i.int__content)))))))
+                                                             - (48 : int))))))
+                                                else ()));
+                                              ([@GNAT-comment:Check for the exit condition and loop statements appearing before the loop invariant of loop drvr.adb:119 instantiated at drvr.adb:133]
+                                               ());
+                                              (if ((Drvr__fetch_safe_input__L_3__B22b__L_2__i.i.int__content)
+                                                     = temp___396) then
+                                                 (raise Drvr__fetch_safe_input__L_3__B22b__L_2.L_2)
+                                               else ());
+                                              ([#"drvr.adb" 119 0 0]
+                                               [#"drvr.adb" 119 0 0]
+                                               (Drvr__fetch_safe_input__L_3__B22b__L_2__i.i.int__content <-
+                                                  ((Drvr__fetch_safe_input__L_3__B22b__L_2__i.i.int__content)
+                                                     + (1 : int))))));
+                                            ([@GNAT-comment:gnat_ast_to_ptree: code before the loop invariant]
+                                             [@GNAT-comment:Check for absence of RTE in the loop invariant and variant]
+                                             ());
+                                            ([@GNAT-comment:gnat_ast_to_ptree: code checking the variants]
+                                             ())
+                                          done))
+                                      with
+                                        Drvr__fetch_safe_input__L_3__B22b__L_2.L_2 ->
+                                        ()
+                                      end))
+                                  else ())));
+                               ([@GP_Sloc:drvr.adb:133:19]
+                                [#"drvr.adb" 124 0 0]
+                                [#"drvr.adb" 124 0 0]
+                                (Drvr__fetch_safe_input__input.input.int__content <-
+                                   (Drvr__fetch_safe_input__L_3__B22b__result.result__.int__content)))));
+                             ([@GP_Sloc:drvr.adb:136:10]
+                              [#"drvr.adb" 136 0 0]
+                              (if (([#"drvr.adb" 136 0 0]
+                                    [#"drvr.adb" 136 0 0]
+                                    (([@branch_id=1025] Main.spark__branch).bool__content <-
+                                       ((Boolean.andb
+                                           ((Drvr__fetch_safe_input__input.input.int__content)
+                                              >= Drvr__fetch_safe_input__min.min))
+                                          ((Drvr__fetch_safe_input__input.input.int__content)
+                                             <= Drvr__fetch_safe_input__max.max))));
+                                   (([@branch_id=1025] Main.spark__branch).bool__content)) then
+                                 (([@GP_Sloc:drvr.adb:137:13]
+                                   [#"drvr.adb" 137 0 0] ());
+                                  ([@GP_Sloc:drvr.adb:137:19]
+                                   [#"drvr.adb" 137 0 0]
+                                   [#"drvr.adb" 137 0 0]
+                                   (Drvr__fetch_safe_input__valid.valid.bool__content <-
+                                      (Boolean.of_int (1 : int)))))
+                               else
+                                 (([@GP_Sloc:drvr.adb:139:13]
+                                   [#"drvr.adb" 139 0 0] ());
+                                  ([@GP_Sloc:drvr.adb:139:13]
+                                   [#"drvr.adb" 139 0 0]
+                                   (([#"drvr.adb" 139 0 0]
+                                     (val _f : unit in
+                                      _f));
+                                    (Ada___ada__text_io__put_line__2___axiom.put_line
+                                       (let temp___410 =
+                                          (Standard_String__Img.to_string
+                                             (Standard__integer.attr__ATTRIBUTE_IMAGE
+                                                Drvr__fetch_safe_input__max.max))
+                                            (12 : int) in
+                                        let temp___409 =
+                                          let temp___408 =
+                                            Temp___String_Literal_403.temp___String_Literal_403
+                                              () in
+                                          let temp___407 =
+                                            let temp___406 =
+                                              (Standard_String__Img.to_string
+                                                 (Standard__integer.attr__ATTRIBUTE_IMAGE
+                                                    Drvr__fetch_safe_input__min.min))
+                                                (12 : int) in
+                                            let temp___405 =
+                                              Temp___String_Literal_404.temp___String_Literal_404
+                                                () in
+                                            ((Standard__string.of_array
+                                                ((((((Array__Int__Standard__character__Concat.concat
+                                                        temp___405)
+                                                       (1 : int))
+                                                      (44 : int))
+                                                     (Standard__string.to_array
+                                                        temp___406))
+                                                    (Standard__string.first
+                                                       temp___406))
+                                                   (Standard__string.last
+                                                      temp___406)))
+                                               (1 : int))
+                                              ([#"drvr.adb" 139 0 0]
+                                               [@vc:annotation]
+                                               [@GP_Reason:VC_RANGE_CHECK]
+                                               [@GP_Shape:L_3_while__if__if__call_put_line__concat__concat__concat]
+                                               [@comment:            Put_Line("Invalid entry. Please enter a value between " & Integer'Image(Min) & " and " & Integer'Image(Max));                                                                     ^ drvr.adb:139:69:VC_RANGE_CHECK]
+                                               [@GP_Id:29]
+                                               [@GP_Sloc:drvr.adb:139:69]
+                                               (Standard__positive.range_check_
+                                                  (((1 : int)
+                                                      + (((Integer.length
+                                                             (1 : int))
+                                                            (44 : int))
+                                                           + ((Integer.length
+                                                                 (Standard__string.first
+                                                                    temp___406))
+                                                                (Standard__string.last
+                                                                   temp___406))))
+                                                     - (1 : int)))) in
+                                          if ((Standard__string.length
+                                                 temp___407)
+                                                = (0 : int)) then
+                                            (((Standard__string.of_array
+                                                 temp___408)
+                                                (1 : int))
+                                               (5 : int))
+                                          else
+                                            (((Standard__string.of_array
+                                                 ((((((Array__Int__Standard__character__Concat.concat
+                                                         (Standard__string.to_array
+                                                            temp___407))
+                                                        (Standard__string.first
+                                                           temp___407))
+                                                       (Standard__string.last
+                                                          temp___407))
+                                                      temp___408)
+                                                     (1 : int))
+                                                    (5 : int)))
+                                                (Standard__string.first
+                                                   temp___407))
+                                               ([#"drvr.adb" 139 0 0]
+                                                [@vc:annotation]
+                                                [@comment:            Put_Line("Invalid entry. Please enter a value between " & Integer'Image(Min) & " and " & Integer'Image(Max));                                                                                          ^ drvr.adb:139:90:VC_RANGE_CHECK]
+                                                [@GP_Id:30]
+                                                [@GP_Shape:L_3_while__if__if__call_put_line__concat__concat]
+                                                [@GP_Reason:VC_RANGE_CHECK]
+                                                [@GP_Sloc:drvr.adb:139:90]
+                                                (Standard__positive.range_check_
+                                                   (((Standard__string.first
+                                                        temp___407)
+                                                       + (((Integer.length
+                                                              (Standard__string.first
+                                                                 temp___407))
+                                                             (Standard__string.last
+                                                                temp___407))
+                                                            + ((Integer.length
+                                                                  (1 : int))
+                                                                 (5 : int))))
+                                                      - (1 : int))))) in
+                                        if ((Standard__string.length
+                                               temp___409)
+                                              = (0 : int)) then
+                                          (((Standard__string.of_array
+                                               (Standard__string.to_array
+                                                  temp___410))
+                                              (Standard__string.first
+                                                 temp___410))
+                                             (Standard__string.last
+                                                temp___410))
+                                        else
+                                          (((Standard__string.of_array
+                                               ((((((Array__Int__Standard__character__Concat.concat
+                                                       (Standard__string.to_array
+                                                          temp___409))
+                                                      (Standard__string.first
+                                                         temp___409))
+                                                     (Standard__string.last
+                                                        temp___409))
+                                                    (Standard__string.to_array
+                                                       temp___410))
+                                                   (Standard__string.first
+                                                      temp___410))
+                                                  (Standard__string.last
+                                                     temp___410)))
+                                              (Standard__string.first
+                                                 temp___409))
+                                             ([#"drvr.adb" 139 0 0]
+                                              [@GP_Sloc:drvr.adb:139:100]
+                                              [@GP_Shape:L_3_while__if__if__call_put_line__concat]
+                                              [@vc:annotation]
+                                              [@comment:            Put_Line("Invalid entry. Please enter a value between " & Integer'Image(Min) & " and " & Integer'Image(Max));                                                                                                    ^ drvr.adb:139:100:VC_RANGE_CHECK]
+                                              [@GP_Id:31]
+                                              [@GP_Reason:VC_RANGE_CHECK]
+                                              (Standard__positive.range_check_
+                                                 (((Standard__string.first
+                                                      temp___409)
+                                                     + (((Integer.length
+                                                            (Standard__string.first
+                                                               temp___409))
+                                                           (Standard__string.last
+                                                              temp___409))
+                                                          + ((Integer.length
+                                                                (Standard__string.first
+                                                                   temp___410))
+                                                               (Standard__string.last
+                                                                  temp___410))))
+                                                    - (1 : int)))))))))))))
+                          else
+                            (([@GP_Sloc:drvr.adb:142:10]
+                              [#"drvr.adb" 142 0 0] ());
+                             ([@GP_Sloc:drvr.adb:142:10]
+                              [#"drvr.adb" 142 0 0]
+                              (([#"drvr.adb" 142 0 0] (val _f : unit in
+                                                       _f));
+                               (Ada___ada__text_io__put_line__2___axiom.put_line
+                                  (let temp___412 =
+                                     Temp___String_Literal_411.temp___String_Literal_411
+                                       () in
+                                   ((Standard__string.of_array temp___412)
+                                      (1 : int))
+                                     (45 : int))))))));
+                        ([@GNAT-comment:Check for the exit condition and loop statements appearing before the loop invariant of loop drvr.adb:128]
+                         ());
+                        (if (not (not (Drvr__fetch_safe_input__valid.valid.bool__content))) then
+                           (raise Drvr__fetch_safe_input__L_3.L_3)
+                         else ())));
+                      ([@GNAT-comment:gnat_ast_to_ptree: code before the loop invariant]
+                       [@GNAT-comment:Check for absence of RTE in the loop invariant and variant]
+                       ());
+                      ([@GNAT-comment:gnat_ast_to_ptree: code checking the variants]
+                       ())
+                    done))
+                with Drvr__fetch_safe_input__L_3.L_3 -> ()
+                end))
+            else ())));
+         (raise Return__exc)
+       with Return__exc -> ()
+       end)))
+end

@@ -1,0 +1,2 @@
+sorter.adb:30:05: error: no "Begin" for this "End"
+sorter.adb:33:05: error: declarations must come before "Begin"

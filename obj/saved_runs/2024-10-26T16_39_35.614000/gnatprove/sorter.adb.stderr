@@ -1,0 +1,4 @@
+sorter.adb:94:20: medium: "right" might not be initialized[#3]
+sorter.ads:27:26: warning: "A" is not modified, could be IN[#0]
+sorter.ads:27:26: warning: unused variable "A"[#1]
+sorter.ads:27:49: warning: unused variable "count"[#2]

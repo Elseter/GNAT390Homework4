@@ -1,0 +1,390 @@
+{
+  "project": "Sorting",
+  "filename": "sorter.adb",
+  "source_dir": "C:\\Users\\rking\\Downloads\\Homework 04 F24\\Homework 04 F24\\src",
+  "full_path": "C:\\Users\\rking\\Downloads\\Homework 04 F24\\Homework 04 F24\\src\\sorter.adb",
+  "metrics": [
+    {
+      "rule": {
+        "id": 5,
+        "name": "all lines",
+        "tool_id": 2
+      },
+      "value": "39"
+    },
+    {
+      "rule": {
+        "id": 6,
+        "name": "code lines",
+        "tool_id": 2
+      },
+      "value": "25"
+    },
+    {
+      "rule": {
+        "id": 7,
+        "name": "comment lines",
+        "tool_id": 2
+      },
+      "value": "6"
+    },
+    {
+      "rule": {
+        "id": 8,
+        "name": "end-of-line comments",
+        "tool_id": 2
+      },
+      "value": "0"
+    },
+    {
+      "rule": {
+        "id": 9,
+        "name": "comment percentage",
+        "tool_id": 2
+      },
+      "value": "19.35"
+    },
+    {
+      "rule": {
+        "id": 10,
+        "name": "blank lines",
+        "tool_id": 2
+      },
+      "value": "8"
+    },
+    {
+      "rule": {
+        "id": 11,
+        "name": "Average lines in body",
+        "tool_id": 2
+      },
+      "value": "5.25"
+    },
+    {
+      "rule": {
+        "id": 12,
+        "name": "spark lines",
+        "tool_id": 2
+      },
+      "value": "25"
+    },
+    {
+      "rule": {
+        "id": 27,
+        "name": "statement complexity",
+        "tool_id": 2
+      },
+      "value": "1.50"
+    },
+    {
+      "rule": {
+        "id": 28,
+        "name": "expression complexity",
+        "tool_id": 2
+      },
+      "value": "0.00"
+    },
+    {
+      "rule": {
+        "id": 29,
+        "name": "cyclomatic complexity",
+        "tool_id": 2
+      },
+      "value": "1.50"
+    },
+    {
+      "rule": {
+        "id": 30,
+        "name": "essential complexity",
+        "tool_id": 2
+      },
+      "value": "1.00"
+    },
+    {
+      "rule": {
+        "id": 32,
+        "name": "maximum loop nesting",
+        "tool_id": 2
+      },
+      "value": "0.00"
+    }
+  ],
+  "coverage": null,
+  "messages": null,
+  "annotations": null,
+  "lines": [
+    {
+      "number": 1,
+      "content": "-- Your sort routine is only allowed to sort the appropriate amount of an array.",
+      "html_content": "<span class=\"c1\">-- Your sort routine is only allowed to sort the appropriate amount of an array.</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 2,
+      "content": "-- There is no manipulation beyond that, and no output is allowed within this package.",
+      "html_content": "<span class=\"c1\">-- There is no manipulation beyond that, and no output is allowed within this package.</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 3,
+      "content": "-- There must be three different sort routines, but you may select which three to use",
+      "html_content": "<span class=\"c1\">-- There must be three different sort routines, but you may select which three to use</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 4,
+      "content": "-- If you have a partner only one submission is required but ensure both names are ",
+      "html_content": "<span class=\"c1\">-- If you have a partner only one submission is required but ensure both names are </span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 5,
+      "content": "-- included in the comments. Using material from previous projects is allowed.",
+      "html_content": "<span class=\"c1\">-- included in the comments. Using material from previous projects is allowed.</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 6,
+      "content": "",
+      "html_content": "",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 7,
+      "content": "",
+      "html_content": "",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 8,
+      "content": "Package body Sorter ",
+      "html_content": "<span class=\"kd\">Package</span> <span class=\"kd\">body</span> <span class=\"nc\">Sorter</span> ",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 9,
+      "content": "  with SPARK_Mode => ON",
+      "html_content": "  <span class=\"nc\">with</span> <span class=\"nc\">SPARK_Mode</span> <span class=\"p\">=&gt;</span> <span class=\"nc\">ON</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 10,
+      "content": "is",
+      "html_content": "<span class=\"kr\">is</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 11,
+      "content": "",
+      "html_content": "",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 12,
+      "content": "    Procedure sort_1(A : in out array_type; count : in integer) is",
+      "html_content": "    <span class=\"kd\">Procedure</span> <span class=\"nf\">sort_1</span><span class=\"p\">(</span><span class=\"nv\">A</span> <span class=\"p\">: </span><span class=\"nv\">in</span> <span class=\"nv\">out</span> <span class=\"nv\">array_type</span><span class=\"p\">;</span> <span class=\"nv\">count</span> <span class=\"p\">: </span><span class=\"nv\">in</span> <span class=\"nv\">integer</span><span class=\"p\">)</span> <span class=\"kr\">is</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 13,
+      "content": "    begin",
+      "html_content": "    <span class=\"kr\">begin</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 14,
+      "content": "      null;",
+      "html_content": "      <span class=\"kc\">null</span><span class=\"p\">;</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 15,
+      "content": "    end sort_1;",
+      "html_content": "    <span class=\"kr\">end</span> <span class=\"nf\">sort_1</span><span class=\"p\">;</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 16,
+      "content": "",
+      "html_content": "",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 17,
+      "content": "",
+      "html_content": "",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 18,
+      "content": "    Procedure sort_2(A : in out array_type; count : in integer) is",
+      "html_content": "    <span class=\"kd\">Procedure</span> <span class=\"nf\">sort_2</span><span class=\"p\">(</span><span class=\"nv\">A</span> <span class=\"p\">: </span><span class=\"nv\">in</span> <span class=\"nv\">out</span> <span class=\"nv\">array_type</span><span class=\"p\">;</span> <span class=\"nv\">count</span> <span class=\"p\">: </span><span class=\"nv\">in</span> <span class=\"nv\">integer</span><span class=\"p\">)</span> <span class=\"kr\">is</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 19,
+      "content": "    begin",
+      "html_content": "    <span class=\"kr\">begin</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 20,
+      "content": "\tnull;",
+      "html_content": "\t<span class=\"kc\">null</span><span class=\"p\">;</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 21,
+      "content": "    end sort_2;",
+      "html_content": "    <span class=\"kr\">end</span> <span class=\"nf\">sort_2</span><span class=\"p\">;</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 22,
+      "content": "   ",
+      "html_content": "   ",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 23,
+      "content": "   Procedure sort_3(A : in out array_type; count : in integer) is",
+      "html_content": "   <span class=\"kd\">Procedure</span> <span class=\"nf\">sort_3</span><span class=\"p\">(</span><span class=\"nv\">A</span> <span class=\"p\">: </span><span class=\"nv\">in</span> <span class=\"nv\">out</span> <span class=\"nv\">array_type</span><span class=\"p\">;</span> <span class=\"nv\">count</span> <span class=\"p\">: </span><span class=\"nv\">in</span> <span class=\"nv\">integer</span><span class=\"p\">)</span> <span class=\"kr\">is</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 24,
+      "content": "   begin",
+      "html_content": "   <span class=\"kr\">begin</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 25,
+      "content": "\tnull;",
+      "html_content": "\t<span class=\"kc\">null</span><span class=\"p\">;</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 26,
+      "content": "   end sort_3;",
+      "html_content": "   <span class=\"kr\">end</span> <span class=\"nf\">sort_3</span><span class=\"p\">;</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 27,
+      "content": "   ",
+      "html_content": "   ",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 28,
+      "content": "-- No changes are allowed to Procedure sort",
+      "html_content": "<span class=\"c1\">-- No changes are allowed to Procedure sort</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 29,
+      "content": "   Procedure sort(A : in out array_type; count : in integer) is",
+      "html_content": "   <span class=\"kd\">Procedure</span> <span class=\"nf\">sort</span><span class=\"p\">(</span><span class=\"nv\">A</span> <span class=\"p\">: </span><span class=\"nv\">in</span> <span class=\"nv\">out</span> <span class=\"nv\">array_type</span><span class=\"p\">;</span> <span class=\"nv\">count</span> <span class=\"p\">: </span><span class=\"nv\">in</span> <span class=\"nv\">integer</span><span class=\"p\">)</span> <span class=\"kr\">is</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 30,
+      "content": "   begin",
+      "html_content": "   <span class=\"kr\">begin</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 31,
+      "content": "      if A'length <= small then",
+      "html_content": "      <span class=\"kr\">if</span> <span class=\"n\">A</span><span class=\"p\">&#39;</span><span class=\"na\">length</span> <span class=\"o\">&lt;=</span> <span class=\"n\">small</span> <span class=\"kr\">then</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 32,
+      "content": "         sort_1(A, count);",
+      "html_content": "         <span class=\"n\">sort_1</span><span class=\"p\">(</span><span class=\"n\">A</span><span class=\"p\">,</span> <span class=\"kt\">count</span><span class=\"p\">);</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 33,
+      "content": "      elsif A'length <= medium then",
+      "html_content": "      <span class=\"kr\">elsif</span> <span class=\"n\">A</span><span class=\"p\">&#39;</span><span class=\"na\">length</span> <span class=\"o\">&lt;=</span> <span class=\"n\">medium</span> <span class=\"kr\">then</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 34,
+      "content": "         sort_2(A, count);",
+      "html_content": "         <span class=\"n\">sort_2</span><span class=\"p\">(</span><span class=\"n\">A</span><span class=\"p\">,</span> <span class=\"kt\">count</span><span class=\"p\">);</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 35,
+      "content": "      else sort_3(A, count); ",
+      "html_content": "      <span class=\"kr\">else</span> <span class=\"n\">sort_3</span><span class=\"p\">(</span><span class=\"n\">A</span><span class=\"p\">,</span> <span class=\"kt\">count</span><span class=\"p\">);</span> ",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 36,
+      "content": "      end if;",
+      "html_content": "      <span class=\"kr\">end</span> <span class=\"kr\">if</span><span class=\"p\">;</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 37,
+      "content": "   end sort;",
+      "html_content": "   <span class=\"kr\">end</span> <span class=\"nf\">sort</span><span class=\"p\">;</span>",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 38,
+      "content": "",
+      "html_content": "",
+      "coverage": null,
+      "messages": null
+    },
+    {
+      "number": 39,
+      "content": "end Sorter;",
+      "html_content": "<span class=\"kr\">end</span> <span class=\"nf\">Sorter</span><span class=\"p\">;</span>",
+      "coverage": null,
+      "messages": null
+    }
+  ]
+}

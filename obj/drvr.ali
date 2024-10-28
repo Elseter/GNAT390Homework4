@@ -1,0 +1,143 @@
+V "GNAT Lib v13"
+M P W=b
+A -gnatA
+A -mtune=generic
+A -march=nocona
+P ZX
+
+RN
+RV NO_DIRECT_BOOLEAN_OPERATORS
+RV NO_IO
+RV NO_DEFAULT_INITIALIZATION
+RV NO_DYNAMIC_SIZED_OBJECTS
+RV NO_IMPLEMENTATION_PRAGMAS
+
+U drvr%b		drvr.adb		402362fa NE OO SU
+W ada%s			ada.ads			ada.ali
+W ada.integer_text_io%s	a-inteio.ads		a-inteio.ali
+Z ada.strings.text_buffers%s  a-sttebu.adb	a-sttebu.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+W sorter%s		sorter.adb		sorter.ali
+Z system.concat_2%s	s-conca2.adb		s-conca2.ali
+Z system.concat_3%s	s-conca3.adb		s-conca3.ali
+Z system.concat_4%s	s-conca4.adb		s-conca4.ali
+Z system.concat_5%s	s-conca5.adb		s-conca5.ali
+Z system.img_int%s	s-imgint.ads		s-imgint.ali
+
+D ada.ads		20230515073142 76789da1 ada%s
+D a-assert.ads		20230515073142 ba465f5c ada.assertions%s
+D a-except.ads		20230515073142 2a7d8d70 ada.exceptions%s
+D a-inteio.ads		20230515073142 f64b89a4 ada.integer_text_io%s
+D a-ioexce.ads		20230515073142 40018c65 ada.io_exceptions%s
+D a-numeri.ads		20230515073142 84bea7a3 ada.numerics%s
+D a-nubinu.ads		20230515073142 93f1f3d1 ada.numerics.big_numbers%s
+D a-nbnbig.ads		20230515073142 711e0174 ada.numerics.big_numbers.big_integers_ghost%s
+D a-stream.ads		20230515073142 119b8fb3 ada.streams%s
+D a-string.ads		20230515073142 90ac6797 ada.strings%s
+D a-sttebu.ads		20230515073142 f1ad67a2 ada.strings.text_buffers%s
+D a-stuten.ads		20230515073142 c6ced0ae ada.strings.utf_encoding%s
+D a-tags.ads		20230515073142 9eaa38c6 ada.tags%s
+D a-textio.ads		20230515073142 5c2c6153 ada.text_io%s
+D a-tiinio.ads		20230515073142 e58fa6fb ada.text_io.integer_io%s
+D a-unccon.ads		20230515073142 0e9b276f ada.unchecked_conversion%s
+D drvr.adb		20241026213702 9d0758e7 drvr%b
+D interfac.ads		20230515073142 15f799c2 interfaces%s
+D i-cstrea.ads		20230515073142 e53d8b8e interfaces.c_streams%s
+D sorter.ads		20241026180932 7743d2ea sorter%s
+D system.ads		20230515073142 f0509fe6 system%s
+D s-assert.ads		20230515073142 9c4520c7 system.assertions%s
+D s-casuti.ads		20230515073142 cf13d755 system.case_util%s
+D s-conca2.ads		20230515073142 b5fb73f7 system.concat_2%s
+D s-conca3.ads		20230515073142 8a7a19a2 system.concat_3%s
+D s-conca4.ads		20230515073142 33f85f3e system.concat_4%s
+D s-conca5.ads		20230515073142 4099d1db system.concat_5%s
+D s-crtl.ads		20230515073142 8a0692f8 system.crtl%s
+D s-exctab.ads		20230515073142 91bef6ef system.exception_table%s
+D s-ficobl.ads		20230515073142 dc5161d4 system.file_control_block%s
+D s-imagei.ads		20230515073142 c707dfd0 system.image_i%s
+D s-imgint.ads		20230515073142 d4a52a9b system.img_int%s
+D s-parame.ads		20230515073142 d494a4a6 system.parameters%s
+D s-putima.ads		20230515073142 17291fe4 system.put_images%s
+D s-secsta.ads		20230515073142 578279f5 system.secondary_stack%s
+D s-soflin.ads		20230515073142 df77073e system.soft_links%s
+D s-stache.ads		20230515073142 0b81c1fe system.stack_checking%s
+D s-stalib.ads		20230515073142 1c9580f6 system.standard_library%s
+D s-stoele.ads		20230515073142 ab5468e4 system.storage_elements%s
+D s-stoele.adb		20230515073142 8f5a9db6 system.storage_elements%b
+D s-traent.ads		20230515073142 c81cbf8c system.traceback_entries%s
+D s-unstyp.ads		20230515073142 fa2a7f59 system.unsigned_types%s
+D s-valint.ads		20230515073142 1f610d7a system.val_int%s
+D s-valuns.ads		20230515073142 e8a1f424 system.val_uns%s
+D s-valuti.ads		20230515073142 fcd603d8 system.val_util%s
+D s-valuei.ads		20230515073142 11081e09 system.value_i%s
+D s-vaispe.ads		20230515073142 44130d39 system.value_i_spec%s
+D s-valueu.ads		20230515073142 18770347 system.value_u%s
+D s-vauspe.ads		20230515073142 a67b2f28 system.value_u_spec%s
+D s-wchcon.ads		20230515073142 d9032363 system.wch_con%s
+D s-widuns.ads		20230515073142 866a5800 system.wid_uns%s
+D s-widthu.ads		20230515073142 b32f15e2 system.width_u%s
+G a e
+G c Z b b [drvr standard 84 11 none]
+G r c none [drvr standard 84 11 none] [sort sorter 18 14 none]
+X 1 ada.ads
+16K9*Ada 20e8 17|80r6 80r23 81r6 81r31
+X 4 a-inteio.ads
+18K13*Integer_Text_IO[15|46] 17|81w10 81r35
+X 14 a-textio.ads
+58K13*Text_IO 787e16 17|80w10 80r27
+66P9*File_Type 17|85r16
+68n23*In_File{68E9} 17|195r26
+114U14*Open 17|195s10
+130U14*Close 17|199s10
+282U14*New_Line 17|130s10 133s10 136s10 139s10 210s49 211s58 214s7 215s34
+. 216s69 217s47 218s51 219s36 230s82 235s143 240s42 249s75
+519U14*Put 17|129s10 132s10 135s10 138s10 210s4 211s4 215s7 216s7 217s7 218s7
+. 219s7 222s7 228s13 230s13 233s13 235s13 240s16 243s13 249s13
+537U14*Get_Line 17|173s7
+566U14*Put_Line 17|183s13 186s10
+X 15 a-tiinio.ads
+51U14*Get 17|197s13[4|18]
+X 17 drvr.adb
+84U11*Drvr 84b11 254l5 254t9
+85p4 rand_file{14|66P9} 195m15 195r15 197r17 199m16 199r16
+86i4 Max{integer} 87r35 207r19 211r51 228r105 229r33
+87i4 Current_array_size{integer} 120r27 229m38 230r60 231r28 234r33 235r60
+. 239r27 244r33
+88a4 A{20|13A9} 207m16 207r16 208r22 231m25 231r25 236m18 236r18 240r34 245r23
+89i4 choice{integer} 223m30 226r12
+90a4 Original_Array{20|13A9} 121r21 208m4
+95U14 validator 95b14 95>24 95>42 141l8 141t17 245s13
+95a24 A{20|13A9} 113r13 113r20 121r13
+95i42 count{integer} 112r19 120r16
+107b7 Sorted{boolean} 114m13 128r10 131r13 134r17
+108b7 Modified{boolean} 122m13 128r25 131r24 134r32
+112i11 i{integer} 113r15 113r22
+120i11 i{integer} 121r15 121r36
+143U14 Fetch_Safe_Input 143b14 143>31 143>46 143<61 189l5 189t21 223s7 229s13
+. 234s13 244s13
+143i31 Min{integer} 180r22 183r85
+143i46 Max{integer} 180r39 183r116
+143i61 Input{integer} 177m10 180r13 180r30
+144a4 Input_String{string} 173m16 176r26 177r37
+145i4 Length{natural} 173m30 176r42 176r51 177r53 177r62
+146b4 Valid{boolean} 172r14 181m13
+149V13 Is_Digit_String{boolean} 149b13 149>29 149>41 157l8 157t23 176s10
+149a29 S{string} 152r18
+149i41 Len{natural} 151r21
+151i11 I{integer} 152r20
+160V13 String_To_Integer{integer} 160b13 160>31 160>43 169l8 169t25 177s19
+160a31 S{string} 164r18 165r51
+160i43 Len{natural} 163r21
+161i7 Result{integer} 165m13 165r23 168r14
+163i11 I{integer} 164r13 165r53
+192U14 fetch_array 192b14 192=26 192>49 200l8 200t19 207s4 231s13
+192a26 A{20|13A9} 197m27 197r27
+192i49 size{integer} 196r22
+196i14 i{integer} 197r29
+239i17 i{integer} 240r36
+X 20 sorter.ads
+5K9*Sorter 17|82w6 82r18 234r53 235r110 236r21 244r53 245r26 20|30e11
+13A9*array_type(integer)<integer> 17|88r8 90r21 95r30 192r37
+15i4*count{integer} 17|234m60 234r60 235r117 236r28 244m60 244r60 245r33
+18U14*sort 17|236s13
+

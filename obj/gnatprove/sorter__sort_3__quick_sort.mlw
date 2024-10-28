@@ -1,0 +1,1288 @@
+module Standard__integer
+  use _gnatprove_standard.Main
+  use int.Int
+  use int.Int
+  
+  type integer = <range -2147483648 2147483647>
+  
+  val function first : int
+    ensures { result = ((- 2147483648) : int) }
+  
+  val function last : int
+    ensures { result = (2147483647 : int) }
+  
+  predicate in_range (x: int) = ((first <= x) /\ (x <= last))
+  
+  val in_range (x: int) : bool
+    ensures { result <-> (in_range (x : int)) }
+  
+  clone export ada__model.Static_Discrete with
+    axiom .,
+    type t = integer,
+    function first = first,
+    function last = last,
+    predicate in_range = in_range
+  
+  type integer__ref = { mutable integer__content : integer }
+  
+  function integer__ref_integer__content__projection (a: integer__ref) : integer =
+    a.integer__content
+  
+  meta "model_projection" function integer__ref_integer__content__projection
+  
+  meta "inline:no" function integer__ref_integer__content__projection
+  
+  val integer__havoc (x: integer__ref) : unit
+    writes { x }
+end
+
+module Standard__integer___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+  use int.Int
+  use Standard__integer as Standard__integer
+  
+  predicate dynamic_invariant (temp___expr_18: int) (temp___is_init_14: bool) (temp___skip_constant_15: bool) (temp___do_toplevel_16: bool) (temp___do_typ_inv_17: bool) =
+    if ((temp___is_init_14 = True) \/
+          (Standard__integer.first <= Standard__integer.last)) then
+      (((Standard__integer.dynamic_property Standard__integer.first)
+          Standard__integer.last)
+         temp___expr_18)
+    else true
+  
+  val dynamic_invariant (temp___expr_18: int) (temp___is_init_14: bool) (temp___skip_constant_15: bool) (temp___do_toplevel_16: bool) (temp___do_typ_inv_17: bool) : 
+    bool
+    ensures { result
+                <->
+                (((((dynamic_invariant (temp___expr_18 : int))
+                      (temp___is_init_14 : bool))
+                     (temp___skip_constant_15 : bool))
+                    (temp___do_toplevel_16 : bool))
+                   (temp___do_typ_inv_17 : bool)) }
+  
+  predicate default_initial_assumption (temp___expr_19: int) (temp___skip_top_level_20: bool) =
+    true
+  
+  val default_initial_assumption (temp___expr_19: int) (temp___skip_top_level_20: bool) : 
+    bool
+    ensures { result
+                <->
+                ((default_initial_assumption (temp___expr_19 : int))
+                   (temp___skip_top_level_20 : bool)) }
+end
+
+module Standard__integer__rep
+  use Standard__integer as Standard__integer
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  function to_rep (x: Standard__integer.integer) : int =
+    Standard__integer.integer'int x
+  
+  clone export ada__model.Rep_Proj_Int with
+    axiom .,
+    type t = Standard__integer.integer,
+    predicate in_range = Standard__integer.in_range,
+    function to_rep = to_rep
+  
+  meta "model_projection" function to_rep
+  
+  meta "inline:no" function to_rep
+end
+
+module Array__Int__Standard__integer
+  use _gnatprove_standard.Main
+  use int.Int
+  use int.Int
+  use Standard__integer as Standard__integer
+  use Standard__integer__rep as Standard__integer__rep
+  
+  function index_I1_one : int = 1 : int
+  
+  type component_type = Standard__integer.integer
+  
+  clone export _gnatprove_standard.Array__1 with
+    axiom .,
+    type I1.t = int,
+    predicate I1.le = Int.( <= ),
+    predicate I1.lt = Int.( < ),
+    predicate I1.gt = Int.( > ),
+    function I1.add = Int.( + ),
+    function I1.sub = Int.( - ),
+    function I1.one = index_I1_one,
+    type component_type = component_type
+  
+  function bool_eq (a: map) (a__first: int) (a__last: int) (b: map) (b__first: int) (b__last: int) : bool =
+    ((if (a__first <= a__last) then
+        ((b__first <= b__last) /\
+           ((a__last - a__first) = (b__last - b__first)))
+      else (b__first > b__last)) /\
+       (forall temp___idx_161 : int.
+          if ((a__first <= temp___idx_161) /\ (temp___idx_161 <= a__last)) then
+            ((Standard__integer__rep.to_rep ((get a) temp___idx_161))
+               = (Standard__integer__rep.to_rep
+                    ((get b) ((b__first - a__first) + temp___idx_161))))
+          else true))
+  
+  val bool_eq (a: map) (a__first: int) (a__last: int) (b: map) (b__first: int) (b__last: int) : 
+    bool
+    ensures { result
+      =
+      ((((((bool_eq (a : map)) (a__first : int)) (a__last : int)) (b : map))
+          (b__first : int))
+         (b__last : int)) }
+  
+  axiom bool_eq_rev:
+    forall a : map, b : map.
+      forall a__first : int, a__last : int, b__first : int, b__last : int.
+        ((((((((bool_eq b) b__first) b__last) a) a__first) a__last) = True) ->
+           ((if (a__first <= a__last) then
+               ((b__first <= b__last) /\
+                  ((a__last - a__first) = (b__last - b__first)))
+             else (b__first > b__last)) /\
+              (forall temp___idx_161 : int.
+                 if ((a__first <= temp___idx_161) /\
+                       (temp___idx_161 <= a__last)) then
+                   ((Standard__integer__rep.to_rep ((get a) temp___idx_161))
+                      = (Standard__integer__rep.to_rep
+                           ((get b) ((b__first - a__first) + temp___idx_161))))
+                 else true)))
+end
+
+module Sorter__sort_3__a
+  use _gnatprove_standard.Main
+  use int.Int
+  use Standard__integer as Standard__integer
+  use Array__Int__Standard__integer as Array__Int__Standard__integer
+  
+  val a : Array__Int__Standard__integer.map__ref
+  
+  val function a__first : Standard__integer.integer
+  
+  val function a__last : Standard__integer.integer
+end
+
+module Sorter__sort_3__count
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  val function count : int
+end
+
+module Sorter__array_type
+  use _gnatprove_standard.Main
+  use int.Int
+  use int.Int
+  use Standard__integer as Standard__integer
+  use Standard__integer as Standard__integer
+  use Standard__integer__rep as Standard__integer__rep
+  use Array__Int__Standard__integer as Array__Int__Standard__integer
+  
+  type component_type = Standard__integer.integer
+  
+  function index_1_id (x: int) : int = x
+  
+  clone export ada__model.Unconstr_Array with
+    axiom .,
+    type map = Array__Int__Standard__integer.map,
+    function array_bool_eq = Array__Int__Standard__integer.bool_eq,
+    type index_base_type = Standard__integer.integer,
+    type index_rep_type = int,
+    function to_rep = Standard__integer__rep.to_rep,
+    function rep_to_int = index_1_id,
+    predicate in_range_base = Standard__integer.in_range,
+    predicate index_dynamic_property = Standard__integer.dynamic_property,
+    predicate index_rep_le = Int.( <= )
+  
+  type array_type = __t
+  
+  meta "model_projection" function to_array
+  
+  meta "inline:no" function to_array
+  
+  meta "model_projection" function first
+  
+  meta "inline:no" function first
+  
+  meta "model_projection" function last
+  
+  meta "inline:no" function last
+  
+  type array_type__ref = { mutable array_type__content : array_type }
+  
+  function array_type__ref_array_type__content__projection (a: array_type__ref) : array_type =
+    a.array_type__content
+  
+  meta "model_projection" function array_type__ref_array_type__content__projection
+  
+  meta "inline:no" function array_type__ref_array_type__content__projection
+  
+  val array_type__havoc (x: array_type__ref) : unit
+    writes { x }
+end
+
+module Sorter__sort_3__quick_sort__low
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  val function low : int
+end
+
+module Sorter__sort_3__quick_sort__high
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  val function high : int
+end
+
+module Sorter__sort_3__quick_sort___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+  use Sorter__sort_3__a as Sorter__sort_3__a
+  
+  val quick_sort (low: int) (high: int) : unit
+    reads { Sorter__sort_3__a.a }
+    requires { true }
+    writes { Sorter__sort_3__a.a }
+    ensures { true }
+end
+
+module Sorter__sort_3__quick_sort__pivot
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  val pivot : int__ref
+end
+
+module Sorter__sort_3__quick_sort__i
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  val i : int__ref
+end
+
+module Sorter__sort_3__quick_sort__j
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  val j : int__ref
+end
+
+module Sorter__sort_3__quick_sort__B_12__temp
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  val temp : int__ref
+end
+
+module Sorter__sort_3__S19b
+  use export Sorter__array_type
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  type s19b = array_type
+  
+  type s19b__ref = { mutable s19b__content : s19b }
+  
+  function s19b__ref_s19b__content__projection (a: s19b__ref) : s19b =
+    a.s19b__content
+  
+  meta "model_projection" function s19b__ref_s19b__content__projection
+  
+  meta "inline:no" function s19b__ref_s19b__content__projection
+  
+  val s19b__havoc (x: s19b__ref) : unit
+    writes { x }
+end
+
+module Sorter__sort_3__quick_sort__L_9
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  exception L_9
+end
+
+module Sorter__sort_3__quick_sort__L_10
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  exception L_10
+end
+
+module Sorter__sort_3__quick_sort__L_11
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  exception L_11
+end
+
+module Sorter__sort_3__quick_sort__pivot___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+end
+
+module Sorter__sort_3__quick_sort__i___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+end
+
+module Sorter__sort_3__quick_sort__j___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+end
+
+module Sorter__sort_3__quick_sort__B_12__temp___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+end
+
+module Sorter__sort_3__quick_sort__L_10___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+end
+
+module Sorter__sort_3__quick_sort__L_11___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+end
+
+module Sorter__sort_3__quick_sort__L_9___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+end
+
+module Sorter__array_type___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+  use Standard__integer as Standard__integer
+  use Sorter__array_type as Sorter__array_type
+  
+  predicate dynamic_invariant (temp___expr_166: Sorter__array_type.array_type) (temp___is_init_162: bool) (temp___skip_constant_163: bool) (temp___do_toplevel_164: bool) (temp___do_typ_inv_165: bool) =
+    if temp___skip_constant_163 then true
+    else
+      ((((Sorter__array_type.dynamic_property Standard__integer.first)
+           Standard__integer.last)
+          (Sorter__array_type.first temp___expr_166))
+         (Sorter__array_type.last temp___expr_166))
+  
+  val dynamic_invariant (temp___expr_166: Sorter__array_type.array_type) (temp___is_init_162: bool) (temp___skip_constant_163: bool) (temp___do_toplevel_164: bool) (temp___do_typ_inv_165: bool) : 
+    bool
+    ensures { result
+                <->
+                (((((dynamic_invariant
+                       (temp___expr_166 : Sorter__array_type.array_type))
+                      (temp___is_init_162 : bool))
+                     (temp___skip_constant_163 : bool))
+                    (temp___do_toplevel_164 : bool))
+                   (temp___do_typ_inv_165 : bool)) }
+end
+
+module Sorter__sort_3__a___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+end
+
+module Sorter__sort_3__count___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+end
+
+module Sorter__sort_3__S19b___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+  use Standard__integer__rep as Standard__integer__rep
+  use Sorter__sort_3__a as Sorter__sort_3__a
+  use Sorter__sort_3__S19b as Sorter__sort_3__S19b
+  
+  predicate dynamic_invariant (temp___expr_254: Sorter__sort_3__S19b.s19b) (temp___is_init_250: bool) (temp___skip_constant_251: bool) (temp___do_toplevel_252: bool) (temp___do_typ_inv_253: bool) =
+    if temp___skip_constant_251 then true
+    else
+      ((((((Sorter__sort_3__S19b.dynamic_property
+              (Standard__integer__rep.to_rep Sorter__sort_3__a.a__first))
+             (Standard__integer__rep.to_rep Sorter__sort_3__a.a__last))
+            (Sorter__sort_3__S19b.first temp___expr_254))
+           (Sorter__sort_3__S19b.last temp___expr_254)) /\
+          ((Sorter__sort_3__S19b.first temp___expr_254)
+             = (Standard__integer__rep.to_rep Sorter__sort_3__a.a__first))) /\
+         ((Sorter__sort_3__S19b.last temp___expr_254)
+            = (Standard__integer__rep.to_rep Sorter__sort_3__a.a__last)))
+  
+  val dynamic_invariant (temp___expr_254: Sorter__sort_3__S19b.s19b) (temp___is_init_250: bool) (temp___skip_constant_251: bool) (temp___do_toplevel_252: bool) (temp___do_typ_inv_253: bool) : 
+    bool
+    ensures { result
+                <->
+                (((((dynamic_invariant
+                       (temp___expr_254 : Sorter__sort_3__S19b.s19b))
+                      (temp___is_init_250 : bool))
+                     (temp___skip_constant_251 : bool))
+                    (temp___do_toplevel_252 : bool))
+                   (temp___do_typ_inv_253 : bool)) }
+  
+  predicate default_initial_assumption (temp___expr_256: Sorter__sort_3__S19b.s19b) (temp___skip_top_level_257: bool) =
+    ((true /\
+        ((Sorter__sort_3__S19b.first temp___expr_256)
+           = (Standard__integer__rep.to_rep Sorter__sort_3__a.a__first))) /\
+       ((Sorter__sort_3__S19b.last temp___expr_256)
+          = (Standard__integer__rep.to_rep Sorter__sort_3__a.a__last)))
+  
+  val default_initial_assumption (temp___expr_256: Sorter__sort_3__S19b.s19b) (temp___skip_top_level_257: bool) : 
+    bool
+    ensures { result
+                <->
+                ((default_initial_assumption
+                    (temp___expr_256 : Sorter__sort_3__S19b.s19b))
+                   (temp___skip_top_level_257 : bool)) }
+end
+
+module Sorter__sort_3__quick_sort__low___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+end
+
+module Sorter__sort_3__quick_sort__high___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+end
+
+module Sorter__sort_3__quick_sort__subprogram_def
+  use _gnatprove_standard.Main
+  use int.Int
+  use int.Int
+  use _gnatprove_standard.Main as Main
+  use _gnatprove_standard.Int_Division as Int_Division
+  use _gnatprove_standard.Boolean as Boolean
+  use Standard__integer as Standard__integer
+  use Standard__integer as Standard__integer
+  use Standard__integer___axiom as Standard__integer___axiom
+  use Standard__integer__rep as Standard__integer__rep
+  use Standard__integer__rep as Standard__integer__rep
+  use Array__Int__Standard__integer as Array__Int__Standard__integer
+  use Sorter__sort_3__a as Sorter__sort_3__a
+  use Sorter__sort_3__count as Sorter__sort_3__count
+  use Sorter__array_type as Sorter__array_type
+  use Sorter__sort_3__quick_sort__low as Sorter__sort_3__quick_sort__low
+  use Sorter__sort_3__quick_sort__high as Sorter__sort_3__quick_sort__high
+  use Sorter__sort_3__quick_sort___axiom as Sorter__sort_3__quick_sort___axiom
+  use Sorter__sort_3__quick_sort__pivot as Sorter__sort_3__quick_sort__pivot
+  use Sorter__sort_3__quick_sort__i as Sorter__sort_3__quick_sort__i
+  use Sorter__sort_3__quick_sort__j as Sorter__sort_3__quick_sort__j
+  use Sorter__sort_3__quick_sort__B_12__temp as Sorter__sort_3__quick_sort__B_12__temp
+  use Array__Int__Standard__integer as Array__Int__Standard__integer
+  use Sorter__sort_3__S19b as Sorter__sort_3__S19b
+  use Sorter__sort_3__quick_sort__L_9 as Sorter__sort_3__quick_sort__L_9
+  use Sorter__sort_3__quick_sort__L_10 as Sorter__sort_3__quick_sort__L_10
+  use Sorter__sort_3__quick_sort__L_11 as Sorter__sort_3__quick_sort__L_11
+  use Array__Int__Standard__integer as Array__Int__Standard__integer
+  use Array__Int__Standard__integer as Array__Int__Standard__integer
+  use Array__Int__Standard__integer as Array__Int__Standard__integer
+  use Array__Int__Standard__integer as Array__Int__Standard__integer
+  use Array__Int__Standard__integer as Array__Int__Standard__integer
+  use Array__Int__Standard__integer as Array__Int__Standard__integer
+  use Array__Int__Standard__integer as Array__Int__Standard__integer
+  use Array__Int__Standard__integer as Array__Int__Standard__integer
+  use Array__Int__Standard__integer as Array__Int__Standard__integer
+  use Array__Int__Standard__integer as Array__Int__Standard__integer
+  use Array__Int__Standard__integer as Array__Int__Standard__integer
+  use Array__Int__Standard__integer as Array__Int__Standard__integer
+  use Array__Int__Standard__integer as Array__Int__Standard__integer
+  use Standard__integer___axiom as Standard__integer___axiom
+  use Standard__integer___axiom as Standard__integer___axiom
+  use Sorter__sort_3__quick_sort__pivot___axiom as Sorter__sort_3__quick_sort__pivot___axiom
+  use Sorter__sort_3__quick_sort__i___axiom as Sorter__sort_3__quick_sort__i___axiom
+  use Sorter__sort_3__quick_sort__j___axiom as Sorter__sort_3__quick_sort__j___axiom
+  use Sorter__sort_3__quick_sort__B_12__temp___axiom as Sorter__sort_3__quick_sort__B_12__temp___axiom
+  use Sorter__sort_3__quick_sort__L_10___axiom as Sorter__sort_3__quick_sort__L_10___axiom
+  use Sorter__sort_3__quick_sort__L_11___axiom as Sorter__sort_3__quick_sort__L_11___axiom
+  use Sorter__sort_3__quick_sort__L_9___axiom as Sorter__sort_3__quick_sort__L_9___axiom
+  use Sorter__array_type___axiom as Sorter__array_type___axiom
+  use Sorter__sort_3__a___axiom as Sorter__sort_3__a___axiom
+  use Sorter__sort_3__count___axiom as Sorter__sort_3__count___axiom
+  use Sorter__sort_3__S19b___axiom as Sorter__sort_3__S19b___axiom
+  use Sorter__sort_3__quick_sort___axiom as Sorter__sort_3__quick_sort___axiom
+  use Sorter__sort_3__quick_sort__low___axiom as Sorter__sort_3__quick_sort__low___axiom
+  use Sorter__sort_3__quick_sort__high___axiom as Sorter__sort_3__quick_sort__high___axiom
+  
+  let def (__void_param : unit)
+    requires { [#"sorter.adb" 121 0 0] true }
+  = [@vc:divergent]
+    (([#"sorter.adb" 121 0 0]
+      assume {
+        [#"sorter.adb" 121 0 0]
+        (((((Standard__integer___axiom.dynamic_invariant
+               Sorter__sort_3__count.count)
+              True)
+             False)
+            True)
+           True) });
+     ([@GNAT-comment:Assume dynamic invariants of inputs of the subprogram sorter.adb:121]
+      ());
+     ([#"sorter.adb" 121 0 0]
+      assume {
+        [#"sorter.adb" 121 0 0]
+        (if False then true
+         else
+           ((((Sorter__array_type.dynamic_property Standard__integer.first)
+                Standard__integer.last)
+               (Sorter__sort_3__S19b.first
+                  (((Sorter__sort_3__S19b.of_array
+                       (Sorter__sort_3__a.a.Array__Int__Standard__integer.map__content))
+                      (Standard__integer__rep.to_rep
+                         Sorter__sort_3__a.a__first))
+                     (Standard__integer__rep.to_rep Sorter__sort_3__a.a__last))))
+              (Sorter__sort_3__S19b.last
+                 (((Sorter__sort_3__S19b.of_array
+                      (Sorter__sort_3__a.a.Array__Int__Standard__integer.map__content))
+                     (Standard__integer__rep.to_rep
+                        Sorter__sort_3__a.a__first))
+                    (Standard__integer__rep.to_rep Sorter__sort_3__a.a__last))))) });
+     ([#"sorter.adb" 121 0 0]
+      assume {
+        [#"sorter.adb" 121 0 0]
+        (((((Standard__integer___axiom.dynamic_invariant
+               Sorter__sort_3__count.count)
+              True)
+             False)
+            True)
+           True) });
+     ([#"sorter.adb" 121 0 0]
+      assume {
+        [#"sorter.adb" 121 0 0]
+        (((((Standard__integer___axiom.dynamic_invariant
+               Sorter__sort_3__quick_sort__low.low)
+              True)
+             False)
+            True)
+           True) });
+     ([#"sorter.adb" 121 0 0]
+      assume {
+        [#"sorter.adb" 121 0 0]
+        (((((Standard__integer___axiom.dynamic_invariant
+               Sorter__sort_3__quick_sort__high.high)
+              True)
+             False)
+            True)
+           True) });
+     ([@GNAT-comment:Assume moved pointers in outputs of the subprogram sorter.adb:121]
+      ());
+     ([@GNAT-comment:Check for RTE in the Pre of the subprogram sorter.adb:121]
+      ());
+     ([#"sorter.adb" 121 0 0] ());
+     ([@GNAT-comment:Assume Pre of the subprogram sorter.adb:121] ());
+     ([#"sorter.adb" 121 0 0]
+      (try
+         ([#"sorter.adb" 122 0 0]
+          (([#"sorter.adb" 122 0 0]
+            (Sorter__sort_3__quick_sort__pivot.pivot.int__content <-
+               (Standard__integer__rep.to_rep
+                  (let temp___370 =
+                     ((Sorter__sort_3__S19b.of_array
+                         (Sorter__sort_3__a.a.Array__Int__Standard__integer.map__content))
+                        (Standard__integer__rep.to_rep
+                           Sorter__sort_3__a.a__first))
+                       (Standard__integer__rep.to_rep
+                          Sorter__sort_3__a.a__last) in
+                   (Array__Int__Standard__integer.get
+                      (Sorter__sort_3__S19b.to_array temp___370))
+                     (let temp___371 =
+                        [#"sorter.adb" 122 0 0]
+                        [@comment:        pivot : Integer := A((low + high) / 2);                                           ^ sorter.adb:122:43:VC_DIVISION_CHECK]
+                        [@GP_Id:44]
+                        [@vc:annotation]
+                        [@GP_Shape:pivot_decl__ixdcomp__div]
+                        [@GP_Reason:VC_DIVISION_CHECK]
+                        [@GP_Sloc:sorter.adb:122:43]
+                        ((Int_Division.div_
+                            ([#"sorter.adb" 122 0 0]
+                             [@GP_Sloc:sorter.adb:122:35]
+                             [@GP_Id:43]
+                             [@vc:annotation]
+                             [@GP_Reason:VC_OVERFLOW_CHECK]
+                             [@GP_Shape:pivot_decl__ixdcomp__div__add]
+                             [@comment:        pivot : Integer := A((low + high) / 2);                                   ^ sorter.adb:122:35:VC_OVERFLOW_CHECK]
+                             (Standard__integer.range_check_
+                                (Sorter__sort_3__quick_sort__low.low
+                                   + Sorter__sort_3__quick_sort__high.high))))
+                           (2 : int)) in
+                      assert {
+                        [#"sorter.adb" 122 0 0]
+                        [@comment:        pivot : Integer := A((low + high) / 2);                                           ^ sorter.adb:122:43:VC_INDEX_CHECK]
+                        [@GP_Id:45]
+                        [@vc:annotation]
+                        [@GP_Shape:pivot_decl__ixdcomp__div]
+                        [@GP_Reason:VC_INDEX_CHECK]
+                        [@GP_Sloc:sorter.adb:122:43]
+                        (((Sorter__sort_3__S19b.first temp___370)
+                            <= temp___371) /\
+                           (temp___371
+                              <= (Sorter__sort_3__S19b.last temp___370))) };
+                      temp___371)))));
+           assume {
+             ((((Standard__integer___axiom.dynamic_invariant
+                   (Sorter__sort_3__quick_sort__pivot.pivot.int__content))
+                  True)
+                 False)
+                True)
+               True }));
+         ([#"sorter.adb" 123 0 0]
+          (([#"sorter.adb" 123 0 0]
+            (Sorter__sort_3__quick_sort__i.i.int__content <-
+               Sorter__sort_3__quick_sort__low.low));
+           ([#"sorter.adb" 123 0 0]
+            assume {
+              [#"sorter.adb" 123 0 0]
+              (((((Standard__integer___axiom.dynamic_invariant
+                     (Sorter__sort_3__quick_sort__i.i.int__content))
+                    True)
+                   False)
+                  True)
+                 True) })));
+         ([#"sorter.adb" 124 0 0]
+          (([#"sorter.adb" 124 0 0]
+            (Sorter__sort_3__quick_sort__j.j.int__content <-
+               Sorter__sort_3__quick_sort__high.high));
+           ([#"sorter.adb" 124 0 0]
+            assume {
+              [#"sorter.adb" 124 0 0]
+              (((((Standard__integer___axiom.dynamic_invariant
+                     (Sorter__sort_3__quick_sort__j.j.int__content))
+                    True)
+                   False)
+                  True)
+                 True) })));
+         ([#"sorter.adb" 128 0 0] ());
+         ([#"sorter.adb" 132 0 0] ());
+         ([#"sorter.adb" 137 0 0] ());
+         ([#"sorter.adb" 127 0 0] ());
+         ([@GP_Sloc:sorter.adb:127:22]
+          [#"sorter.adb" 127 0 0]
+          (([@GNAT-comment:Translation of an Ada loop from sorter.adb:127] ());
+           (if ((Sorter__sort_3__quick_sort__i.i.int__content)
+                  <= (Sorter__sort_3__quick_sort__j.j.int__content)) then
+              ([#"sorter.adb" 127 0 0]
+               (try
+                  let temp___loop_entry_387 =
+                    ((Sorter__sort_3__S19b.of_array
+                        (Sorter__sort_3__a.a.Array__Int__Standard__integer.map__content))
+                       (Standard__integer__rep.to_rep
+                          Sorter__sort_3__a.a__first))
+                      (Standard__integer__rep.to_rep
+                         Sorter__sort_3__a.a__last) in
+                  ([@GNAT-comment:While loop translating the Ada loop from sorter.adb:127]
+                   ());
+                  ([#"sorter.adb" 127 0 0]
+                   [#"sorter.adb" 127 0 0]
+                   (([@GNAT-comment:Check for absence of RTE in the loop invariant and variant]
+                     ());
+                    while True do
+                      ([@GNAT-comment:gnat_ast_to_ptree: code after the loop invariant]
+                       (([@GNAT-comment:Assume implicit invariants from the loop sorter.adb:127]
+                         ());
+                        ([#"sorter.adb" 127 0 0]
+                         assume {
+                           [#"sorter.adb" 127 0 0]
+                           ((Boolean.andb
+                               ((((((true /\ true) /\
+                                      (true /\
+                                         (forall temp___388 : int.
+                                            if (((Sorter__sort_3__S19b.first
+                                                    (((Sorter__sort_3__S19b.of_array
+                                                         (Sorter__sort_3__a.a.
+                                                            Array__Int__Standard__integer.map__content))
+                                                        (Standard__integer__rep.to_rep
+                                                           Sorter__sort_3__a.a__first))
+                                                       (Standard__integer__rep.to_rep
+                                                          Sorter__sort_3__a.a__last)))
+                                                   <= temp___388) /\
+                                                  (temp___388
+                                                     <= (Sorter__sort_3__S19b.last
+                                                           (((Sorter__sort_3__S19b.of_array
+                                                                (Sorter__sort_3__a.a.
+                                                                   Array__Int__Standard__integer.map__content))
+                                                               (Standard__integer__rep.to_rep
+                                                                  Sorter__sort_3__a.a__first))
+                                                              (Standard__integer__rep.to_rep
+                                                                 Sorter__sort_3__a.a__last))))) then
+                                              (if (false /\ false) then
+                                                 (((Array__Int__Standard__integer.get
+                                                      (Sorter__sort_3__S19b.to_array
+                                                         (((Sorter__sort_3__S19b.of_array
+                                                              (Sorter__sort_3__a.a.
+                                                                 Array__Int__Standard__integer.map__content))
+                                                             (Standard__integer__rep.to_rep
+                                                                Sorter__sort_3__a.a__first))
+                                                            (Standard__integer__rep.to_rep
+                                                               Sorter__sort_3__a.a__last))))
+                                                     temp___388)
+                                                    = ((Array__Int__Standard__integer.get
+                                                          (Sorter__sort_3__S19b.to_array
+                                                             temp___loop_entry_387))
+                                                         temp___388))
+                                               else true)
+                                            else true))) /\
+                                     (((((Standard__integer___axiom.dynamic_invariant
+                                            (Sorter__sort_3__quick_sort__i.i.int__content))
+                                           True)
+                                          True)
+                                         True)
+                                        True)) /\
+                                    (true /\ true)) /\
+                                   (((((Standard__integer___axiom.dynamic_invariant
+                                          (Sorter__sort_3__quick_sort__j.j.int__content))
+                                         True)
+                                        True)
+                                       True)
+                                      True)) /\
+                                  (true /\ true)))
+                              ((Sorter__sort_3__quick_sort__i.i.int__content)
+                                 <= (Sorter__sort_3__quick_sort__j.j.int__content))) });
+                        ([@GNAT-comment:Continuation of loop after loop invariant and variant]
+                         ());
+                        ([@GP_Sloc:sorter.adb:128:32]
+                         [#"sorter.adb" 128 0 0]
+                         (([@GNAT-comment:Translation of an Ada loop from sorter.adb:128]
+                           ());
+                          (if ((Standard__integer__rep.to_rep
+                                  (let temp___373 =
+                                     ((Sorter__sort_3__S19b.of_array
+                                         (Sorter__sort_3__a.a.Array__Int__Standard__integer.map__content))
+                                        (Standard__integer__rep.to_rep
+                                           Sorter__sort_3__a.a__first))
+                                       (Standard__integer__rep.to_rep
+                                          Sorter__sort_3__a.a__last) in
+                                   (Array__Int__Standard__integer.get
+                                      (Sorter__sort_3__S19b.to_array
+                                         temp___373))
+                                     (([#"sorter.adb" 128 0 0]
+                                       assert {
+                                         [#"sorter.adb" 128 0 0]
+                                         [#"sorter.adb" 128 0 0]
+                                         [@GP_Id:47]
+                                         [@vc:annotation]
+                                         [@GP_Shape:L_9_while__L_10_while__cmp__ixdcomp]
+                                         [@GP_Reason:VC_INDEX_CHECK]
+                                         [@GP_Sloc:sorter.adb:128:21]
+                                         [@comment:            while A(i) < pivot loop                     ^ sorter.adb:128:21:VC_INDEX_CHECK]
+                                         (((Sorter__sort_3__S19b.first
+                                              temp___373)
+                                             <= (Sorter__sort_3__quick_sort__i.i.int__content)) /\
+                                            ((Sorter__sort_3__quick_sort__i.i.int__content)
+                                               <= (Sorter__sort_3__S19b.last
+                                                     temp___373))) });
+                                      (Sorter__sort_3__quick_sort__i.i.int__content))))
+                                 < (Sorter__sort_3__quick_sort__pivot.pivot.int__content)) then
+                             (try
+                                ([@GNAT-comment:While loop translating the Ada loop from sorter.adb:128]
+                                 ());
+                                ([#"sorter.adb" 128 0 0]
+                                 [#"sorter.adb" 128 0 0]
+                                 (([@GNAT-comment:Check for absence of RTE in the loop invariant and variant]
+                                   ());
+                                  while True do
+                                    ([@GNAT-comment:gnat_ast_to_ptree: code after the loop invariant]
+                                     (([@GNAT-comment:Assume implicit invariants from the loop sorter.adb:128]
+                                       ());
+                                      ([#"sorter.adb" 128 0 0]
+                                       assume {
+                                         [#"sorter.adb" 128 0 0]
+                                         ((Boolean.andb
+                                             ((true /\
+                                                 (((((Standard__integer___axiom.dynamic_invariant
+                                                        (Sorter__sort_3__quick_sort__i.i.int__content))
+                                                       True)
+                                                      True)
+                                                     True)
+                                                    True)) /\
+                                                (true /\ true)))
+                                            ((Standard__integer__rep.to_rep
+                                                (let temp___374 =
+                                                   ((Sorter__sort_3__S19b.of_array
+                                                       (Sorter__sort_3__a.a.
+                                                          Array__Int__Standard__integer.map__content))
+                                                      (Standard__integer__rep.to_rep
+                                                         Sorter__sort_3__a.a__first))
+                                                     (Standard__integer__rep.to_rep
+                                                        Sorter__sort_3__a.a__last) in
+                                                 (Array__Int__Standard__integer.get
+                                                    (Sorter__sort_3__S19b.to_array
+                                                       temp___374))
+                                                   (Sorter__sort_3__quick_sort__i.i.int__content)))
+                                               < (Sorter__sort_3__quick_sort__pivot.pivot.int__content))) });
+                                      ([@GNAT-comment:Continuation of loop after loop invariant and variant]
+                                       ());
+                                      ([@GP_Sloc:sorter.adb:129:17]
+                                       [#"sorter.adb" 129 0 0] ());
+                                      ([@GP_Sloc:sorter.adb:129:22]
+                                       [#"sorter.adb" 129 0 0] ());
+                                      ([@GP_Sloc:sorter.adb:129:19]
+                                       [#"sorter.adb" 129 0 0]
+                                       [#"sorter.adb" 129 0 0]
+                                       (Sorter__sort_3__quick_sort__i.i.int__content <-
+                                          ([#"sorter.adb" 129 0 0]
+                                           [@GP_Sloc:sorter.adb:129:24]
+                                           [@GP_Id:46]
+                                           [@vc:annotation]
+                                           [@GP_Reason:VC_OVERFLOW_CHECK]
+                                           [@comment:                i := i + 1;                        ^ sorter.adb:129:24:VC_OVERFLOW_CHECK]
+                                           [@GP_Shape:L_9_while__L_10_while__i_assign__add]
+                                           (Standard__integer.range_check_
+                                              ((Sorter__sort_3__quick_sort__i.i.int__content)
+                                                 + (1 : int))))));
+                                      ([@GNAT-comment:Check for the exit condition and loop statements appearing before the loop invariant of loop sorter.adb:128]
+                                       ());
+                                      (if (not ((Standard__integer__rep.to_rep
+                                                   (let temp___373 =
+                                                      ((Sorter__sort_3__S19b.of_array
+                                                          (Sorter__sort_3__a.a.
+                                                             Array__Int__Standard__integer.map__content))
+                                                         (Standard__integer__rep.to_rep
+                                                            Sorter__sort_3__a.a__first))
+                                                        (Standard__integer__rep.to_rep
+                                                           Sorter__sort_3__a.a__last) in
+                                                    (Array__Int__Standard__integer.get
+                                                       (Sorter__sort_3__S19b.to_array
+                                                          temp___373))
+                                                      (assert {
+                                                         [#"sorter.adb" 128 0 0]
+                                                         [@GP_Id:47]
+                                                         [@vc:annotation]
+                                                         [@GP_Shape:L_9_while__L_10_while__cmp__ixdcomp]
+                                                         [@GP_Reason:VC_INDEX_CHECK]
+                                                         [@GP_Sloc:sorter.adb:128:21]
+                                                         [@comment:            while A(i) < pivot loop                     ^ sorter.adb:128:21:VC_INDEX_CHECK]
+                                                         (((Sorter__sort_3__S19b.first
+                                                              temp___373)
+                                                             <= (Sorter__sort_3__quick_sort__i.i.int__content)) /\
+                                                            ((Sorter__sort_3__quick_sort__i.i.int__content)
+                                                               <= (Sorter__sort_3__S19b.last
+                                                                    temp___373))) };
+                                                       (Sorter__sort_3__quick_sort__i.i.int__content))))
+                                                  < (Sorter__sort_3__quick_sort__pivot.pivot.int__content))) then
+                                         (raise Sorter__sort_3__quick_sort__L_10.L_10)
+                                       else ())));
+                                    ([@GNAT-comment:gnat_ast_to_ptree: code before the loop invariant]
+                                     [@GNAT-comment:Check for absence of RTE in the loop invariant and variant]
+                                     ());
+                                    ([@GNAT-comment:gnat_ast_to_ptree: code checking the variants]
+                                     ())
+                                  done))
+                              with
+                                Sorter__sort_3__quick_sort__L_10.L_10 ->
+                                ()
+                              end)
+                           else ())));
+                        ([@GP_Sloc:sorter.adb:132:32]
+                         [#"sorter.adb" 132 0 0]
+                         (([@GNAT-comment:Translation of an Ada loop from sorter.adb:132]
+                           ());
+                          (if ((Standard__integer__rep.to_rep
+                                  (let temp___376 =
+                                     ((Sorter__sort_3__S19b.of_array
+                                         (Sorter__sort_3__a.a.Array__Int__Standard__integer.map__content))
+                                        (Standard__integer__rep.to_rep
+                                           Sorter__sort_3__a.a__first))
+                                       (Standard__integer__rep.to_rep
+                                          Sorter__sort_3__a.a__last) in
+                                   (Array__Int__Standard__integer.get
+                                      (Sorter__sort_3__S19b.to_array
+                                         temp___376))
+                                     (([#"sorter.adb" 132 0 0]
+                                       assert {
+                                         [#"sorter.adb" 132 0 0]
+                                         [#"sorter.adb" 132 0 0]
+                                         [@GP_Shape:L_9_while__L_11_while__cmp__ixdcomp]
+                                         [@vc:annotation]
+                                         [@GP_Id:49]
+                                         [@GP_Sloc:sorter.adb:132:21]
+                                         [@GP_Reason:VC_INDEX_CHECK]
+                                         [@comment:            while A(j) > pivot loop                     ^ sorter.adb:132:21:VC_INDEX_CHECK]
+                                         (((Sorter__sort_3__S19b.first
+                                              temp___376)
+                                             <= (Sorter__sort_3__quick_sort__j.j.int__content)) /\
+                                            ((Sorter__sort_3__quick_sort__j.j.int__content)
+                                               <= (Sorter__sort_3__S19b.last
+                                                     temp___376))) });
+                                      (Sorter__sort_3__quick_sort__j.j.int__content))))
+                                 > (Sorter__sort_3__quick_sort__pivot.pivot.int__content)) then
+                             (try
+                                ([@GNAT-comment:While loop translating the Ada loop from sorter.adb:132]
+                                 ());
+                                ([#"sorter.adb" 132 0 0]
+                                 [#"sorter.adb" 132 0 0]
+                                 (([@GNAT-comment:Check for absence of RTE in the loop invariant and variant]
+                                   ());
+                                  while True do
+                                    ([@GNAT-comment:gnat_ast_to_ptree: code after the loop invariant]
+                                     (([@GNAT-comment:Assume implicit invariants from the loop sorter.adb:132]
+                                       ());
+                                      ([#"sorter.adb" 132 0 0]
+                                       assume {
+                                         [#"sorter.adb" 132 0 0]
+                                         ((Boolean.andb
+                                             ((true /\
+                                                 (((((Standard__integer___axiom.dynamic_invariant
+                                                        (Sorter__sort_3__quick_sort__j.j.int__content))
+                                                       True)
+                                                      True)
+                                                     True)
+                                                    True)) /\
+                                                (true /\ true)))
+                                            ((Standard__integer__rep.to_rep
+                                                (let temp___377 =
+                                                   ((Sorter__sort_3__S19b.of_array
+                                                       (Sorter__sort_3__a.a.
+                                                          Array__Int__Standard__integer.map__content))
+                                                      (Standard__integer__rep.to_rep
+                                                         Sorter__sort_3__a.a__first))
+                                                     (Standard__integer__rep.to_rep
+                                                        Sorter__sort_3__a.a__last) in
+                                                 (Array__Int__Standard__integer.get
+                                                    (Sorter__sort_3__S19b.to_array
+                                                       temp___377))
+                                                   (Sorter__sort_3__quick_sort__j.j.int__content)))
+                                               > (Sorter__sort_3__quick_sort__pivot.pivot.int__content))) });
+                                      ([@GNAT-comment:Continuation of loop after loop invariant and variant]
+                                       ());
+                                      ([@GP_Sloc:sorter.adb:133:17]
+                                       [#"sorter.adb" 133 0 0] ());
+                                      ([@GP_Sloc:sorter.adb:133:22]
+                                       [#"sorter.adb" 133 0 0] ());
+                                      ([@GP_Sloc:sorter.adb:133:19]
+                                       [#"sorter.adb" 133 0 0]
+                                       [#"sorter.adb" 133 0 0]
+                                       (Sorter__sort_3__quick_sort__j.j.int__content <-
+                                          ([#"sorter.adb" 133 0 0]
+                                           [@GP_Id:48]
+                                           [@vc:annotation]
+                                           [@GP_Reason:VC_OVERFLOW_CHECK]
+                                           [@GP_Shape:L_9_while__L_11_while__j_assign__sub]
+                                           [@comment:                j := j - 1;                        ^ sorter.adb:133:24:VC_OVERFLOW_CHECK]
+                                           [@GP_Sloc:sorter.adb:133:24]
+                                           (Standard__integer.range_check_
+                                              ((Sorter__sort_3__quick_sort__j.j.int__content)
+                                                 - (1 : int))))));
+                                      ([@GNAT-comment:Check for the exit condition and loop statements appearing before the loop invariant of loop sorter.adb:132]
+                                       ());
+                                      (if (not ((Standard__integer__rep.to_rep
+                                                   (let temp___376 =
+                                                      ((Sorter__sort_3__S19b.of_array
+                                                          (Sorter__sort_3__a.a.
+                                                             Array__Int__Standard__integer.map__content))
+                                                         (Standard__integer__rep.to_rep
+                                                            Sorter__sort_3__a.a__first))
+                                                        (Standard__integer__rep.to_rep
+                                                           Sorter__sort_3__a.a__last) in
+                                                    (Array__Int__Standard__integer.get
+                                                       (Sorter__sort_3__S19b.to_array
+                                                          temp___376))
+                                                      (assert {
+                                                         [#"sorter.adb" 132 0 0]
+                                                         [@GP_Shape:L_9_while__L_11_while__cmp__ixdcomp]
+                                                         [@vc:annotation]
+                                                         [@GP_Id:49]
+                                                         [@GP_Sloc:sorter.adb:132:21]
+                                                         [@GP_Reason:VC_INDEX_CHECK]
+                                                         [@comment:            while A(j) > pivot loop                     ^ sorter.adb:132:21:VC_INDEX_CHECK]
+                                                         (((Sorter__sort_3__S19b.first
+                                                              temp___376)
+                                                             <= (Sorter__sort_3__quick_sort__j.j.int__content)) /\
+                                                            ((Sorter__sort_3__quick_sort__j.j.int__content)
+                                                               <= (Sorter__sort_3__S19b.last
+                                                                    temp___376))) };
+                                                       (Sorter__sort_3__quick_sort__j.j.int__content))))
+                                                  > (Sorter__sort_3__quick_sort__pivot.pivot.int__content))) then
+                                         (raise Sorter__sort_3__quick_sort__L_11.L_11)
+                                       else ())));
+                                    ([@GNAT-comment:gnat_ast_to_ptree: code before the loop invariant]
+                                     [@GNAT-comment:Check for absence of RTE in the loop invariant and variant]
+                                     ());
+                                    ([@GNAT-comment:gnat_ast_to_ptree: code checking the variants]
+                                     ())
+                                  done))
+                              with
+                                Sorter__sort_3__quick_sort__L_11.L_11 ->
+                                ()
+                              end)
+                           else ())));
+                        ([@GP_Sloc:sorter.adb:136:16]
+                         [#"sorter.adb" 136 0 0] ());
+                        ([@GP_Sloc:sorter.adb:136:21]
+                         [#"sorter.adb" 136 0 0] ());
+                        ([@GP_Sloc:sorter.adb:136:13]
+                         [#"sorter.adb" 136 0 0]
+                         (if (([#"sorter.adb" 136 0 0]
+                               [#"sorter.adb" 136 0 0]
+                               (([@branch_id=1239] Main.spark__branch).bool__content <-
+                                  ((Sorter__sort_3__quick_sort__i.i.int__content)
+                                     <= (Sorter__sort_3__quick_sort__j.j.int__content))));
+                              (([@branch_id=1239] Main.spark__branch).bool__content)) then
+                            (([@GP_Sloc:sorter.adb:137:17]
+                              [#"sorter.adb" 137 0 0]
+                              (([#"sorter.adb" 138 0 0] ());
+                               ([#"sorter.adb" 138 0 0]
+                                (([#"sorter.adb" 138 0 0]
+                                  (Sorter__sort_3__quick_sort__B_12__temp.temp.int__content <-
+                                     (Standard__integer__rep.to_rep
+                                        (let temp___383 =
+                                           ((Sorter__sort_3__S19b.of_array
+                                               (Sorter__sort_3__a.a.Array__Int__Standard__integer.map__content))
+                                              (Standard__integer__rep.to_rep
+                                                 Sorter__sort_3__a.a__first))
+                                             (Standard__integer__rep.to_rep
+                                                Sorter__sort_3__a.a__last) in
+                                         (Array__Int__Standard__integer.get
+                                            (Sorter__sort_3__S19b.to_array
+                                               temp___383))
+                                           (([#"sorter.adb" 138 0 0]
+                                             assert {
+                                               [#"sorter.adb" 138 0 0]
+                                               [#"sorter.adb" 138 0 0]
+                                               [@comment:                    Temp : Integer := A(i);                                         ^ sorter.adb:138:41:VC_INDEX_CHECK]
+                                               [@GP_Sloc:sorter.adb:138:41]
+                                               [@vc:annotation]
+                                               [@GP_Shape:L_9_while__if__B_12_declblk__temp_decl__ixdcomp]
+                                               [@GP_Reason:VC_INDEX_CHECK]
+                                               [@GP_Id:53]
+                                               (((Sorter__sort_3__S19b.first
+                                                    temp___383)
+                                                   <= (Sorter__sort_3__quick_sort__i.i.int__content)) /\
+                                                  ((Sorter__sort_3__quick_sort__i.i.int__content)
+                                                     <= (Sorter__sort_3__S19b.last
+                                                           temp___383))) });
+                                            (Sorter__sort_3__quick_sort__i.i.int__content))))));
+                                 assume {
+                                   ((((Standard__integer___axiom.dynamic_invariant
+                                         (Sorter__sort_3__quick_sort__B_12__temp.temp.int__content))
+                                        True)
+                                       False)
+                                      True)
+                                     True }));
+                               ([@GP_Sloc:sorter.adb:140:23]
+                                [#"sorter.adb" 140 0 0] ());
+                               ([@GP_Sloc:sorter.adb:140:31]
+                                [#"sorter.adb" 140 0 0] ());
+                               ([@GP_Sloc:sorter.adb:140:26]
+                                [#"sorter.adb" 140 0 0]
+                                [#"sorter.adb" 140 0 0]
+                                (Sorter__sort_3__a.a.Array__Int__Standard__integer.map__content <-
+                                   (Sorter__sort_3__S19b.to_array
+                                      (let temp___380 =
+                                         ((Sorter__sort_3__S19b.of_array
+                                             (Sorter__sort_3__a.a.Array__Int__Standard__integer.map__content))
+                                            (Standard__integer__rep.to_rep
+                                               Sorter__sort_3__a.a__first))
+                                           (Standard__integer__rep.to_rep
+                                              Sorter__sort_3__a.a__last) in
+                                       { (((Sorter__sort_3__S19b.of_array
+                                              (Sorter__sort_3__a.a.Array__Int__Standard__integer.map__content))
+                                             (Standard__integer__rep.to_rep
+                                                Sorter__sort_3__a.a__first))
+                                            (Standard__integer__rep.to_rep
+                                               Sorter__sort_3__a.a__last)) with
+                                         Sorter__sort_3__S19b.elts =
+                                           (((Array__Int__Standard__integer.set
+                                                (Sorter__sort_3__S19b.to_array
+                                                   (((Sorter__sort_3__S19b.of_array
+                                                        (Sorter__sort_3__a.a.
+                                                           Array__Int__Standard__integer.map__content))
+                                                       (Standard__integer__rep.to_rep
+                                                          Sorter__sort_3__a.a__first))
+                                                      (Standard__integer__rep.to_rep
+                                                         Sorter__sort_3__a.a__last))))
+                                               (([#"sorter.adb" 140 0 0]
+                                                 assert {
+                                                   [#"sorter.adb" 140 0 0]
+                                                   [#"sorter.adb" 140 0 0]
+                                                   [@comment:                    A(i) := A(j);                       ^ sorter.adb:140:23:VC_INDEX_CHECK]
+                                                   [@vc:annotation]
+                                                   [@GP_Shape:L_9_while__if__B_12_declblk__a_assign__ixdcomp]
+                                                   [@GP_Reason:VC_INDEX_CHECK]
+                                                   [@GP_Sloc:sorter.adb:140:23]
+                                                   [@GP_Id:51]
+                                                   (((Sorter__sort_3__S19b.first
+                                                        temp___380)
+                                                       <= (Sorter__sort_3__quick_sort__i.i.int__content)) /\
+                                                      ((Sorter__sort_3__quick_sort__i.i.int__content)
+                                                         <= (Sorter__sort_3__S19b.last
+                                                               temp___380))) });
+                                                (Sorter__sort_3__quick_sort__i.i.int__content)))
+                                              (Standard__integer__rep.of_rep
+                                                 (Standard__integer__rep.to_rep
+                                                    (let temp___379 =
+                                                       ((Sorter__sort_3__S19b.of_array
+                                                           (Sorter__sort_3__a.a.
+                                                              Array__Int__Standard__integer.map__content))
+                                                          (Standard__integer__rep.to_rep
+                                                             Sorter__sort_3__a.a__first))
+                                                         (Standard__integer__rep.to_rep
+                                                            Sorter__sort_3__a.a__last) in
+                                                     (Array__Int__Standard__integer.get
+                                                        (Sorter__sort_3__S19b.to_array
+                                                           temp___379))
+                                                       (assert {
+                                                          [#"sorter.adb" 140 0 0]
+                                                          [@vc:annotation]
+                                                          [@GP_Shape:L_9_while__if__B_12_declblk__a_assign__ixdcomp]
+                                                          [@GP_Sloc:sorter.adb:140:31]
+                                                          [@comment:                    A(i) := A(j);                               ^ sorter.adb:140:31:VC_INDEX_CHECK]
+                                                          [@GP_Reason:VC_INDEX_CHECK]
+                                                          [@GP_Id:50]
+                                                          (((Sorter__sort_3__S19b.first
+                                                               temp___379)
+                                                              <= (Sorter__sort_3__quick_sort__j.j.int__content)) /\
+                                                             ((Sorter__sort_3__quick_sort__j.j.int__content)
+                                                                <= (Sorter__sort_3__S19b.last
+                                                                    temp___379))) };
+                                                        (Sorter__sort_3__quick_sort__j.j.int__content)))))) }))));
+                               ([@GP_Sloc:sorter.adb:141:23]
+                                [#"sorter.adb" 141 0 0] ());
+                               ([@GP_Sloc:sorter.adb:141:29]
+                                [#"sorter.adb" 141 0 0] ());
+                               ([@GP_Sloc:sorter.adb:141:26]
+                                [#"sorter.adb" 141 0 0]
+                                [#"sorter.adb" 141 0 0]
+                                (Sorter__sort_3__a.a.Array__Int__Standard__integer.map__content <-
+                                   (Sorter__sort_3__S19b.to_array
+                                      (let temp___382 =
+                                         ((Sorter__sort_3__S19b.of_array
+                                             (Sorter__sort_3__a.a.Array__Int__Standard__integer.map__content))
+                                            (Standard__integer__rep.to_rep
+                                               Sorter__sort_3__a.a__first))
+                                           (Standard__integer__rep.to_rep
+                                              Sorter__sort_3__a.a__last) in
+                                       { (((Sorter__sort_3__S19b.of_array
+                                              (Sorter__sort_3__a.a.Array__Int__Standard__integer.map__content))
+                                             (Standard__integer__rep.to_rep
+                                                Sorter__sort_3__a.a__first))
+                                            (Standard__integer__rep.to_rep
+                                               Sorter__sort_3__a.a__last)) with
+                                         Sorter__sort_3__S19b.elts =
+                                           (((Array__Int__Standard__integer.set
+                                                (Sorter__sort_3__S19b.to_array
+                                                   (((Sorter__sort_3__S19b.of_array
+                                                        (Sorter__sort_3__a.a.
+                                                           Array__Int__Standard__integer.map__content))
+                                                       (Standard__integer__rep.to_rep
+                                                          Sorter__sort_3__a.a__first))
+                                                      (Standard__integer__rep.to_rep
+                                                         Sorter__sort_3__a.a__last))))
+                                               (([#"sorter.adb" 141 0 0]
+                                                 assert {
+                                                   [#"sorter.adb" 141 0 0]
+                                                   [#"sorter.adb" 141 0 0]
+                                                   [@GP_Sloc:sorter.adb:141:23]
+                                                   [@comment:                    A(j) := Temp;                       ^ sorter.adb:141:23:VC_INDEX_CHECK]
+                                                   [@vc:annotation]
+                                                   [@GP_Shape:L_9_while__if__B_12_declblk__a_assign__ixdcomp]
+                                                   [@GP_Reason:VC_INDEX_CHECK]
+                                                   [@GP_Id:52]
+                                                   (((Sorter__sort_3__S19b.first
+                                                        temp___382)
+                                                       <= (Sorter__sort_3__quick_sort__j.j.int__content)) /\
+                                                      ((Sorter__sort_3__quick_sort__j.j.int__content)
+                                                         <= (Sorter__sort_3__S19b.last
+                                                               temp___382))) });
+                                                (Sorter__sort_3__quick_sort__j.j.int__content)))
+                                              (Standard__integer__rep.of_rep
+                                                 (Sorter__sort_3__quick_sort__B_12__temp.temp.int__content))) }))))));
+                             ([@GP_Sloc:sorter.adb:143:17]
+                              [#"sorter.adb" 143 0 0] ());
+                             ([@GP_Sloc:sorter.adb:143:22]
+                              [#"sorter.adb" 143 0 0] ());
+                             ([@GP_Sloc:sorter.adb:143:19]
+                              [#"sorter.adb" 143 0 0]
+                              [#"sorter.adb" 143 0 0]
+                              (Sorter__sort_3__quick_sort__i.i.int__content <-
+                                 ([#"sorter.adb" 143 0 0]
+                                  [@GP_Sloc:sorter.adb:143:24]
+                                  [@vc:annotation]
+                                  [@GP_Reason:VC_OVERFLOW_CHECK]
+                                  [@GP_Shape:L_9_while__if__i_assign__add]
+                                  [@comment:                i := i + 1;                        ^ sorter.adb:143:24:VC_OVERFLOW_CHECK]
+                                  [@GP_Id:54]
+                                  (Standard__integer.range_check_
+                                     ((Sorter__sort_3__quick_sort__i.i.int__content)
+                                        + (1 : int))))));
+                             ([@GP_Sloc:sorter.adb:144:17]
+                              [#"sorter.adb" 144 0 0] ());
+                             ([@GP_Sloc:sorter.adb:144:22]
+                              [#"sorter.adb" 144 0 0] ());
+                             ([@GP_Sloc:sorter.adb:144:19]
+                              [#"sorter.adb" 144 0 0]
+                              [#"sorter.adb" 144 0 0]
+                              (Sorter__sort_3__quick_sort__j.j.int__content <-
+                                 ([#"sorter.adb" 144 0 0]
+                                  [@vc:annotation]
+                                  [@GP_Sloc:sorter.adb:144:24]
+                                  [@GP_Reason:VC_OVERFLOW_CHECK]
+                                  [@comment:                j := j - 1;                        ^ sorter.adb:144:24:VC_OVERFLOW_CHECK]
+                                  [@GP_Shape:L_9_while__if__j_assign__sub]
+                                  [@GP_Id:55]
+                                  (Standard__integer.range_check_
+                                     ((Sorter__sort_3__quick_sort__j.j.int__content)
+                                        - (1 : int)))))))
+                          else ()));
+                        ([@GNAT-comment:Check for the exit condition and loop statements appearing before the loop invariant of loop sorter.adb:127]
+                         ());
+                        (if (not ((Sorter__sort_3__quick_sort__i.i.int__content)
+                                    <= (Sorter__sort_3__quick_sort__j.j.int__content))) then
+                           (raise Sorter__sort_3__quick_sort__L_9.L_9)
+                         else ())));
+                      ([@GNAT-comment:gnat_ast_to_ptree: code before the loop invariant]
+                       [@GNAT-comment:Check for absence of RTE in the loop invariant and variant]
+                       ());
+                      ([@GNAT-comment:gnat_ast_to_ptree: code checking the variants]
+                       ())
+                    done))
+                with Sorter__sort_3__quick_sort__L_9.L_9 -> ()
+                end))
+            else ())));
+         ([@GP_Sloc:sorter.adb:149:18] [#"sorter.adb" 149 0 0] ());
+         ([@GP_Sloc:sorter.adb:149:24] [#"sorter.adb" 149 0 0] ());
+         ([@GP_Sloc:sorter.adb:149:9]
+          [#"sorter.adb" 149 0 0]
+          (if (([#"sorter.adb" 149 0 0]
+                [#"sorter.adb" 149 0 0]
+                (([@branch_id=1278] Main.spark__branch).bool__content <-
+                   ((Boolean.andb
+                       (Sorter__sort_3__quick_sort__low.low
+                          < (Sorter__sort_3__quick_sort__j.j.int__content)))
+                      ((Sorter__sort_3__quick_sort__j.j.int__content)
+                         <= Sorter__sort_3__count.count))));
+               (([@branch_id=1278] Main.spark__branch).bool__content)) then
+             (([@GP_Sloc:sorter.adb:150:29] [#"sorter.adb" 150 0 0] ());
+              ([@GP_Sloc:sorter.adb:150:13] [#"sorter.adb" 150 0 0] ());
+              ([@GP_Sloc:sorter.adb:150:13]
+               [#"sorter.adb" 150 0 0]
+               (([#"sorter.adb" 150 0 0] (val _f : unit in
+                                          _f));
+                ((Sorter__sort_3__quick_sort___axiom.quick_sort
+                    Sorter__sort_3__quick_sort__low.low)
+                   (Sorter__sort_3__quick_sort__j.j.int__content)))))
+           else ()));
+         ([@GP_Sloc:sorter.adb:153:12] [#"sorter.adb" 153 0 0] ());
+         ([@GP_Sloc:sorter.adb:153:25] [#"sorter.adb" 153 0 0] ());
+         ([@GP_Sloc:sorter.adb:153:9]
+          [#"sorter.adb" 153 0 0]
+          (if (([#"sorter.adb" 153 0 0]
+                [#"sorter.adb" 153 0 0]
+                (([@branch_id=1291] Main.spark__branch).bool__content <-
+                   ((Boolean.andb
+                       ((Sorter__sort_3__quick_sort__i.i.int__content)
+                          < Sorter__sort_3__quick_sort__high.high))
+                      ((Sorter__sort_3__quick_sort__i.i.int__content)
+                         <= Sorter__sort_3__count.count))));
+               (([@branch_id=1291] Main.spark__branch).bool__content)) then
+             (([@GP_Sloc:sorter.adb:154:24] [#"sorter.adb" 154 0 0] ());
+              ([@GP_Sloc:sorter.adb:154:13] [#"sorter.adb" 154 0 0] ());
+              ([@GP_Sloc:sorter.adb:154:13]
+               [#"sorter.adb" 154 0 0]
+               (([#"sorter.adb" 154 0 0] (val _f : unit in
+                                          _f));
+                ((Sorter__sort_3__quick_sort___axiom.quick_sort
+                    (Sorter__sort_3__quick_sort__i.i.int__content))
+                   Sorter__sort_3__quick_sort__high.high))))
+           else ()));
+         (raise Return__exc)
+       with Return__exc -> ()
+       end)))
+end

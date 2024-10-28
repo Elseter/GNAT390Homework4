@@ -1,0 +1,7 @@
+Phase 1 of 2: generation of Global contracts ...
+Phase 2 of 2: flow analysis and proof ...
+
+drvr.adb:88:22: error: subtype constraint cannot depend on variable input "Max" (SPARK RM 4.4(2))
+   88 |   A : array_type(1..max);
+      |                     ^~~
+gnatprove: error during flow analysis and proof

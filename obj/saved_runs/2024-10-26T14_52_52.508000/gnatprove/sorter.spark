@@ -1,0 +1,297 @@
+{
+  "spark": [
+    {
+      "name": "Sorter",
+      "sloc": [
+        {
+          "file": "sorter.ads",
+          "line": 5
+        }
+      ],
+      "spark": "all"
+    },
+    {
+      "name": "Sorter.sort",
+      "sloc": [
+        {
+          "file": "sorter.ads",
+          "line": 18
+        }
+      ],
+      "spark": "all"
+    },
+    {
+      "name": "Sorter.sort_1",
+      "sloc": [
+        {
+          "file": "sorter.ads",
+          "line": 25
+        }
+      ],
+      "spark": "all"
+    },
+    {
+      "name": "Sorter.sort_2",
+      "sloc": [
+        {
+          "file": "sorter.ads",
+          "line": 26
+        }
+      ],
+      "spark": "all"
+    },
+    {
+      "name": "Sorter.sort_3",
+      "sloc": [
+        {
+          "file": "sorter.ads",
+          "line": 27
+        }
+      ],
+      "spark": "all"
+    }
+  ],
+  "flow": [
+    {
+      "file": "sorter.ads",
+      "line": 27,
+      "col": 26,
+      "rule": "INOUT_ONLY_READ",
+      "severity": "warning",
+      "entity": {
+        "name": "Sorter.sort_3",
+        "sloc": [
+          {
+            "file": "sorter.ads",
+            "line": 27
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "msg_id": 0,
+      "how_proved": "flow"
+    },
+    {
+      "file": "sorter.ads",
+      "line": 27,
+      "col": 26,
+      "rule": "UNUSED_VARIABLE",
+      "severity": "warning",
+      "entity": {
+        "name": "Sorter.sort_3",
+        "sloc": [
+          {
+            "file": "sorter.ads",
+            "line": 27
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "msg_id": 1,
+      "how_proved": "flow"
+    },
+    {
+      "file": "sorter.ads",
+      "line": 27,
+      "col": 49,
+      "rule": "UNUSED_VARIABLE",
+      "severity": "warning",
+      "entity": {
+        "name": "Sorter.sort_3",
+        "sloc": [
+          {
+            "file": "sorter.ads",
+            "line": 27
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "msg_id": 2,
+      "how_proved": "flow"
+    },
+    {
+      "file": "sorter.ads",
+      "line": 25,
+      "col": 26,
+      "rule": "INOUT_ONLY_READ",
+      "severity": "warning",
+      "entity": {
+        "name": "Sorter.sort_1",
+        "sloc": [
+          {
+            "file": "sorter.ads",
+            "line": 25
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "msg_id": 3,
+      "how_proved": "flow"
+    },
+    {
+      "file": "sorter.ads",
+      "line": 25,
+      "col": 26,
+      "rule": "UNUSED_VARIABLE",
+      "severity": "warning",
+      "entity": {
+        "name": "Sorter.sort_1",
+        "sloc": [
+          {
+            "file": "sorter.ads",
+            "line": 25
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "msg_id": 4,
+      "how_proved": "flow"
+    },
+    {
+      "file": "sorter.ads",
+      "line": 25,
+      "col": 49,
+      "rule": "UNUSED_VARIABLE",
+      "severity": "warning",
+      "entity": {
+        "name": "Sorter.sort_1",
+        "sloc": [
+          {
+            "file": "sorter.ads",
+            "line": 25
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "msg_id": 5,
+      "how_proved": "flow"
+    },
+    {
+      "file": "sorter.ads",
+      "line": 26,
+      "col": 26,
+      "rule": "INOUT_ONLY_READ",
+      "severity": "warning",
+      "entity": {
+        "name": "Sorter.sort_2",
+        "sloc": [
+          {
+            "file": "sorter.ads",
+            "line": 26
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "msg_id": 6,
+      "how_proved": "flow"
+    },
+    {
+      "file": "sorter.ads",
+      "line": 26,
+      "col": 26,
+      "rule": "UNUSED_VARIABLE",
+      "severity": "warning",
+      "entity": {
+        "name": "Sorter.sort_2",
+        "sloc": [
+          {
+            "file": "sorter.ads",
+            "line": 26
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "msg_id": 7,
+      "how_proved": "flow"
+    },
+    {
+      "file": "sorter.ads",
+      "line": 26,
+      "col": 49,
+      "rule": "UNUSED_VARIABLE",
+      "severity": "warning",
+      "entity": {
+        "name": "Sorter.sort_2",
+        "sloc": [
+          {
+            "file": "sorter.ads",
+            "line": 26
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "msg_id": 8,
+      "how_proved": "flow"
+    }
+  ],
+  "assumptions": [
+    {
+      "assumptions": [
+        {
+          "predicate": "CLAIM_EFFECTS",
+          "arg": {
+            "name": "Sorter.sort_1",
+            "sloc": [
+              {
+                "file": "sorter.ads",
+                "line": 25
+              }
+            ]
+          }
+        },
+        {
+          "predicate": "CLAIM_EFFECTS",
+          "arg": {
+            "name": "Sorter.sort_2",
+            "sloc": [
+              {
+                "file": "sorter.ads",
+                "line": 26
+              }
+            ]
+          }
+        },
+        {
+          "predicate": "CLAIM_EFFECTS",
+          "arg": {
+            "name": "Sorter.sort_3",
+            "sloc": [
+              {
+                "file": "sorter.ads",
+                "line": 27
+              }
+            ]
+          }
+        }
+      ],
+      "claim": {
+        "predicate": "CLAIM_EFFECTS",
+        "arg": {
+          "name": "Sorter.sort",
+          "sloc": [
+            {
+              "file": "sorter.ads",
+              "line": 18
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "timings": {
+    "globals (advanced)": 3.04199988022447E-04,
+    "flow analysis": 1.85630004853010E-03,
+    "marking": 7.52999985706992E-05,
+    "properties (advanced)": 2.40000008489005E-05,
+    "globals (basic)": 2.80900014331564E-04
+  }
+}

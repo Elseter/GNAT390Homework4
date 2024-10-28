@@ -1,0 +1,57 @@
+V "GNAT Lib v2021"
+A -x
+A ada
+A -gnatA
+A -gnatc
+P GP FX
+
+RN
+RV NO_DYNAMIC_SIZED_OBJECTS
+RV NO_IMPLEMENTATION_PRAGMAS
+RV NO_ELABORATION_CODE
+
+U sorter%b		sorter.adb		3b0dc613 OO PK KM
+
+U sorter%s		sorter.ads		7743d2ea OO PK KM
+
+D sorter.ads		20241026180932 7743d2ea sorter%s
+D sorter.adb		20241026180932 4c4e14f9 sorter%b
+D system.ads		20210520051134 2ffa5114 system%s
+G a Z
+X 1 sorter.ads
+5K9*Sorter 30l5 30e11 2|8b14 39l5 39t11
+13A9*array_type(integer)<integer> 18r30 25r37 26r37 27r37 2|12r33 18r33 23r32
+. 29r30
+15i4*count{integer}
+18U14*sort 18=19 18>42 2|29b14 37l8 37t12
+18a19 A{13A9} 2|29b19 31r10 32m17 33r13 34m17 35m19
+18i42 count{integer} 2|29b42 32r20 34r20 35r22
+22i4 small{integer} 2|31r22
+23i4 medium{integer} 2|33r25
+25U19 sort_1 25=26 25>49 2|12b15 15l9 15t15 32s10
+25a26 A{13A9} 2|12b22
+25i49 count{integer} 2|12b45
+26U19 sort_2 26=26 26>49 2|18b15 21l9 21t15 34s10
+26a26 A{13A9} 2|18b22
+26i49 count{integer} 2|18b45
+27U19 sort_3 27=26 27>49 2|23b14 26l8 26t14 35s12
+27a26 A{13A9} 2|23b21
+27i49 count{integer} 2|23b44
+
+QQ SPARKVERSION SPARK Community 2021 (20210519)
+GG EK_DIRECT_CALLS sorter__sort 3 sorter__sort_1 sorter__sort_2 sorter__sort_3
+GG EK_GLOBALS sorter__sort local FALSE E_PROCEDURE FALSE ORIGIN_FLOW 1 sorter proper_proof_in 0 proper_input 0 proper_output 0 refined_proof_in 0 refined_input 0 refined_output 0 calls_proof 0 calls 0 calls_conditional 0 FALSE FALSE FALSE TRUE ENTRY_CALLS 0 SUSPENDS_ON 0 UNSYNCH_ACCESSES 0 LOCKS 0
+GG EK_DIRECT_CALLS sorter__sort_1 0
+GG EK_GLOBALS sorter__sort_1 local FALSE E_PROCEDURE FALSE ORIGIN_FLOW 1 sorter proper_proof_in 0 proper_input 0 proper_output 0 refined_proof_in 0 refined_input 0 refined_output 0 calls_proof 0 calls 0 calls_conditional 0 FALSE FALSE FALSE TRUE ENTRY_CALLS 0 SUSPENDS_ON 0 UNSYNCH_ACCESSES 0 LOCKS 0
+GG EK_DIRECT_CALLS sorter__sort_2 0
+GG EK_GLOBALS sorter__sort_2 local FALSE E_PROCEDURE FALSE ORIGIN_FLOW 1 sorter proper_proof_in 0 proper_input 0 proper_output 0 refined_proof_in 0 refined_input 0 refined_output 0 calls_proof 0 calls 0 calls_conditional 0 FALSE FALSE FALSE TRUE ENTRY_CALLS 0 SUSPENDS_ON 0 UNSYNCH_ACCESSES 0 LOCKS 0
+GG EK_DIRECT_CALLS sorter__sort_3 0
+GG EK_GLOBALS sorter__sort_3 local FALSE E_PROCEDURE FALSE ORIGIN_FLOW 1 sorter proper_proof_in 0 proper_input 0 proper_output 0 refined_proof_in 0 refined_input 0 refined_output 0 calls_proof 0 calls 0 calls_conditional 0 FALSE FALSE FALSE TRUE ENTRY_CALLS 0 SUSPENDS_ON 0 UNSYNCH_ACCESSES 0 LOCKS 0
+GG EK_DIRECT_CALLS sorter 0
+GG EK_GLOBALS sorter local FALSE E_PACKAGE TRUE ORIGIN_FLOW 0 proper_proof_in 0 proper_input 0 proper_output 0 refined_proof_in 0 refined_input 0 refined_output 0 initializes 0 refined_initializes 0 calls_proof 0 calls 0 calls_conditional 0 local_var 1 sorter__count FALSE FALSE FALSE FALSE ENTRY_CALLS 0 SUSPENDS_ON 0 UNSYNCH_ACCESSES 0 LOCKS 0
+GG EK_FLOW_SCOPE sorter__sort_3 FALSE FALSE FALSE FALSE TRUE sorter PRIVATE_PART
+GG EK_FLOW_SCOPE sorter TRUE FALSE FALSE FALSE FALSE __standard
+GG EK_FLOW_SCOPE sorter__sort FALSE FALSE FALSE FALSE TRUE sorter VISIBLE_PART
+GG EK_FLOW_SCOPE sorter__sort_1 FALSE FALSE FALSE FALSE TRUE sorter PRIVATE_PART
+GG EK_FLOW_SCOPE sorter__sort_2 FALSE FALSE FALSE FALSE TRUE sorter PRIVATE_PART
+GG EK_END_MARKER

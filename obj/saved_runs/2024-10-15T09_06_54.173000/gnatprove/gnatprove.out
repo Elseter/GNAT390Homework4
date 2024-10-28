@@ -1,0 +1,31 @@
+Summary of SPARK analysis
+=========================
+
+-----------------------------------------------------------------------------------------
+SPARK Analysis results        Total      Flow   CodePeer   Provers   Justified   Unproved
+-----------------------------------------------------------------------------------------
+Data Dependencies                 .         .          .         .           .          .
+Flow Dependencies                 .         .          .         .           .          .
+Initialization                    .         .          .         .           .          .
+Non-Aliasing                      .         .          .         .           .          .
+Run-time Checks                   .         .          .         .           .          .
+Assertions                        .         .          .         .           .          .
+Functional Contracts              .         .          .         .           .          .
+LSP Verification                  .         .          .         .           .          .
+Termination                       .         .          .         .           .          .
+Concurrency                       .         .          .         .           .          .
+-----------------------------------------------------------------------------------------
+Total                             .         .          .         .           .          .
+
+
+max steps used for successful proof: 0
+
+Analyzed 2 units
+in unit drvr, 0 subprograms and packages out of 1 analyzed
+  Drvr at drvr.adb:84 skipped
+in unit sorter, 5 subprograms and packages out of 5 analyzed
+  Sorter at sorter.ads:5 flow analyzed (0 errors, 0 checks and 0 warnings)
+  Sorter.sort at sorter.ads:18 flow analyzed (0 errors, 0 checks and 0 warnings)
+  Sorter.sort_1 at sorter.ads:25 flow analyzed (0 errors, 0 checks and 3 warnings)
+  Sorter.sort_2 at sorter.ads:26 flow analyzed (0 errors, 0 checks and 3 warnings)
+  Sorter.sort_3 at sorter.ads:27 flow analyzed (0 errors, 0 checks and 3 warnings)

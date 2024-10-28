@@ -1,0 +1,4 @@
+drvr.adb:117:48: error: expected type "Standard.String"
+drvr.adb:117:48: error: found type "Standard.Character"
+drvr.adb:117:70: error: expected type "Standard.String"
+drvr.adb:117:70: error: found a character type

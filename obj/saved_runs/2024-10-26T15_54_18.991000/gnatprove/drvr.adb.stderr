@@ -1,0 +1,3 @@
+drvr.adb:88:22: error: subtype constraint cannot depend on variable input "Max" (SPARK RM 4.4(2))[#1]
+drvr.adb:91:14: warning: subprogram "validator" has no effect[#0]
+drvr.adb:96:61: medium: "Input" might not be initialized in "Fetch_Safe_Input"[#2]

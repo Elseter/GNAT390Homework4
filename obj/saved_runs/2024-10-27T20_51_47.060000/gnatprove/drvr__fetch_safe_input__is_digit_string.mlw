@@ -1,0 +1,678 @@
+module Standard__natural
+  use _gnatprove_standard.Main
+  use int.Int
+  use int.Int
+  
+  type natural = <range 0 2147483647>
+  
+  val function first : int
+    ensures { result = (0 : int) }
+  
+  val function last : int
+    ensures { result = (2147483647 : int) }
+  
+  predicate in_range (x: int) = ((first <= x) /\ (x <= last))
+  
+  val in_range (x: int) : bool
+    ensures { result <-> (in_range (x : int)) }
+  
+  clone export ada__model.Static_Discrete with
+    axiom .,
+    type t = natural,
+    function first = first,
+    function last = last,
+    predicate in_range = in_range
+  
+  type natural__ref = { mutable natural__content : natural }
+  
+  function natural__ref_natural__content__projection (a: natural__ref) : natural =
+    a.natural__content
+  
+  meta "model_projection" function natural__ref_natural__content__projection
+  
+  meta "inline:no" function natural__ref_natural__content__projection
+  
+  val natural__havoc (x: natural__ref) : unit
+    writes { x }
+end
+
+module Standard__natural___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+  use int.Int
+  use Standard__natural as Standard__natural
+  
+  predicate dynamic_invariant (temp___expr_46: int) (temp___is_init_42: bool) (temp___skip_constant_43: bool) (temp___do_toplevel_44: bool) (temp___do_typ_inv_45: bool) =
+    if ((temp___is_init_42 = True) \/
+          (Standard__natural.first <= Standard__natural.last)) then
+      (((Standard__natural.dynamic_property Standard__natural.first)
+          Standard__natural.last)
+         temp___expr_46)
+    else true
+  
+  val dynamic_invariant (temp___expr_46: int) (temp___is_init_42: bool) (temp___skip_constant_43: bool) (temp___do_toplevel_44: bool) (temp___do_typ_inv_45: bool) : 
+    bool
+    ensures { result
+                <->
+                (((((dynamic_invariant (temp___expr_46 : int))
+                      (temp___is_init_42 : bool))
+                     (temp___skip_constant_43 : bool))
+                    (temp___do_toplevel_44 : bool))
+                   (temp___do_typ_inv_45 : bool)) }
+  
+  predicate default_initial_assumption (temp___expr_47: int) (temp___skip_top_level_48: bool) =
+    true
+  
+  val default_initial_assumption (temp___expr_47: int) (temp___skip_top_level_48: bool) : 
+    bool
+    ensures { result
+                <->
+                ((default_initial_assumption (temp___expr_47 : int))
+                   (temp___skip_top_level_48 : bool)) }
+end
+
+module Standard__character
+  use _gnatprove_standard.Main
+  use int.Int
+  use int.Int
+  
+  type character
+  
+  val function first : int
+    ensures { result = (0 : int) }
+  
+  val function last : int
+    ensures { result = (255 : int) }
+  
+  predicate in_range (x: int) = ((first <= x) /\ (x <= last))
+  
+  val in_range (x: int) : bool
+    ensures { result <-> (in_range (x : int)) }
+  
+  clone export ada__model.Static_Discrete with
+    axiom .,
+    type t = character,
+    function first = first,
+    function last = last,
+    predicate in_range = in_range
+  
+  type character__ref = { mutable character__content : character }
+  
+  function character__ref_character__content__projection (a: character__ref) : character =
+    a.character__content
+  
+  meta "model_projection" function character__ref_character__content__projection
+  
+  meta "inline:no" function character__ref_character__content__projection
+  
+  val character__havoc (x: character__ref) : unit
+    writes { x }
+end
+
+module Standard__character__rep
+  use Standard__character as Standard__character
+  use _gnatprove_standard.Main
+  use int.Int
+  clone export ada__model.Rep_Proj_Int with
+    axiom .,
+    type t = Standard__character.character,
+    predicate in_range = Standard__character.in_range
+  
+  meta "model_projection" function to_rep
+  
+  meta "inline:no" function to_rep
+end
+
+module Array__Int__Standard__character
+  use _gnatprove_standard.Main
+  use int.Int
+  use int.Int
+  use Standard__character as Standard__character
+  use Standard__character__rep as Standard__character__rep
+  
+  function index_I1_one : int = 1 : int
+  
+  type component_type = Standard__character.character
+  
+  clone export _gnatprove_standard.Array__1 with
+    axiom .,
+    type I1.t = int,
+    predicate I1.le = Int.( <= ),
+    predicate I1.lt = Int.( < ),
+    predicate I1.gt = Int.( > ),
+    function I1.add = Int.( + ),
+    function I1.sub = Int.( - ),
+    function I1.one = index_I1_one,
+    type component_type = component_type
+  
+  function bool_eq (a: map) (a__first: int) (a__last: int) (b: map) (b__first: int) (b__last: int) : bool =
+    ((if (a__first <= a__last) then
+        ((b__first <= b__last) /\
+           ((a__last - a__first) = (b__last - b__first)))
+      else (b__first > b__last)) /\
+       (forall temp___idx_98 : int.
+          if ((a__first <= temp___idx_98) /\ (temp___idx_98 <= a__last)) then
+            ((Standard__character__rep.to_rep ((get a) temp___idx_98))
+               = (Standard__character__rep.to_rep
+                    ((get b) ((b__first - a__first) + temp___idx_98))))
+          else true))
+  
+  val bool_eq (a: map) (a__first: int) (a__last: int) (b: map) (b__first: int) (b__last: int) : 
+    bool
+    ensures { result
+      =
+      ((((((bool_eq (a : map)) (a__first : int)) (a__last : int)) (b : map))
+          (b__first : int))
+         (b__last : int)) }
+  
+  axiom bool_eq_rev:
+    forall a : map, b : map.
+      forall a__first : int, a__last : int, b__first : int, b__last : int.
+        ((((((((bool_eq b) b__first) b__last) a) a__first) a__last) = True) ->
+           ((if (a__first <= a__last) then
+               ((b__first <= b__last) /\
+                  ((a__last - a__first) = (b__last - b__first)))
+             else (b__first > b__last)) /\
+              (forall temp___idx_98 : int.
+                 if ((a__first <= temp___idx_98) /\
+                       (temp___idx_98 <= a__last)) then
+                   ((Standard__character__rep.to_rep ((get a) temp___idx_98))
+                      = (Standard__character__rep.to_rep
+                           ((get b) ((b__first - a__first) + temp___idx_98))))
+                 else true)))
+end
+
+module Standard__integer
+  use _gnatprove_standard.Main
+  use int.Int
+  use int.Int
+  
+  type integer = <range -2147483648 2147483647>
+  
+  val function first : int
+    ensures { result = ((- 2147483648) : int) }
+  
+  val function last : int
+    ensures { result = (2147483647 : int) }
+  
+  predicate in_range (x: int) = ((first <= x) /\ (x <= last))
+  
+  val in_range (x: int) : bool
+    ensures { result <-> (in_range (x : int)) }
+  
+  clone export ada__model.Static_Discrete with
+    axiom .,
+    type t = integer,
+    function first = first,
+    function last = last,
+    predicate in_range = in_range
+  
+  type integer__ref = { mutable integer__content : integer }
+  
+  function integer__ref_integer__content__projection (a: integer__ref) : integer =
+    a.integer__content
+  
+  meta "model_projection" function integer__ref_integer__content__projection
+  
+  meta "inline:no" function integer__ref_integer__content__projection
+  
+  val integer__havoc (x: integer__ref) : unit
+    writes { x }
+end
+
+module Standard__positive
+  use _gnatprove_standard.Main
+  use int.Int
+  use int.Int
+  
+  type positive = <range 1 2147483647>
+  
+  val function first : int
+    ensures { result = (1 : int) }
+  
+  val function last : int
+    ensures { result = (2147483647 : int) }
+  
+  predicate in_range (x: int) = ((first <= x) /\ (x <= last))
+  
+  val in_range (x: int) : bool
+    ensures { result <-> (in_range (x : int)) }
+  
+  clone export ada__model.Static_Discrete with
+    axiom .,
+    type t = positive,
+    function first = first,
+    function last = last,
+    predicate in_range = in_range
+  
+  type positive__ref = { mutable positive__content : positive }
+  
+  function positive__ref_positive__content__projection (a: positive__ref) : positive =
+    a.positive__content
+  
+  meta "model_projection" function positive__ref_positive__content__projection
+  
+  meta "inline:no" function positive__ref_positive__content__projection
+  
+  val positive__havoc (x: positive__ref) : unit
+    writes { x }
+end
+
+module Standard__integer__rep
+  use Standard__integer as Standard__integer
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  function to_rep (x: Standard__integer.integer) : int =
+    Standard__integer.integer'int x
+  
+  clone export ada__model.Rep_Proj_Int with
+    axiom .,
+    type t = Standard__integer.integer,
+    predicate in_range = Standard__integer.in_range,
+    function to_rep = to_rep
+  
+  meta "model_projection" function to_rep
+  
+  meta "inline:no" function to_rep
+end
+
+module Standard__string
+  use _gnatprove_standard.Main
+  use int.Int
+  use int.Int
+  use Standard__integer as Standard__integer
+  use Standard__positive as Standard__positive
+  use Standard__character as Standard__character
+  use Array__Int__Standard__character as Array__Int__Standard__character
+  use Standard__integer__rep as Standard__integer__rep
+  
+  type component_type = Standard__character.character
+  
+  function index_1_id (x: int) : int = x
+  
+  clone export ada__model.Unconstr_Array with
+    axiom .,
+    type map = Array__Int__Standard__character.map,
+    function array_bool_eq = Array__Int__Standard__character.bool_eq,
+    type index_base_type = Standard__integer.integer,
+    type index_rep_type = int,
+    function to_rep = Standard__integer__rep.to_rep,
+    function rep_to_int = index_1_id,
+    predicate in_range_base = Standard__integer.in_range,
+    predicate index_dynamic_property = Standard__positive.dynamic_property,
+    predicate index_rep_le = Int.( <= )
+  
+  type string__ = __t
+  
+  meta "model_projection" function to_array
+  
+  meta "inline:no" function to_array
+  
+  meta "model_projection" function first
+  
+  meta "inline:no" function first
+  
+  meta "model_projection" function last
+  
+  meta "inline:no" function last
+  
+  type string____ref = { mutable string____content : string__ }
+  
+  function string____ref_string____content__projection (a: string____ref) : string__ =
+    a.string____content
+  
+  meta "model_projection" function string____ref_string____content__projection
+  
+  meta "inline:no" function string____ref_string____content__projection
+  
+  val string____havoc (x: string____ref) : unit
+    writes { x }
+end
+
+module Standard__string___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+  use Standard__positive as Standard__positive
+  use Standard__string as Standard__string
+  
+  predicate dynamic_invariant (temp___expr_103: Standard__string.string__) (temp___is_init_99: bool) (temp___skip_constant_100: bool) (temp___do_toplevel_101: bool) (temp___do_typ_inv_102: bool) =
+    if temp___skip_constant_100 then true
+    else
+      ((((Standard__string.dynamic_property Standard__positive.first)
+           Standard__positive.last)
+          (Standard__string.first temp___expr_103))
+         (Standard__string.last temp___expr_103))
+  
+  val dynamic_invariant (temp___expr_103: Standard__string.string__) (temp___is_init_99: bool) (temp___skip_constant_100: bool) (temp___do_toplevel_101: bool) (temp___do_typ_inv_102: bool) : 
+    bool
+    ensures { result
+                <->
+                (((((dynamic_invariant
+                       (temp___expr_103 : Standard__string.string__))
+                      (temp___is_init_99 : bool))
+                     (temp___skip_constant_100 : bool))
+                    (temp___do_toplevel_101 : bool))
+                   (temp___do_typ_inv_102 : bool)) }
+end
+
+module Drvr__fetch_safe_input__is_digit_string__s
+  use _gnatprove_standard.Main
+  use int.Int
+  use Standard__string as Standard__string
+  
+  val function s : Standard__string.string__
+end
+
+module Drvr__fetch_safe_input__is_digit_string__len
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  val function len : int
+end
+
+module Drvr__fetch_safe_input__is_digit_string__L_1__i
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  val i : int__ref
+end
+
+module Drvr__fetch_safe_input__is_digit_string__L_1
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  exception L_1
+end
+
+module Standard__positive___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+  use int.Int
+  use Standard__positive as Standard__positive
+  
+  predicate dynamic_invariant (temp___expr_53: int) (temp___is_init_49: bool) (temp___skip_constant_50: bool) (temp___do_toplevel_51: bool) (temp___do_typ_inv_52: bool) =
+    if ((temp___is_init_49 = True) \/
+          (Standard__positive.first <= Standard__positive.last)) then
+      (((Standard__positive.dynamic_property Standard__positive.first)
+          Standard__positive.last)
+         temp___expr_53)
+    else true
+  
+  val dynamic_invariant (temp___expr_53: int) (temp___is_init_49: bool) (temp___skip_constant_50: bool) (temp___do_toplevel_51: bool) (temp___do_typ_inv_52: bool) : 
+    bool
+    ensures { result
+                <->
+                (((((dynamic_invariant (temp___expr_53 : int))
+                      (temp___is_init_49 : bool))
+                     (temp___skip_constant_50 : bool))
+                    (temp___do_toplevel_51 : bool))
+                   (temp___do_typ_inv_52 : bool)) }
+  
+  predicate default_initial_assumption (temp___expr_54: int) (temp___skip_top_level_55: bool) =
+    true
+  
+  val default_initial_assumption (temp___expr_54: int) (temp___skip_top_level_55: bool) : 
+    bool
+    ensures { result
+                <->
+                ((default_initial_assumption (temp___expr_54 : int))
+                   (temp___skip_top_level_55 : bool)) }
+end
+
+module Standard__character___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+  use int.Int
+  use Standard__character as Standard__character
+  
+  predicate dynamic_invariant (temp___expr_81: int) (temp___is_init_77: bool) (temp___skip_constant_78: bool) (temp___do_toplevel_79: bool) (temp___do_typ_inv_80: bool) =
+    if ((temp___is_init_77 = True) \/
+          (Standard__character.first <= Standard__character.last)) then
+      (((Standard__character.dynamic_property Standard__character.first)
+          Standard__character.last)
+         temp___expr_81)
+    else true
+  
+  val dynamic_invariant (temp___expr_81: int) (temp___is_init_77: bool) (temp___skip_constant_78: bool) (temp___do_toplevel_79: bool) (temp___do_typ_inv_80: bool) : 
+    bool
+    ensures { result
+                <->
+                (((((dynamic_invariant (temp___expr_81 : int))
+                      (temp___is_init_77 : bool))
+                     (temp___skip_constant_78 : bool))
+                    (temp___do_toplevel_79 : bool))
+                   (temp___do_typ_inv_80 : bool)) }
+  
+  predicate default_initial_assumption (temp___expr_82: int) (temp___skip_top_level_83: bool) =
+    true
+  
+  val default_initial_assumption (temp___expr_82: int) (temp___skip_top_level_83: bool) : 
+    bool
+    ensures { result
+                <->
+                ((default_initial_assumption (temp___expr_82 : int))
+                   (temp___skip_top_level_83 : bool)) }
+end
+
+module Standard__integer___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+  use int.Int
+  use Standard__integer as Standard__integer
+  
+  predicate dynamic_invariant (temp___expr_18: int) (temp___is_init_14: bool) (temp___skip_constant_15: bool) (temp___do_toplevel_16: bool) (temp___do_typ_inv_17: bool) =
+    if ((temp___is_init_14 = True) \/
+          (Standard__integer.first <= Standard__integer.last)) then
+      (((Standard__integer.dynamic_property Standard__integer.first)
+          Standard__integer.last)
+         temp___expr_18)
+    else true
+  
+  val dynamic_invariant (temp___expr_18: int) (temp___is_init_14: bool) (temp___skip_constant_15: bool) (temp___do_toplevel_16: bool) (temp___do_typ_inv_17: bool) : 
+    bool
+    ensures { result
+                <->
+                (((((dynamic_invariant (temp___expr_18 : int))
+                      (temp___is_init_14 : bool))
+                     (temp___skip_constant_15 : bool))
+                    (temp___do_toplevel_16 : bool))
+                   (temp___do_typ_inv_17 : bool)) }
+  
+  predicate default_initial_assumption (temp___expr_19: int) (temp___skip_top_level_20: bool) =
+    true
+  
+  val default_initial_assumption (temp___expr_19: int) (temp___skip_top_level_20: bool) : 
+    bool
+    ensures { result
+                <->
+                ((default_initial_assumption (temp___expr_19 : int))
+                   (temp___skip_top_level_20 : bool)) }
+end
+
+module Drvr__fetch_safe_input__is_digit_string__L_1__i___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+end
+
+module Drvr__fetch_safe_input__is_digit_string__L_1___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+end
+
+module Drvr__fetch_safe_input__is_digit_string__s___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+end
+
+module Drvr__fetch_safe_input__is_digit_string__len___axiom
+  use _gnatprove_standard.Main
+  use int.Int
+end
+
+module Drvr__fetch_safe_input__is_digit_string__subprogram_def
+  use _gnatprove_standard.Main
+  use int.Int
+  use int.Int
+  use _gnatprove_standard.Main as Main
+  use _gnatprove_standard.Boolean as Boolean
+  use Standard__natural___axiom as Standard__natural___axiom
+  use Standard__character as Standard__character
+  use Standard__character__rep as Standard__character__rep
+  use Array__Int__Standard__character as Array__Int__Standard__character
+  use Standard__string as Standard__string
+  use Standard__string___axiom as Standard__string___axiom
+  use Drvr__fetch_safe_input__is_digit_string__s as Drvr__fetch_safe_input__is_digit_string__s
+  use Drvr__fetch_safe_input__is_digit_string__len as Drvr__fetch_safe_input__is_digit_string__len
+  use Drvr__fetch_safe_input__is_digit_string__L_1__i as Drvr__fetch_safe_input__is_digit_string__L_1__i
+  use Drvr__fetch_safe_input__is_digit_string__L_1 as Drvr__fetch_safe_input__is_digit_string__L_1
+  use Array__Int__Standard__character as Array__Int__Standard__character
+  use Standard__natural___axiom as Standard__natural___axiom
+  use Standard__positive___axiom as Standard__positive___axiom
+  use Standard__character___axiom as Standard__character___axiom
+  use Standard__string___axiom as Standard__string___axiom
+  use Standard__integer___axiom as Standard__integer___axiom
+  use Drvr__fetch_safe_input__is_digit_string__L_1__i___axiom as Drvr__fetch_safe_input__is_digit_string__L_1__i___axiom
+  use Drvr__fetch_safe_input__is_digit_string__L_1___axiom as Drvr__fetch_safe_input__is_digit_string__L_1___axiom
+  use Drvr__fetch_safe_input__is_digit_string__s___axiom as Drvr__fetch_safe_input__is_digit_string__s___axiom
+  use Drvr__fetch_safe_input__is_digit_string__len___axiom as Drvr__fetch_safe_input__is_digit_string__len___axiom
+  
+  val drvr__fetch_safe_input__is_digit_string__result : bool__ref
+  
+  let def (__void_param : unit)
+    requires { [#"drvr.adb" 105 0 0] true }
+  = [@vc:divergent]
+    (([@GNAT-comment:Assume dynamic invariants of inputs of the subprogram drvr.adb:105]
+      ());
+     ([#"drvr.adb" 105 0 0]
+      assume {
+        [#"drvr.adb" 105 0 0]
+        (((((Standard__string___axiom.dynamic_invariant
+               Drvr__fetch_safe_input__is_digit_string__s.s)
+              True)
+             False)
+            True)
+           True) });
+     ([#"drvr.adb" 105 0 0]
+      assume {
+        [#"drvr.adb" 105 0 0]
+        (((((Standard__natural___axiom.dynamic_invariant
+               Drvr__fetch_safe_input__is_digit_string__len.len)
+              True)
+             False)
+            True)
+           True) });
+     ([@GNAT-comment:Assume moved pointers in outputs of the subprogram drvr.adb:105]
+      ());
+     ([@GNAT-comment:Check for RTE in the Pre of the subprogram drvr.adb:105]
+      ());
+     ([#"drvr.adb" 105 0 0] ());
+     ([@GNAT-comment:Assume Pre of the subprogram drvr.adb:105] ());
+     ([#"drvr.adb" 105 0 0]
+      (try
+         ([#"drvr.adb" 105 0 0] ());
+         ([#"drvr.adb" 107 0 0] ());
+         ([@GP_Sloc:drvr.adb:107:25]
+          [#"drvr.adb" 107 0 0]
+          (let temp___423 = 1 : int in
+           let temp___424 = Drvr__fetch_safe_input__is_digit_string__len.len in
+           ([#"drvr.adb" 107 0 0]
+            (Drvr__fetch_safe_input__is_digit_string__L_1__i.i.int__content <-
+               temp___423));
+           ([@GNAT-comment:Translation of an Ada loop from drvr.adb:107] ());
+           (if ((Boolean.andb
+                   (temp___423
+                      <= (Drvr__fetch_safe_input__is_digit_string__L_1__i.i.int__content)))
+                  ((Drvr__fetch_safe_input__is_digit_string__L_1__i.i.int__content)
+                     <= temp___424)) then
+              ([#"drvr.adb" 107 0 0]
+               (try
+                  ([@GNAT-comment:While loop translating the Ada loop from drvr.adb:107]
+                   ());
+                  ([#"drvr.adb" 107 0 0]
+                   [#"drvr.adb" 107 0 0]
+                   (([@GNAT-comment:Check for absence of RTE in the loop invariant and variant]
+                     ());
+                    while True do
+                      ([@GNAT-comment:gnat_ast_to_ptree: code after the loop invariant]
+                       (([@GNAT-comment:Assume implicit invariants from the loop drvr.adb:107]
+                         ());
+                        ([#"drvr.adb" 107 0 0]
+                         assume {
+                           [#"drvr.adb" 107 0 0]
+                           (((1 : int)
+                               <= (Drvr__fetch_safe_input__is_digit_string__L_1__i.i.int__content)) /\
+                              ((Drvr__fetch_safe_input__is_digit_string__L_1__i.i.int__content)
+                                 <= Drvr__fetch_safe_input__is_digit_string__len.len)) });
+                        ([@GNAT-comment:Continuation of loop after loop invariant and variant]
+                         ());
+                        ([@GP_Sloc:drvr.adb:108:10]
+                         [#"drvr.adb" 108 0 0]
+                         (if (([#"drvr.adb" 108 0 0]
+                               [#"drvr.adb" 108 0 0]
+                               (([@branch_id=931] Main.spark__branch).bool__content <-
+                                  (not (let temp___425 =
+                                          Standard__character__rep.to_rep
+                                            ((Array__Int__Standard__character.get
+                                                (Standard__string.to_array
+                                                   Drvr__fetch_safe_input__is_digit_string__s.s))
+                                               (([#"drvr.adb" 108 0 0]
+                                                 assert {
+                                                   [#"drvr.adb" 108 0 0]
+                                                   [#"drvr.adb" 108 0 0]
+                                                   [@GP_Shape:L_1_while__if__not__in__ixdcomp]
+                                                   [@GP_Sloc:drvr.adb:108:20]
+                                                   [@vc:annotation]
+                                                   [@comment:         if not (S(I) in '0' .. '9') then                    ^ drvr.adb:108:20:VC_INDEX_CHECK]
+                                                   [@GP_Id:36]
+                                                   [@GP_Reason:VC_INDEX_CHECK]
+                                                   (((Standard__string.first
+                                                        Drvr__fetch_safe_input__is_digit_string__s.s)
+                                                       <= (Drvr__fetch_safe_input__is_digit_string__L_1__i.i.int__content)) /\
+                                                      ((Drvr__fetch_safe_input__is_digit_string__L_1__i.i.int__content)
+                                                         <= (Standard__string.last
+                                                               Drvr__fetch_safe_input__is_digit_string__s.s))) });
+                                                (Drvr__fetch_safe_input__is_digit_string__L_1__i.i.int__content))) in
+                                        (Boolean.andb
+                                           ((48 : int) <= temp___425))
+                                          (temp___425 <= (57 : int))))));
+                              (([@branch_id=931] Main.spark__branch).bool__content)) then
+                            ([@GP_Sloc:drvr.adb:109:13]
+                             [#"drvr.adb" 109 0 0]
+                             (([#"drvr.adb" 109 0 0]
+                               (drvr__fetch_safe_input__is_digit_string__result.bool__content <-
+                                  (Boolean.of_int (0 : int))));
+                              ([#"drvr.adb" 109 0 0]
+                               ((raise Return__exc) : unit))))
+                          else ()));
+                        ([@GNAT-comment:Check for the exit condition and loop statements appearing before the loop invariant of loop drvr.adb:107]
+                         ());
+                        (if ((Drvr__fetch_safe_input__is_digit_string__L_1__i.i.int__content)
+                               = temp___424) then
+                           (raise Drvr__fetch_safe_input__is_digit_string__L_1.L_1)
+                         else ());
+                        ([#"drvr.adb" 107 0 0]
+                         [#"drvr.adb" 107 0 0]
+                         (Drvr__fetch_safe_input__is_digit_string__L_1__i.i.int__content <-
+                            ((Drvr__fetch_safe_input__is_digit_string__L_1__i.i.int__content)
+                               + (1 : int))))));
+                      ([@GNAT-comment:gnat_ast_to_ptree: code before the loop invariant]
+                       [@GNAT-comment:Check for absence of RTE in the loop invariant and variant]
+                       ());
+                      ([@GNAT-comment:gnat_ast_to_ptree: code checking the variants]
+                       ())
+                    done))
+                with Drvr__fetch_safe_input__is_digit_string__L_1.L_1 -> ()
+                end))
+            else ())));
+         ([@GP_Sloc:drvr.adb:112:7]
+          [#"drvr.adb" 112 0 0]
+          (([#"drvr.adb" 112 0 0]
+            (drvr__fetch_safe_input__is_digit_string__result.bool__content <-
+               (Boolean.of_int (1 : int))));
+           ([#"drvr.adb" 112 0 0] ((raise Return__exc) : unit))));
+         (raise Return__exc)
+       with Return__exc -> ()
+       end));
+     (drvr__fetch_safe_input__is_digit_string__result.bool__content))
+end

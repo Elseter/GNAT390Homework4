@@ -1,0 +1,3 @@
+drvr.adb:91:04: warning: analyzing unreferenced procedure "validator"
+drvr.adb:113:13: error: handler is not allowed in SPARK
+drvr.adb:113:13: error: violation of pragma SPARK_Mode at line 78

@@ -1,0 +1,39 @@
+Units remaining: 3     Units remaining: 2     Units remaining: 1     Line metrics summed over 3 units
+  all lines            : 166
+  code lines           : 53
+  comment lines        : 89
+  end-of-line comments : 13
+  comment percentage   : 71.83
+  blank lines          : 24
+
+Average lines in body: 6.40
+
+Element metrics summed over 3 units
+  all statements      : 11
+  all declarations    : 35
+  logical SLOC        : 46
+
+ 1 public types in 1 units
+
+ 1 type declarations in 1 units
+
+ 2 public subprograms in 2 units
+
+ 5 subprogram bodies in 2 units
+
+Average cyclomatic complexity: 1.60
+
+Coupling metrics:
+=================
+   Unit Drvr (C:\Users\rking\Downloads\Homework 04 F24\Homework 04 F24\src\drvr.adb)
+      control fan-out coupling  : 1
+      control fan-in coupling   : 0
+      unit fan-out coupling     : 1
+      unit fan-in coupling      : 0
+
+   Unit Sorter (C:\Users\rking\Downloads\Homework 04 F24\Homework 04 F24\src\sorter.ads)
+      control fan-out coupling  : 0
+      control fan-in coupling   : 1
+      unit fan-out coupling     : 0
+      unit fan-in coupling      : 1
+

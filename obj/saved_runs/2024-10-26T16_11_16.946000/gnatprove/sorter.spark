@@ -1,0 +1,257 @@
+{
+  "spark": [
+    {
+      "name": "Sorter",
+      "sloc": [
+        {
+          "file": "sorter.ads",
+          "line": 5
+        }
+      ],
+      "spark": "all"
+    },
+    {
+      "name": "Sorter.sort",
+      "sloc": [
+        {
+          "file": "sorter.ads",
+          "line": 18
+        }
+      ],
+      "spark": "all"
+    },
+    {
+      "name": "Sorter.sort_1",
+      "sloc": [
+        {
+          "file": "sorter.ads",
+          "line": 25
+        }
+      ],
+      "spark": "all"
+    },
+    {
+      "name": "Sorter.sort_2",
+      "sloc": [
+        {
+          "file": "sorter.ads",
+          "line": 26
+        }
+      ],
+      "spark": "all"
+    },
+    {
+      "name": "Sorter.sort_3",
+      "sloc": [
+        {
+          "file": "sorter.ads",
+          "line": 27
+        }
+      ],
+      "spark": "all"
+    }
+  ],
+  "flow": [
+    {
+      "file": "sorter.ads",
+      "line": 25,
+      "col": 49,
+      "rule": "UNUSED_VARIABLE",
+      "severity": "warning",
+      "entity": {
+        "name": "Sorter.sort_1",
+        "sloc": [
+          {
+            "file": "sorter.ads",
+            "line": 25
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "msg_id": 0,
+      "how_proved": "flow"
+    },
+    {
+      "file": "sorter.ads",
+      "line": 26,
+      "col": 26,
+      "rule": "INOUT_ONLY_READ",
+      "severity": "warning",
+      "entity": {
+        "name": "Sorter.sort_2",
+        "sloc": [
+          {
+            "file": "sorter.ads",
+            "line": 26
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "msg_id": 1,
+      "how_proved": "flow"
+    },
+    {
+      "file": "sorter.ads",
+      "line": 26,
+      "col": 26,
+      "rule": "UNUSED_VARIABLE",
+      "severity": "warning",
+      "entity": {
+        "name": "Sorter.sort_2",
+        "sloc": [
+          {
+            "file": "sorter.ads",
+            "line": 26
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "msg_id": 2,
+      "how_proved": "flow"
+    },
+    {
+      "file": "sorter.ads",
+      "line": 26,
+      "col": 49,
+      "rule": "UNUSED_VARIABLE",
+      "severity": "warning",
+      "entity": {
+        "name": "Sorter.sort_2",
+        "sloc": [
+          {
+            "file": "sorter.ads",
+            "line": 26
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "msg_id": 3,
+      "how_proved": "flow"
+    },
+    {
+      "file": "sorter.ads",
+      "line": 27,
+      "col": 26,
+      "rule": "INOUT_ONLY_READ",
+      "severity": "warning",
+      "entity": {
+        "name": "Sorter.sort_3",
+        "sloc": [
+          {
+            "file": "sorter.ads",
+            "line": 27
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "msg_id": 4,
+      "how_proved": "flow"
+    },
+    {
+      "file": "sorter.ads",
+      "line": 27,
+      "col": 26,
+      "rule": "UNUSED_VARIABLE",
+      "severity": "warning",
+      "entity": {
+        "name": "Sorter.sort_3",
+        "sloc": [
+          {
+            "file": "sorter.ads",
+            "line": 27
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "msg_id": 5,
+      "how_proved": "flow"
+    },
+    {
+      "file": "sorter.ads",
+      "line": 27,
+      "col": 49,
+      "rule": "UNUSED_VARIABLE",
+      "severity": "warning",
+      "entity": {
+        "name": "Sorter.sort_3",
+        "sloc": [
+          {
+            "file": "sorter.ads",
+            "line": 27
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "msg_id": 6,
+      "how_proved": "flow"
+    }
+  ],
+  "assumptions": [
+    {
+      "assumptions": [
+        {
+          "predicate": "CLAIM_EFFECTS",
+          "arg": {
+            "name": "Sorter.sort_1",
+            "sloc": [
+              {
+                "file": "sorter.ads",
+                "line": 25
+              }
+            ]
+          }
+        },
+        {
+          "predicate": "CLAIM_EFFECTS",
+          "arg": {
+            "name": "Sorter.sort_2",
+            "sloc": [
+              {
+                "file": "sorter.ads",
+                "line": 26
+              }
+            ]
+          }
+        },
+        {
+          "predicate": "CLAIM_EFFECTS",
+          "arg": {
+            "name": "Sorter.sort_3",
+            "sloc": [
+              {
+                "file": "sorter.ads",
+                "line": 27
+              }
+            ]
+          }
+        }
+      ],
+      "claim": {
+        "predicate": "CLAIM_EFFECTS",
+        "arg": {
+          "name": "Sorter.sort",
+          "sloc": [
+            {
+              "file": "sorter.ads",
+              "line": 18
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "timings": {
+    "globals (advanced)": 3.06200003251433E-04,
+    "flow analysis": 2.14189989492297E-03,
+    "marking": 9.02000028872862E-05,
+    "properties (advanced)": 2.45999999606283E-05,
+    "globals (basic)": 2.92999990051612E-04
+  }
+}

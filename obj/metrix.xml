@@ -1,0 +1,271 @@
+<?xml version="1.0"?>
+<global>
+   <config>
+      <metric name="contract" display_name="contract"/>
+      <metric name="post" display_name="post"/>
+      <metric name="contract_complete" display_name="contract complete"/>
+      <metric name="contract_complexity" display_name="contract complexity"/>
+      <metric name="all_lines" display_name="all lines"/>
+      <metric name="code_lines" display_name="code lines"/>
+      <metric name="comment_lines" display_name="comment lines"/>
+      <metric name="eol_comments" display_name="end-of-line comments"/>
+      <metric name="comment_percentage" display_name="comment percentage"/>
+      <metric name="blank_lines" display_name="blank lines"/>
+      <metric name="average_lines_in_bodies" display_name="Average lines in body"/>
+      <metric name="spark_lines" display_name="spark lines"/>
+      <metric name="public_types" display_name="public types"/>
+      <metric name="private_types" display_name="private types"/>
+      <metric name="all_types" display_name="all type definitions"/>
+      <metric name="public_subprograms" display_name="public subprograms"/>
+      <metric name="all_subprograms" display_name="all subprogram bodies"/>
+      <metric name="all_stmts" display_name="all statements"/>
+      <metric name="all_dcls" display_name="all declarations"/>
+      <metric name="lsloc" display_name="logical SLOC"/>
+      <metric name="unit_nesting" display_name="maximal unit nesting"/>
+      <metric name="construct_nesting" display_name="maximal construct nesting"/>
+      <metric name="all_parameters" display_name="all parameters"/>
+      <metric name="in_parameters" display_name="IN parameters"/>
+      <metric name="out_parameters" display_name="OUT parameters"/>
+      <metric name="in_out_parameters" display_name="IN OUT parameters"/>
+      <metric name="statement_complexity" display_name="statement complexity"/>
+      <metric name="expression_complexity" display_name="expression complexity"/>
+      <metric name="cyclomatic_complexity" display_name="cyclomatic complexity"/>
+      <metric name="essential_complexity" display_name="essential complexity"/>
+      <metric name="average_complexity" display_name="average complexity"/>
+      <metric name="max_loop_nesting" display_name="maximum loop nesting"/>
+      <metric name="extra_exit_points" display_name="extra exit points"/>
+      <metric name="tagged_fan-out_coupling" display_name="tagged fan-out coupling"/>
+      <metric name="hierarchy_fan-out_coupling" display_name="hierarchy fan-out coupling"/>
+      <metric name="tagged_fan-in_coupling" display_name="tagged fan-in coupling"/>
+      <metric name="hierarchy_fan-in_coupling" display_name="hierarchy fan-in coupling"/>
+      <metric name="control_fan-out_coupling" display_name="control fan-out coupling"/>
+      <metric name="control_fan-in_coupling" display_name="control fan-in coupling"/>
+      <metric name="unit_fan-out_coupling" display_name="unit fan-out coupling"/>
+      <metric name="unit_fan-in_coupling" display_name="unit fan-in coupling"/>
+   </config>
+   <file name="C:\Users\rking\Downloads\Homework 04 F24\Homework 04 F24\src\drvr.adb">
+      <metric name="all_lines">97</metric>
+      <metric name="code_lines">15</metric>
+      <metric name="comment_lines">77</metric>
+      <metric name="eol_comments">5</metric>
+      <metric name="comment_percentage">89.13</metric>
+      <metric name="blank_lines">5</metric>
+      <metric name="average_lines_in_bodies">11.00</metric>
+      <metric name="spark_lines">15</metric>
+      <unit name="Drvr" kind="procedure body" line="84" col="1">
+         <metric name="all_lines">13</metric>
+         <metric name="code_lines">11</metric>
+         <metric name="comment_lines">1</metric>
+         <metric name="eol_comments">5</metric>
+         <metric name="comment_percentage">50.00</metric>
+         <metric name="blank_lines">1</metric>
+         <metric name="public_subprograms">1</metric>
+         <metric name="all_subprograms">1</metric>
+         <metric name="all_stmts">4</metric>
+         <metric name="all_dcls">5</metric>
+         <metric name="lsloc">9</metric>
+         <metric name="construct_nesting">2</metric>
+         <metric name="all_parameters">0</metric>
+         <metric name="statement_complexity">2</metric>
+         <metric name="expression_complexity">0</metric>
+         <metric name="cyclomatic_complexity">2</metric>
+         <metric name="essential_complexity">1</metric>
+         <metric name="max_loop_nesting">1</metric>
+         <metric name="extra_exit_points">0</metric>
+      </unit>
+      <metric name="statement_complexity">2.00</metric>
+      <metric name="expression_complexity">0.00</metric>
+      <metric name="cyclomatic_complexity">2.00</metric>
+      <metric name="essential_complexity">1.00</metric>
+      <metric name="max_loop_nesting">1.00</metric>
+   </file>
+   <file name="C:\Users\rking\Downloads\Homework 04 F24\Homework 04 F24\src\sorter.adb">
+      <metric name="all_lines">39</metric>
+      <metric name="code_lines">25</metric>
+      <metric name="comment_lines">6</metric>
+      <metric name="eol_comments">0</metric>
+      <metric name="comment_percentage">19.35</metric>
+      <metric name="blank_lines">8</metric>
+      <metric name="average_lines_in_bodies">5.25</metric>
+      <metric name="spark_lines">25</metric>
+      <unit name="Sorter" kind="package body" line="8" col="1">
+         <metric name="all_lines">32</metric>
+         <metric name="code_lines">25</metric>
+         <metric name="comment_lines">1</metric>
+         <metric name="eol_comments">0</metric>
+         <metric name="comment_percentage">3.84</metric>
+         <metric name="blank_lines">6</metric>
+         <metric name="all_subprograms">4</metric>
+         <metric name="all_stmts">7</metric>
+         <metric name="all_dcls">13</metric>
+         <metric name="lsloc">20</metric>
+         <metric name="unit_nesting">1</metric>
+         <metric name="construct_nesting">3</metric>
+         <unit name="sort_1" kind="procedure body" line="12" col="5">
+            <metric name="all_lines">4</metric>
+            <metric name="code_lines">4</metric>
+            <metric name="comment_lines">0</metric>
+            <metric name="eol_comments">0</metric>
+            <metric name="comment_percentage">0.00</metric>
+            <metric name="blank_lines">0</metric>
+            <metric name="all_stmts">1</metric>
+            <metric name="all_dcls">3</metric>
+            <metric name="lsloc">4</metric>
+            <metric name="construct_nesting">1</metric>
+            <metric name="statement_complexity">1</metric>
+            <metric name="expression_complexity">0</metric>
+            <metric name="cyclomatic_complexity">1</metric>
+            <metric name="essential_complexity">1</metric>
+            <metric name="max_loop_nesting">0</metric>
+            <metric name="extra_exit_points">0</metric>
+         </unit>
+         <unit name="sort_2" kind="procedure body" line="18" col="5">
+            <metric name="all_lines">4</metric>
+            <metric name="code_lines">4</metric>
+            <metric name="comment_lines">0</metric>
+            <metric name="eol_comments">0</metric>
+            <metric name="comment_percentage">0.00</metric>
+            <metric name="blank_lines">0</metric>
+            <metric name="all_stmts">1</metric>
+            <metric name="all_dcls">3</metric>
+            <metric name="lsloc">4</metric>
+            <metric name="construct_nesting">1</metric>
+            <metric name="statement_complexity">1</metric>
+            <metric name="expression_complexity">0</metric>
+            <metric name="cyclomatic_complexity">1</metric>
+            <metric name="essential_complexity">1</metric>
+            <metric name="max_loop_nesting">0</metric>
+            <metric name="extra_exit_points">0</metric>
+         </unit>
+         <unit name="sort_3" kind="procedure body" line="23" col="4">
+            <metric name="all_lines">4</metric>
+            <metric name="code_lines">4</metric>
+            <metric name="comment_lines">0</metric>
+            <metric name="eol_comments">0</metric>
+            <metric name="comment_percentage">0.00</metric>
+            <metric name="blank_lines">0</metric>
+            <metric name="all_stmts">1</metric>
+            <metric name="all_dcls">3</metric>
+            <metric name="lsloc">4</metric>
+            <metric name="construct_nesting">1</metric>
+            <metric name="statement_complexity">1</metric>
+            <metric name="expression_complexity">0</metric>
+            <metric name="cyclomatic_complexity">1</metric>
+            <metric name="essential_complexity">1</metric>
+            <metric name="max_loop_nesting">0</metric>
+            <metric name="extra_exit_points">0</metric>
+         </unit>
+         <unit name="sort" kind="procedure body" line="29" col="4">
+            <metric name="all_lines">9</metric>
+            <metric name="code_lines">9</metric>
+            <metric name="comment_lines">0</metric>
+            <metric name="eol_comments">0</metric>
+            <metric name="comment_percentage">0.00</metric>
+            <metric name="blank_lines">0</metric>
+            <metric name="all_stmts">4</metric>
+            <metric name="all_dcls">3</metric>
+            <metric name="lsloc">7</metric>
+            <metric name="construct_nesting">2</metric>
+            <metric name="statement_complexity">3</metric>
+            <metric name="expression_complexity">0</metric>
+            <metric name="cyclomatic_complexity">3</metric>
+            <metric name="essential_complexity">1</metric>
+            <metric name="max_loop_nesting">0</metric>
+            <metric name="extra_exit_points">0</metric>
+         </unit>
+      </unit>
+      <metric name="statement_complexity">1.50</metric>
+      <metric name="expression_complexity">0.00</metric>
+      <metric name="cyclomatic_complexity">1.50</metric>
+      <metric name="essential_complexity">1.00</metric>
+      <metric name="max_loop_nesting">0.00</metric>
+   </file>
+   <file name="C:\Users\rking\Downloads\Homework 04 F24\Homework 04 F24\src\sorter.ads">
+      <metric name="all_lines">30</metric>
+      <metric name="code_lines">13</metric>
+      <metric name="comment_lines">6</metric>
+      <metric name="eol_comments">8</metric>
+      <metric name="comment_percentage">73.68</metric>
+      <metric name="blank_lines">11</metric>
+      <metric name="average_lines_in_bodies">0.00</metric>
+      <metric name="spark_lines">13</metric>
+      <unit name="Sorter" kind="package" line="5" col="1">
+         <metric name="contract">0</metric>
+         <metric name="post">0</metric>
+         <metric name="contract_complete">nyi</metric>
+         <metric name="all_lines">26</metric>
+         <metric name="code_lines">13</metric>
+         <metric name="comment_lines">3</metric>
+         <metric name="eol_comments">8</metric>
+         <metric name="comment_percentage">68.75</metric>
+         <metric name="blank_lines">10</metric>
+         <metric name="public_types">1</metric>
+         <metric name="all_types">1</metric>
+         <metric name="public_subprograms">1</metric>
+         <metric name="all_stmts">0</metric>
+         <metric name="all_dcls">17</metric>
+         <metric name="lsloc">17</metric>
+         <metric name="unit_nesting">1</metric>
+         <metric name="construct_nesting">1</metric>
+         <unit name="sort" kind="procedure" line="18" col="4">
+            <metric name="contract_complexity">1</metric>
+            <metric name="all_parameters">2</metric>
+               <metric name="in_parameters">1</metric>
+               <metric name="out_parameters">0</metric>
+               <metric name="in_out_parameters">1</metric>
+         </unit>
+         <unit name="sort_1" kind="procedure" line="25" col="9">
+            <metric name="all_parameters">2</metric>
+               <metric name="in_parameters">1</metric>
+               <metric name="out_parameters">0</metric>
+               <metric name="in_out_parameters">1</metric>
+         </unit>
+         <unit name="sort_2" kind="procedure" line="26" col="9">
+            <metric name="all_parameters">2</metric>
+               <metric name="in_parameters">1</metric>
+               <metric name="out_parameters">0</metric>
+               <metric name="in_out_parameters">1</metric>
+         </unit>
+         <unit name="sort_3" kind="procedure" line="27" col="9">
+            <metric name="all_parameters">2</metric>
+               <metric name="in_parameters">1</metric>
+               <metric name="out_parameters">0</metric>
+               <metric name="in_out_parameters">1</metric>
+         </unit>
+      </unit>
+   </file>
+   <metric name="all_lines">166</metric>
+   <metric name="code_lines">53</metric>
+   <metric name="comment_lines">89</metric>
+   <metric name="eol_comments">13</metric>
+   <metric name="comment_percentage">71.83</metric>
+   <metric name="blank_lines">24</metric>
+   <metric name="average_lines_in_bodies">6.40</metric>
+   <metric name="spark_lines">53</metric>
+   <metric name="public_types">1</metric>
+   <metric name="all_types">1</metric>
+   <metric name="public_subprograms">2</metric>
+   <metric name="all_subprograms">5</metric>
+   <metric name="all_stmts">11</metric>
+   <metric name="all_dcls">35</metric>
+   <metric name="lsloc">46</metric>
+   <metric name="average_complexity">1.60</metric>
+   <coupling>
+      <file name="C:\Users\rking\Downloads\Homework 04 F24\Homework 04 F24\src\drvr.adb">
+         <unit name="Drvr" line="84" col="1">
+            <metric name="control_fan-out_coupling">1</metric>
+            <metric name="control_fan-in_coupling">0</metric>
+            <metric name="unit_fan-out_coupling">1</metric>
+            <metric name="unit_fan-in_coupling">0</metric>
+         </unit>
+      </file>
+      <file name="C:\Users\rking\Downloads\Homework 04 F24\Homework 04 F24\src\sorter.ads">
+         <unit name="Sorter" line="5" col="1">
+            <metric name="control_fan-out_coupling">0</metric>
+            <metric name="control_fan-in_coupling">1</metric>
+            <metric name="unit_fan-out_coupling">0</metric>
+            <metric name="unit_fan-in_coupling">1</metric>
+         </unit>
+      </file>
+   </coupling>
+</global>
